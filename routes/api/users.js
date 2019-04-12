@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
-// const passport = require('passport')
+const passport = require('passport')
 const validator = require('../../validations/userValidations');
 const router = express.Router();
 const User = require('../../models/User');
@@ -9,7 +9,7 @@ const Skill = require('../../models/Skill');
 const tokenKey = require('../../config/keys').secretOrKey
 
 //All Users
-router.post('/login', async (req, res) => {
+router.post('/login',async (req, res) => {
 	try {
         
         const { Email, Password } = req.body;
@@ -90,7 +90,8 @@ router.put('/validate/:id',async(req,res)=>{
 	res.json({msg:'OK'})
 })
 
-router.get('/:id',async(req,res)=>{
+router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+	console.log(req.user)
 	const X=await User.findOne({'_id':req.params.id})
 	if(!X)
 	return res.status(400).send({ error:'User Does Not exist'})
