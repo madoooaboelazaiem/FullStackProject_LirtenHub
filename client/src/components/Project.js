@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
   render() {
     return (//P is Actullay the Project Info itself
       <div style={this.getStyle()}>
-        
+        <h1 className = 'red'>Projects</h1>
         <h3>{this.props.P.name}</h3>
         <h3>{this.props.P.descreption}</h3>
       </div>

@@ -8,6 +8,7 @@ import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
 import Calendar from './components/layout/Calendar'
 import Header from './components/layout/HeaderHome.js'
+import Head from './components/layout/Head'
 import { Route, BrowserRouter as Router , Switch } from 'react-router-dom'
 import 'tachyons'
 
@@ -16,6 +17,7 @@ class App extends React.Component {
     return (
       <div>
       <Switch>
+        <Head/>
       <Router>
           <Route exact path="/Locations" component={All_Locations}/>
           <Route exact path="/Admins" component={All_Admins}/>
