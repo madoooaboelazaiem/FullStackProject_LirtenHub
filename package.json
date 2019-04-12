@@ -1,12 +1,15 @@
 {
   "name": "server",
   "version": "0.0.1",
-  "description": "Introduction to node",
-  "main": "index.js",
+  "description": "react+node",
+  "main": "server.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
-    "test": "jest"
+    "client-install": "npm install --prefix client",
+    "start": "node server",
+    "server": "nodemon server",
+    "test": "jest",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "server"
@@ -17,6 +20,7 @@
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.0",
     "cores": "^0.8.5",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -31,6 +35,7 @@
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
+    "react": "^16.8.6",
     "uuid": "^3.3.2",
     "web-push": "^3.3.3"
   },
