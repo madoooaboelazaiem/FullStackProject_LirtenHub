@@ -1,5 +1,8 @@
 import React from 'react';
-import './App.css';
+import App from './App'
+import SignIn from './components/layout/SignIn'
+import Form from './components/layout/Form'
+import Header from './components/layout/HeaderHome'
 import All_Locations from './components/All_Locations'
 import All_Admins from './components/All_Admins'
 import All_Candidates from './components/All_Candidates'
@@ -7,18 +10,22 @@ import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
 import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
 import Calendar from './components/layout/Calendar'
-import Header from './components/layout/HeaderHome.js'
-import Head from './components/layout/Head'
-import { Route, BrowserRouter as Router , Switch } from 'react-router-dom'
-import 'tachyons'
+import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+//gowaha sign in w de hat7awelny 3ala app.js
+// sign up w de hat7awelny 3ala form
 
-class App extends React.Component {
+class Home extends React.Component {
   render() {
     return (
+      
       <div>
-      <Switch>
-        <Head/>
+        <Header/>
+
       <Router>
+      <Switch>
+          <Route exact path="/home" component={App}/>
+          <Route exact path="/" component={SignIn}/>
+          <Route exact path="/SignUp" component={Form}/>
           <Route exact path="/Locations" component={All_Locations}/>
           <Route exact path="/Admins" component={All_Admins}/>
           <Route exact path="/Candidates" component={All_Candidates}/>
@@ -26,10 +33,12 @@ class App extends React.Component {
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>
+          </Switch>
+
       </Router>
-      </Switch>
-          </div>
+      </div>
+
     )}
 }
 
-export default App;
+export default Home;
