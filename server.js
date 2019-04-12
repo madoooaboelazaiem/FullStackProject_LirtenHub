@@ -13,6 +13,8 @@ mongoose
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 const reservations = require('./routes/api/reservations')
 const locations = require('./routes/api/locations')
