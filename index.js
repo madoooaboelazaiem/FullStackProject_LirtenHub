@@ -14,18 +14,22 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
-
-
+const reservations = require('./routes/api/reservations')
+const locations = require('./routes/api/locations')
 const projects = require('./routes/api/projects')
 const ratings = require('./routes/api/ratings')
 const skills = require('./routes/api/skills')
 const tasks = require('./routes/api/tasks')
 const users=require('./routes/api/users')
+const rooms=require('./routes/api/rooms')
+app.use('/api/reservations',reservations)
+app.use('/api/locations',locations)
 app.use('/api/projects',projects)
 app.use('/api/ratings',ratings)
 app.use('/api/skills',skills)
 app.use('/api/tasks',tasks)
 app.use('/api/users',users)
+app.use('/api/rooms',rooms)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Hello </h1>`
