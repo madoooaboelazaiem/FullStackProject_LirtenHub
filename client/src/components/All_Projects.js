@@ -10,12 +10,17 @@ class All_Projects extends React.Component {
       .then(res => {
         const P = res.data.data;
         this.setState({Projects:P });
-      })  
+        
+      }) 
+     
      
   }
+  
+  
+
   render() {
     return this.state.Projects.map((P)=>(
-      <Project P={P}/>    
+      <Project P={P} />    
     ));
   }
 }

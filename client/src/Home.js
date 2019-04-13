@@ -9,6 +9,8 @@ import All_Candidates from './components/All_Candidates'
 import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
 import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
+import Single_Project from './components/pages/Single_Project'
+
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
 //gowaha sign in w de hat7awelny 3ala app.js
@@ -23,6 +25,7 @@ class Home extends React.Component {
 
       <Router>
       <Switch>
+         <Route exact path="/SingleProject/:id" component={Single_Project}/>
           <Route exact path="/home" component={App}/>
           <Route exact path="/" component={SignIn}/>
           <Route exact path="/SignUp" component={Form}/>

@@ -25,9 +25,9 @@ router.post('/login',async (req, res) => {
                 id: user._id,
                 User_Category:user.User_Category
             }
-            
             const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
-            await user.updateOne({'Islogedin':true})
+			await user.updateOne({'Islogedin':true})
+			
             res.json({data: `Bearer ${token}`})
             
            

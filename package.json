@@ -31,7 +31,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.21",
     "node-fetch": "^2.3.0",
-    "nodemon": "^1.18.10",
+    "nodemon": "^1.18.11",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
