@@ -2,9 +2,45 @@ import Parser from 'html-react-parser';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import 'tachyons'
+import axios from 'axios';
 
 class AddLocation extends Component{
-    
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      country: '',
+      city: '',
+      street: '',
+      extraInfo: ''
+    }
+    this.onChange = this.onChange.bind(this)
+    this.handleSubmitAddLocation = this.handleSubmitAddLocation.bind(this)
+
+  }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+  handleSubmitAddLocation(event) {
+
+      event.preventDefault();
+      axios.post(`https://lirtenhub-nav2.herokuapp.com/api/Locations/`, {
+      
+        name: this.state.name,
+        country: this.state.country,
+        city: this.state.city,
+        street: this.state.street,
+        ownerID: '5cb1376f4627295b79e1a5d3',
+        extraInfo: this.state.extraInfo
+
+      }).then(res => {
+        this.setState({
+          redirect: res.data
+        })
+        console.log(res.data)
+      }).then(alert('A Location was Added '))
+      
+    }
     render(){
         return(
           <div>
@@ -27,25 +63,29 @@ class AddLocation extends Component{
               </div>
               <div className="contact">
                   <h3>New Location Data</h3>
-                  <form method="POST" action="send">
+                  <form onSubmit={this.handleSubmitAddLocation} className="Field">
                     <p>
                       <label>Name</label>
-                      <input type="text" name="name"/>
+                      <input type="text" name="name" onChange={this.onChange} value={this.state.name} required/>
                     </p>
                     <p>
                       <label>Country</label>
-                      <input type="text" name="country"/>
+                      <input type="text" name="country" onChange={this.onChange} value={this.state.country} required/>
                     </p>
                     <p>
                       <label>City</label>
-                      <input type="text" name="city"/>
+                      <input type="text" name="city" onChange={this.onChange} value={this.state.city} required/>
                     </p>
                     <p>
                       <label>Street</label>
-                      <input type="text" name="street"/>
+                      <input type="text" name="street" onChange={this.onChange} value={this.state.street} required/>
                     </p>
-                  
-                    <p classNameName="full">
+                    <p>
+                      <label>Extra Info</label>
+                      <input type="text" name="extraInfo" onChange={this.onChange} value={this.state.extraInfo} required/>
+                    </p>
+                  <p></p>
+                    <p className="ful">
                      <span className = 'reg'> <button type="submit">Submit</button> </span>
                     </p>
                   </form>

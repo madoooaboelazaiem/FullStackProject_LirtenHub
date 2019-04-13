@@ -2,18 +2,51 @@ import Parser from 'html-react-parser';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import 'tachyons'
+import axios from 'axios';
 
 class AddRoom extends Component{
-    
+  constructor(props) {
+    super(props);
+    this.state = {
+      Roomname: '',
+      capacity: '',
+      fee: ''
+      
+    }
+    this.onChange = this.onChange.bind(this)
+    this.handleSubmitAddRoom = this.handleSubmitAddRoom.bind(this)
+
+  }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+  
+  handleSubmitAddRoom(event) {
+
+      event.preventDefault();
+      const {locationID} = this.props.location.state
+console.log({locationID})
+      axios.post('https://lirtenhub-nav2.herokuapp.com/api/rooms/', {
+      
+        Roomname: this.state.Roomname,
+        capacity: this.state.capacity,
+        fee: this.state.fee,
+        LocationID: locationID,
+        OwnerId: '5cb1376f4627295b79e1a5d3'
+
+      }).then(res => {
+        this.setState({
+          redirect: res.data
+        })
+        console.log(res.data)
+      }).then(alert('Room Added Successfully '))
+      
+    }
     render(){
         return(
           <div>
-          <link rel="shortcut icon" href=""/>
-          <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
           <title>Registration Form</title>
-          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
           <link rel="stylesheet" href="../layout/Form.css"/>
         <body>
@@ -27,23 +60,23 @@ class AddRoom extends Component{
               </div>
               <div className="contact">
                   <h3>New Room Data</h3>
-                  <form method="POST" action="send">
-                    <p>
-                      <label>Room Name</label>
-                      <input type="text" name="Roomname"/>
+                  <form onSubmit={this.handleSubmitAddRoom} className="Field">
+                  <p>
+                      <label>Roomname</label>
+                      <input type="text" name="Roomname" onChange={this.onChange} value={this.state.Roomname} required/>
                     </p>
                     <p>
                       <label>Capacity</label>
-                      <input type="text" name="capacity"/>
+                      <input type="number" name="capacity" onChange={this.onChange} value={this.state.capacity} required/>
                     </p>
                     <p>
                       <label>Fee</label>
-                      <input type="text" name="fee"/>
+                      <input type="number" name="fee"onChange={this.onChange} value={this.state.fee} required/>
                 </p>
                 <p >
                 </p>
                                 
-                    <p classNameName="full">
+                    <p className="ful">
                      <span className = 'reg'> <button type="submit">Submit</button> </span>
                     </p>
                   </form>

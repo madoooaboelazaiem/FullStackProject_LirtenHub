@@ -12,7 +12,7 @@ render(){
                   <h1 className="mt2 mb0 baskerville i fw1 f1">LirtenHub</h1>
                   <h2 className="mt2 mb0 f6 fw4 ttu tracked">From Zero to Hero </h2>
                   <nav className="bt bb tc mw7 center mt4">
-                    <a className="f6 f5-l link bg-animate black-80 hover-bg-lightest-blue dib pa3 ph4-l" href="/HomePage">Home</a>
+                    <a className="f6 f5-l link bg-animate black-80 hover-bg-lightest-blue dib pa3 ph4-l" href="/home">Home</a>
                     <div className="dropdown">
                         <a className="f6 f5-l link bg-animate black-80 hover-bg-light-green dib pa3 ph4-l" >Projects</a>
                         <div className="dropdown-content bg-light-green ">
@@ -25,16 +25,15 @@ render(){
                     <div className="dropdown">
                       <a className="f6 f5-l link bg-animate black-80 hover-bg-light-pink dib pa3 ph4-l" >Locations</a>
                       <div className="dropdown-content bg-light-pink ">
-                        <a href="/Locations">All Locations</a>
                         <a href="/Locations">Locations</a>
                         <a href="/AddLocations">Add Locations</a>
                         <a href="/EditLocations">Edit Locations</a>
-                        <a href="/AddRoom">Add Room</a>
+                        <a href="/LocationRoom">Add Room</a>
                         <a href="/EditRoom">Edit Room</a>
                       </div>
                     </div>
                 
-                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calender">Calender</a>
+                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calendar">Calender</a>
                   </nav>
                 </header>
          

@@ -9,8 +9,8 @@ class Header extends Component{
           <a href="#default" className="logo">LirtenHub</a>
           <div className="header-right">
             <a className="active" href="/home">Home</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a href="#">About</a>
+            <a href="/">Logout</a>
           </div>
         </div>
         )}

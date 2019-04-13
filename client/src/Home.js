@@ -7,6 +7,7 @@ import EditLocation from './components/EditLocation'
 import Header from './components/layout/HeaderHome'
 import All_Locations from './components/All_Locations'
 import AddRoom from './components/AddRoom'
+import LocationRoom from './components/LocationRooms'
 import EditRoom from './components/EditRoom'
 import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
@@ -27,6 +28,7 @@ class Home extends React.Component {
           <Route exact path="/home" component={App}/>
           <Route exact path="/" component={SignIn}/>
           <Route exact path="/AddRoom" component={AddRoom}/>
+          <Route exact path="/LocationRoom" component={LocationRoom}/>
           <Route exact path="/EditRoom" component={EditRoom}/>
           <Route exact path="/AddLocations" component={AddLocation}/>
           <Route exact path="/EditLocations" component={EditLocation}/>

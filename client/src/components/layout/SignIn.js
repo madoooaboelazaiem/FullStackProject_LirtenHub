@@ -50,7 +50,7 @@ class registration extends Component{
                     <button type="submit">Sign In</button> 
                     </p>
                    <br></br>
-                   <form action="http://localhost:3000/SignUp">
+                   <form action="http://localhost:3002/SignUp">
                   <span className ='signss'> 
                    <button className ='tc' type="submit" >Sign Up</button> 
                   </span>

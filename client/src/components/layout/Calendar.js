@@ -8,7 +8,8 @@ const styles = {
     width: "220px"
   },
   main: {
-    marginLeft: "220px"
+    marginLeft: "320px"
+
   }
 };
 
@@ -37,14 +38,14 @@ class Calendar extends Component {
         });
       },
       eventDeleteHandling: "Update",
-      // onEventClick: args => {
-      //   let dp = this.calendar;
-      //   DayPilot.Modal.prompt("Update event text:", args.e.text()).then(function(modal) {
-      //     if (!modal.result) { return; }
-      //     args.e.data.text = modal.result;
-      //     dp.events.update(args.e);
-      //   });
-      // },
+      onEventClick: args => {
+        let dp = this.calendar;
+        DayPilot.Modal.prompt("Update event text:", args.e.text()).then(function(modal) {
+          if (!modal.result) { return; }
+          args.e.data.text = modal.result;
+          dp.events.update(args.e);
+        });
+      },
     };
   }
 
@@ -77,6 +78,10 @@ class Calendar extends Component {
     return (
       <div>
         <div style={styles.left}>
+        <br></br>
+        <br></br>
+        <br></br>
+
           <DayPilotNavigator
             selectMode={"week"}
             cellWidth={30}
@@ -93,6 +98,7 @@ class Calendar extends Component {
           />
         </div>
         <div style={styles.main}>
+            <h1>Calendar Entry</h1> 
         <DayPilotCalendar
           {...config}
           ref={component => {
