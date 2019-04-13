@@ -26,6 +26,11 @@ render(){
                       <a className="f6 f5-l link bg-animate black-80 hover-bg-light-pink dib pa3 ph4-l" >Locations</a>
                       <div className="dropdown-content bg-light-pink ">
                         <a href="/Locations">All Locations</a>
+                        <a href="/Locations">Locations</a>
+                        <a href="/AddLocations">Add Locations</a>
+                        <a href="/EditLocations">Edit Locations</a>
+                        <a href="/AddRoom">Add Room</a>
+                        <a href="/EditRoom">Edit Room</a>
                       </div>
                     </div>
                 
