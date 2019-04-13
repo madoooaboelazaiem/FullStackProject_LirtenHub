@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './Locations.css';
+import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
 
  class Location extends Component {
   
+  state={
 
+    Y:this.props.L._id
+
+    }
 
   render() {
     return (//L is Actullay the Location Info itself
-      <div>
-
-
-        <span>
-
-        <h3>{this.props.L.name}
+     
+<div> 
+<Link className = "hideLink" to={{
+  pathname: '/EditLocations',
+  state: {
+    locationID: this.state.Y
+  }
+}} > <h3>{this.props.L.name}
         <br></br>
         {this.props.L.locationRooms[0]}
         <br></br>
@@ -23,8 +30,8 @@ import './Locations.css';
       <br></br>
         {this.props.L.city}
         <br></br>
-        {this.props.L.street}</h3>
-        </span>
+        {this.props.L.street}</h3></Link>
+       
       </div>
     )
   }

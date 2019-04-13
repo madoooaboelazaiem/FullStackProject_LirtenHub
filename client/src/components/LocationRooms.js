@@ -20,7 +20,7 @@ class All_Locations extends React.Component {
     
     return (
       <React.Fragment>
-             <h1 className = "tc red">Choose The Desired Location for your Room</h1>
+             <h1 className = "tc red">Choose The Desired Location</h1>
 
         {this.state.locations.map((L)=>(
       <LocationRoom L={L}/>    

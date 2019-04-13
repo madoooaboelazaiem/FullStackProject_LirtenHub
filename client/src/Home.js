@@ -9,7 +9,9 @@ import All_Locations from './components/All_Locations'
 import AddRoom from './components/AddRoom'
 import LocationRoom from './components/LocationRooms'
 import EditRoom from './components/EditRoom'
+import Rooms from './components/Rooms'
 import All_Projects from './components/All_Projects'
+import Reservations from './components/pages/Reservations'
 import Project_Requests from './components/Project_Requests'
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
@@ -29,11 +31,13 @@ class Home extends React.Component {
           <Route exact path="/" component={SignIn}/>
           <Route exact path="/AddRoom" component={AddRoom}/>
           <Route exact path="/LocationRoom" component={LocationRoom}/>
-          <Route exact path="/EditRoom" component={EditRoom}/>
+          <Route exact path="/EditRooms" component={EditRoom}/>
+          <Route exact path="/Rooms" component={Rooms}/>
           <Route exact path="/AddLocations" component={AddLocation}/>
           <Route exact path="/EditLocations" component={EditLocation}/>
           <Route exact path="/SignUp" component={Form}/>
           <Route exact path="/Locations" component={All_Locations}/>
+          <Route exact path="/AcceptRejectReservation" component={Reservations}/>
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>

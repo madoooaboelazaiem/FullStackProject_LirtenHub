@@ -21,6 +21,7 @@ class All_Locations extends React.Component {
     return (
       <React.Fragment>
              <h1 className = "tc red">Locations</h1>
+             <h3 clasName = 'tc red'>Click on the Desired Location if you want to Edit</h3>
 
         {this.state.locations.map((L)=>(
       <Location L={L}/>    
