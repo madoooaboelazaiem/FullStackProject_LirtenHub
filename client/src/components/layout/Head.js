@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import 'tachyons' 
+import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
 
 
 class Head extends Component{
@@ -16,7 +17,7 @@ render(){
                     <div className="dropdown">
                         <a className="f6 f5-l link bg-animate black-80 hover-bg-light-green dib pa3 ph4-l" >Projects</a>
                         <div className="dropdown-content bg-light-green ">
-                          <a href="/Projects">All Projects</a>
+                          <Link to="/Projects/">All Projects</ Link>
                           <a href="Project_Requests">Project Requests</a>
                         </div>
                       </div>

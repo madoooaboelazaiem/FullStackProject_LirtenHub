@@ -40,7 +40,7 @@ class registration extends Component {
   }
 
 
-  render() {
+  render() {  
     const { identifier, password } = this.state;
     const {isLoggedIn,loggedUser,users} = this.props;
     if(isLoggedIn) {

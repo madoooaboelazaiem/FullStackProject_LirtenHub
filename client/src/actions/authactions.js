@@ -54,6 +54,7 @@ export function login(data) {
       dispatch(setCurrentUser(jwtDecode(token)));
 
     });
+    
 
   }
 

@@ -10,6 +10,7 @@ import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
 import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
 import Single_Project from './components/pages/Single_Project'
+import { connect } from "react-redux";
 
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
@@ -17,13 +18,24 @@ import Profile from './components/pages/Profile'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
+
+function mapStateToProps(state) {
+  console.log(state.authentication.loggedUser)
+  
+  const { isLoggedIn,loggedUser } = state.authentication;
+ const {users} = state.users
+  return { isLoggedIn,loggedUser,users };
+}
 class Home extends React.Component {
   render() {
+      const loggedUser=this.props.loggedUser
+      console.log(loggedUser)
     return (
       
       <div>
+      
         <Header/>
-
+      
       <Router>
       <Switch>
          <Route exact path="/SingleProject/:id" component={Single_Project}/>
@@ -46,4 +58,4 @@ class Home extends React.Component {
     )}
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

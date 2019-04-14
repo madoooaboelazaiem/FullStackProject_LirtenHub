@@ -15,9 +15,9 @@ h2{
 
     
 }
-.req {
-    margin-top:-10px;
-    color:white;
+h1.req {
+    margin-top:50px;
+    color:orange;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     padding-left :20px;
     font-size: 30px;
@@ -37,4 +37,9 @@ p{
     padding-left :20px;
     font-size: 20px;
     max-width: 600px;
+}
+h2.MN{
+    margin-top:-20px;
+    color: white
+
 }
