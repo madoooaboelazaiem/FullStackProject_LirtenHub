@@ -4,7 +4,6 @@ import './Single_Project.css';
 import axios from 'axios';
 import { connect } from "react-redux";
 function mapStateToProps(state) {
-  console.log(state.authentication.loggedUser)
   
   const { isLoggedIn,loggedUser } = state.authentication;
  const {users} = state.users
@@ -15,25 +14,49 @@ function mapStateToProps(state) {
     super(props);
   }
   state={ 
-   P:null
+   P:null,
+   U:null,
+   skills:[]
   }
    componentDidMount() {
+    // axios.get('https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.loggedUser.id))
+    //   .then(res => {       
+    //     const P = res.data.Data;       
+    //     this.setState({U:P});      
+    //   })
+    const result=[]
     const asdas='https://lirtenhub-nav2.herokuapp.com/api/projects/'+(this.props.match.params.id)
     //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
-    console.log(asdas) 
     axios.get(asdas)
       .then(res => {       
         const P = res.data.data;
-        this.setState({P:P});
-      })    
+        this.setState({P:P});     
+      axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(this.state.P.main_skill))
+      .then(res => {       
+        const P1 = res.data.X;      
+        result.push(P1.Name);            
+      for(let i=0;i<this.state.P.extra_skills.length;i++){
+          axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(this.state.P.extra_skills[i]))
+       .then(res => {       
+        const P2 = res.data.X;     
+        result.push(P2.Name);       
+       })
+      }
+      this.setState({skills:result})  
+    })
+  })
+    
+  
   }
   
   render() {  
+    
     if(this.state.P==null){
       return <h1>loading</h1>
     
     }
   else{
+    console.log(this.state.skills[0])
     return (    
       <div>     
       <span2><h1 >{this.state.P.name}</h1></span2>    
@@ -47,6 +70,10 @@ function mapStateToProps(state) {
         <br></br>
         {"Commitment Level : "+this.state.P.commitment_level_needed}
         </h2>
+        
+        {this.state.skills.map((S)=>(
+          <h1>{S}</h1>
+    ))}
       
       
       
