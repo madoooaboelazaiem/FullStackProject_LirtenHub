@@ -1,0 +1,40 @@
+span2 {
+    color:white;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    padding-left :30px;
+    font-size: 30px;
+    
+   
+}
+h2{
+    margin-top:-0px;
+    color:green;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    padding-left :20px;
+    
+
+    
+}
+.req {
+    margin-top:-10px;
+    color:white;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    padding-left :20px;
+    font-size: 30px;
+    
+   
+}
+
+span{
+    color:white;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    padding-left :1px;
+
+}
+p{  
+    margin-top:-80px;
+    color:white;
+    padding-left :20px;
+    font-size: 20px;
+    max-width: 600px;
+}

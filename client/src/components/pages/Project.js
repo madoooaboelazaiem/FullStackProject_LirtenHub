@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import './Projects.css';
 import Single_Project from './Single_Project.js'
 import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
-import {withRouter} from "react-router-dom";
+
 
  class Project extends Component {
    state={
@@ -22,7 +21,7 @@ import {withRouter} from "react-router-dom";
   
       <Link className = "L" to={"/SingleProject/"+this.state.Y} ><h3>{this.props.P.name }
         <div></div>
-        {this.props.P.descreption}</h3></Link>
+        {this.props.P.description}</h3></Link>
 
         
       
