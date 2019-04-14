@@ -85,41 +85,6 @@ class registration extends Component {
                 </ul>
               </div>
               <div className="contact">
-<<<<<<< HEAD
-                <form >
-                  <span className = 'tc'>
-                  <div className = 'shift'>
-                  <p>
-                    <label>Username</label>
-                    <input type="text" name="name"/>
-                  </p>
-                  <br></br>
-                  <br></br>
-                  
-                  <p>
-                    <label>Password</label>
-                    <input type="password" name="pwd"/>
-                  </p>
-                  </div>
-                  <br></br>
-                  <br></br>
-                  <div className = 'shift'>
-                  <p classNameName="full">
-                    <button type="submit">Sign In</button> 
-                    </p>
-                   <br></br>
-                   <form action="http://localhost:3002/SignUp">
-                  <span className ='signss'> 
-                   <button className ='tc' type="submit" >Sign Up</button> 
-                  </span>
-                  </form>
-                  
-                  
-                  </div>
-                  </span>
-                 
-                 
-=======
                 <form onSubmit={this.onSubmit.bind(this)}>
                   <span className="tc">
                     <div className="shift">
@@ -133,7 +98,6 @@ class registration extends Component {
                       </p>
                       <br />
                       <br />
->>>>>>> 3637f4af411fe141f3613b9d45013b8bd8a17b55
 
                       <p>
                         <label>Password</label>
