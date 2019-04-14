@@ -9,6 +9,7 @@ class All_Projects extends React.Component {
     axios.get(`https://lirtenhub-na.herokuapp.com/api/Projects`)
       .then(res => {
         const P = res.data.data;
+        
         this.setState({Projects:P });
       })  
      
