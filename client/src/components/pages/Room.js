@@ -37,3 +37,18 @@ Room.propTypes ={
 }
 
 export default Room
+// redirectFunction() {
+//   this.handleSubmit()
+//   router.push({
+//    to: '/booking/search',
+//    query: this.state.filters
+//   })
+//  }
+ 
+//  render () {
+//    <div 
+//     className="btn btn-secondary btn-width-200 search-submit" 
+//     onClick={this.redirectFunction.bind(this)}>
+//       Search 
+//    </div>
+//  }

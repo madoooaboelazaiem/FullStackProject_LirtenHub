@@ -5,8 +5,8 @@ class Reservations extends React.Component {
   state={
     Reservations:[]
   }
-  componentDidMount() {
-    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/reservations`)
+  componentDidMount() {//https://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/notYet
+    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/reservations/`)
       .then(res => {
         const reserv = res.data.data;
         this.setState({Reservations:reserv });
@@ -21,3 +21,18 @@ class Reservations extends React.Component {
 }
 
 export default Reservations;
+// redirectFunction() {
+    //   this.handleSubmit()
+    //   router.push({
+    //    to: '/booking/search',
+    //    query: this.state.filters
+    //   })
+    //  }
+     
+    //  render () {
+    //    <div 
+    //     className="btn btn-secondary btn-width-200 search-submit" 
+    //     onClick={this.redirectFunction.bind(this)}>
+    //       Search 
+    //    </div>
+    //  }

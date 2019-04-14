@@ -16,13 +16,13 @@ class App extends React.Component {
       <div>
       <Switch>
         <Head/>
-      <Router>
+      {/* <Router>
       <Route exact path="/AddLocations" component={AddLocation}/>
           <Route exact path="/Locations" component={All_Locations}/>
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>
-      </Router>
+      </Router> */}
       </Switch>
           </div>
     )}

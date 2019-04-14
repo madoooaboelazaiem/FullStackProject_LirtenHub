@@ -10,6 +10,7 @@ import AddRoom from './components/AddRoom'
 import LocationRoom from './components/LocationRooms'
 import EditRoom from './components/EditRoom'
 import Rooms from './components/Rooms'
+import Reserve from './components/AddReservation'
 import All_Projects from './components/All_Projects'
 import Reservations from './components/pages/Reservations'
 import Project_Requests from './components/Project_Requests'
@@ -34,6 +35,7 @@ class Home extends React.Component {
           <Route exact path="/LocationRoom" component={LocationRoom}/>
           <Route exact path="/EditRooms" component={EditRoom}/>
           <Route exact path="/Rooms" component={Rooms}/>
+          <Route exact path="/Reserve" component={Reserve}/>
           <Route exact path="/AddLocations" component={AddLocation}/>
           <Route exact path="/EditLocations" component={EditLocation}/>
           <Route exact path="/SignUp" component={Form}/>
