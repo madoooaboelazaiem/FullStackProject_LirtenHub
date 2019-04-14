@@ -112,7 +112,7 @@ import {createHashHistory}from "history"
         <p className="full b f4  tc  ">
                      <span className = 'tc'> 
                      {this.renderRedirect()}
-                     <button className = 'tc but' type="submit" onClick={this.setRedirect} onSubmit={this.handleSubmitReserve}>Reserve</button>
+                     <button className = 'tc but' type="submit" onClick={this.setRedirect} onClick={this.handleSubmitReserve}>Reserve</button>
                       </span>
          </p>
                  </form>
@@ -146,3 +146,4 @@ export default Room
     {/* <NavLink to="/contact">Contact</NavLink> */}
 //2019-10-12T12:00:00
 //2019-10-12T1:00:00
+//2019-05-18T18:00:00.000Z
