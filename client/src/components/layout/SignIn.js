@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import axios from 'axios'
 import {getuserbyid} from '../../actions/useractions'
 import {createHashHistory}from "history"
+import Profile from "../pages/Profile"
 class registration extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +27,6 @@ class registration extends Component {
     const { name, pwd } = this.state;
     const data = { Email: name, Password: pwd };
     dispatch(login(data));
-    
-    
   };
   
   onChange(e) {
@@ -46,7 +45,9 @@ class registration extends Component {
     if(isLoggedIn) {
       return <div>
       <h3>{console.log(loggedUser)}</h3>
-      <h4>{this.props.history.push("/Home")}</h4>
+      <h4>{this.props.history.push("/home")}</h4>
+     
+      <h5></h5>
       </div>
     }
     return (

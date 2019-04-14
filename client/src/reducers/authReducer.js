@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  console.log(action.user)
+
   switch (action.type) {
     
     case LOGIN:
@@ -17,6 +17,7 @@ export default function(state = initialState, action) {
         loggedUser: action.user,
      
       };
+      
 
     case LOGOUT:
       return {
