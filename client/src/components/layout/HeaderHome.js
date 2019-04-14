@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import 'tachyons'
 import '../layout/HeaderHome.css'
+import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
+
 import {createHashHistory}from "history"
 class Header extends Component{
 

@@ -16,13 +16,22 @@ import All_Projects from './components/All_Projects'
 import Reservations from './components/pages/Reservations'
 import Project_Requests from './components/Project_Requests'
 import Calendar from './components/layout/Calendar'
-import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router,Link ,browserHistory,Switch } from 'react-router-dom'
+import { connect } from "react-redux";
 import Profile from './components/pages/Profile'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
+function mapStateToProps(state) {
+  console.log(state.authentication.loggedUser)
+  
+  const { isLoggedIn,loggedUser } = state.authentication;
+ const {users} = state.users
+  return { isLoggedIn,loggedUser,users };
+}
 class Home extends React.Component {
   render() {
+      const loggedUser=this.props.loggedUser
     return (
       
       <div>
@@ -42,7 +51,7 @@ class Home extends React.Component {
           <Route exact path="/SignUp" component={Form}/>
           <Route exact path="/Locations" component={All_Locations}/>
           <Route exact path="/AcceptRejectReservation" component={Reservations}/>
-          <Route exact path="/DeleteReservation" component={DeleteReservations}/>
+          <Route exact path="/DeleteReservations" component={DeleteReservations}/>
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>
@@ -55,4 +64,4 @@ class Home extends React.Component {
     )}
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

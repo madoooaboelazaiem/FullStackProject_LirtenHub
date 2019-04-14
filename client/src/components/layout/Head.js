@@ -28,7 +28,7 @@ render(){
                         <a href="/Locations">Locations</a>
                         <a href="/AcceptRejectReservation">Reservations</a>
                         <a href="/Reserve">Add Reservation</a>
-                        <a href="/DeleteReservation">Cancel Reservation</a>
+                        <a href="/DeleteReservations">Cancel Reservation</a>
                         <a href="/AddLocations">Add Locations</a>
                         <a href="/LocationRoom">Add Room</a>
                         <a href="/Rooms">Edit Room</a>
