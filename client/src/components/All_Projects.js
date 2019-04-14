@@ -10,6 +10,7 @@ class All_Projects extends React.Component {
       .then(res => {
         const P = res.data.data;
         console.log(P)
+        
         this.setState({Projects:P });
         
       }) 

@@ -13,6 +13,7 @@ import Single_Project from './components/pages/Single_Project'
 
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import Profile from './components/pages/Profile'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -36,6 +37,7 @@ class Home extends React.Component {
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>
+          <Route exact path="/profile" component={Profile}/>
           </Switch>
 
       </Router>

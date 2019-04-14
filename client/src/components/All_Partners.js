@@ -20,6 +20,7 @@ class All_Partners extends React.Component {
       .then(res => {
 
         const partner = res.data.data;
+        
 
         this.setState({part:partner });
 
