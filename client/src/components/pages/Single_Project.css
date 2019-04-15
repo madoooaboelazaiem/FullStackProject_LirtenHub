@@ -1,5 +1,5 @@
 span2 {
-    color:white;
+    color:greenyellow;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     padding-left :30px;
     font-size: 30px;
@@ -8,7 +8,7 @@ span2 {
 }
 h2{
     margin-top:-0px;
-    color:limegreen;
+    color:green;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     padding-left :20px;
     
@@ -17,7 +17,7 @@ h2{
 }
 h1.Owner{
     margin-top:-0px;
-    color:limegreen;
+    color:green;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     padding-left :20px;
     font-size: 25px

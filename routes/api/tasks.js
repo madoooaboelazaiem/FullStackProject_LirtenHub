@@ -6,13 +6,13 @@ const Skill=require('../../models/Skill');
 const validator = require('../../validations/taskValidations')
 //cruds
 router.get('/',async  (req, res) => {
-    const Tasks= await task.find();
+    const Tasks= await Task.find();
     res.json({ data: Tasks})
     })
 
 router.get('/:id',async (req,res)=> {
     const tid = req.params.id
-	const X =await task.findOne({"_id":tid})
+	const X =await Task.findOne({"_id":tid})
 	if(!X)
         return res.status(404).send({error: 'Task does not exist'})
 	else
@@ -29,7 +29,7 @@ router.post('/',async (req, res) => {
         return res.status(400).send({error: 'We dont support that skill in LirtenHub'})
     const X= await Task.create(req.body)
 
-    const z=Project.findOne({'_id':X.project_id})
+    const z=await Project.findOne({'_id':X.project_id})
     const result=z.tasks
     result.push(X.id)
     await z.updateOne({'tasks':result})

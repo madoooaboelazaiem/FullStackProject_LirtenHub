@@ -18,7 +18,9 @@ render(){
                         <a className="f6 f5-l link bg-animate black-80 hover-bg-light-green dib pa3 ph4-l" >Projects</a>
                         <div className="dropdown-content bg-light-green ">
                           <Link to="/Projects/">All Projects</ Link>
-                          <a href="Project_Requests">Project Requests</a>
+                          <Link to="/approvedP/">Approved Projects</ Link>
+                          <Link to="/notapprovedP/">Not Approved Projects</ Link>
+                          <Link to="/Project_Requests">Project Requests</Link>
                         </div>
                       </div>
                       
