@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router,Link ,browserHistory,Switch } from 'react-router-dom'
-import { connect } from "react-redux";
 import Profile from './components/pages/Profile'
 import {createHashHistory}from "history"
 import Edit from './components/pages/Edit';
