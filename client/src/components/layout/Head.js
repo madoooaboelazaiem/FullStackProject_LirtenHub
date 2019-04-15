@@ -47,7 +47,7 @@ render(){
                     </div>
                 
 
-                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calender">Calender</a>
+                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calendar">Calender</a>
 
                    
                    <div className="dropdown"></div>
