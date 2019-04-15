@@ -1,28 +1,46 @@
 import React, {Component} from 'react'
 import 'tachyons'
 import '../layout/HeaderHome.css'
-import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
-
 import {createHashHistory}from "history"
+import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import { connect } from "react-redux";
 class Header extends Component{
+  constructor(props) {
+    super(props);
+  }
 
-handle(e){
-  const history = createHashHistory()
-  
-}
 
     render(){
+      const {isLoggedIn,loggedUser,users} = this.props;
+      const x = this.props.loggedUser
+      console.log(this.props.loggedUser)
+  
         return(
         <div className="header">
           <a href="#default" className="logo">LirtenHub</a>
           <div className="header-right">
             <a className="active" href="/home">Home</a>
-            <a href="#contact">Contact</a>
             <a href="#about">About</a>
-            <a href="/">Logout</a>
-            <a  onclick={this.handle} >My profile</a>
+            <Router>
+                      <Link  to={"/Profile/"+x.id} >My profile</Link>
+                        <div className="dropdown-content bg-light-green ">
+                          
+                          <h3>{console.log("hello "+x.id)}</h3>
+                          
+                        
+                      </div>
+                      </Router>
+          
+            <h3></h3>
           </div>
         </div>
         )}
 }
-export default Header
+function mapStateToProps(state) {
+  // console.log(state.authentication.loggedUser)
+   
+   const { isLoggedIn,loggedUser } = state.authentication;
+  const {users} = state.users
+   return { isLoggedIn,loggedUser,users };
+ }
+ export default connect(mapStateToProps)(Header);

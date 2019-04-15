@@ -1,9 +1,13 @@
 import React, {Component} from 'react'
 import 'tachyons' 
-
-
+import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import { connect } from "react-redux";
+import Profile from "../pages/Profile"
 class Head extends Component{
 render(){
+  const {isLoggedIn,loggedUser,users} = this.props;
+  const x = this.props.loggedUser
+  console.log(this.props.loggedUser)
     return(
         <div>
               <header className="bg-light-blue black-80 tc pv4 avenir">
@@ -17,9 +21,12 @@ render(){
                         <a className="f6 f5-l link bg-animate black-80 hover-bg-green dib pa3 ph4-l" >Projects</a>
                         <div className="dropdown-content bg-light-green ">
                           <a href="/Projects">All Projects</a>
+                          <Link  to={"/Profile/"+x.id} >My profile</Link>
+                          <h3>{console.log("hello "+x.id)}</h3>
                           <a href="Project_Requests">Project Requests</a>
                         </div>
                       </div>
+
                       
                 
                     <div className="dropdown">
@@ -35,12 +42,34 @@ render(){
                       </div>
                     </div>
                 
-                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calendar">Calender</a>
+
+                   <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calender">Calender</a>
+
+                   
+                   <div className="dropdown"></div>
+                       <Link  to={"/Profile/"+x.id} >My profile</Link>
+                       
+                        <div className="dropdown-content bg-light-green ">
+                          
+                          <h3>{console.log("hello "+x.id)}</h3>
+                          
+                        
+                      </div>
+
                   </nav>
+
+                  
                 </header>
          
           </div>
     )
 }
 }
-export default Head
+function mapStateToProps(state) {
+  // console.log(state.authentication.loggedUser)
+   
+   const { isLoggedIn,loggedUser } = state.authentication;
+  const {users} = state.users
+   return { isLoggedIn,loggedUser,users };
+ }
+ export default connect(mapStateToProps)(Head);
