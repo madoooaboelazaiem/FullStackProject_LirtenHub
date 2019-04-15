@@ -10,8 +10,8 @@ import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
 import All_Projects from './components/All_Projects'
 import Project_Requests from './components/Project_Requests'
 import Single_Project from './components/pages/Single_Project'
-import approvedP from './components/pages/approvedP'
-import notapprovedP from './components/pages/notapprovedP'
+import approvedP from "./components/pages/approvedP.js"
+import notapprovedP from './components/pages/notapprovedP.js'
 import { connect } from "react-redux";
 
 import Calendar from './components/layout/Calendar'
