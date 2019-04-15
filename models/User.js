@@ -75,10 +75,7 @@ const UserSchema = new Schema ({
    },
    Birth_Date:{
        type:Date,
-<<<<<<< HEAD
-=======
        required:false,
->>>>>>> b6aecc554bcfcef13ef49dc5a8c4fb36e0f5ce26
        default: "2016-05-18T16:00:00Z"
    },
    Age:{
