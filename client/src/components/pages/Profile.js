@@ -16,7 +16,7 @@ state={
   Country:"" ,
   City:"",
   Bio:"" ,
-  y:null,
+  User_Category:null,
   phone_number:"",
   Password:"",
   // ONLY FOR MEMBER AND PARTNER 
@@ -42,7 +42,7 @@ Studies:"",
 //ONLY FOR CO-WORKING-SPACE
 Business_Plans_Offered:""
 }
-componentWillMount() {
+componentDidMount() {
 
   const sendtoaxios='http://localhost:3000/api/users/'+(this.props.match.params.id)
 
@@ -65,7 +65,7 @@ if(user.User_Category=="Member"){
     Bio:user.Bio,
     phone_number:user.phone_number,
     Password:user.Password,
-    y:user.User_Category,
+    User_Category:user.User_Category,
     First_Name:user.First_Name ,
     Last_Name: user.Last_Name,
     Birth_Date:user.Birth_Date,
@@ -77,8 +77,44 @@ Experience_Level:user.Experience_Level,
 Certificates: user.Certificates,
 Past_Projects:user.Past_Projects,
   })
-  console.log(this.state.y)
-  console.log(user.User_Category)
+  
+  const result=[]
+for(let i=0;i<this.state.Skills.length;i++){
+
+  axios.get('http://localhost:3000/api/skills/'+(this.state.Skills[i]))
+
+.then(res => {       
+
+const P2 = res.data.X;     
+
+result.push(P2.Name); 
+console.log(P2)    
+console.log(result)  
+console.log(result)
+console.log("3amel ehhh")
+this.setState({Skills:result})  
+
+
+})
+
+}
+for(let i=0;i<this.state.Skills.length;i++){
+
+  axios.get('http://localhost:3000/api/skills/'+(this.state.Applied_Skills[i]))
+
+.then(res => {       
+
+const P2 = res.data.X;     
+
+result.push(P2.Name); 
+console.log(P2)    
+console.log(result) 
+this.setState({Applied_Skills:result})  
+
+
+})
+
+}
 
 }
 if(user.User_Category=="Partner"){
@@ -133,17 +169,23 @@ Studies:user.Studies,
 
   })
 
+
 }
+
+
 });
 
   }
 
   render() {
+    if(this.state.User_Category==null){
+      return "loading"
+    }
     const {isLoggedIn,loggedUser,users} = this.props;
     const x = this.props.loggedUser
     console.log(this.state.User_Category)
+    console.log("HELLOOOOOOOOOOOO")
     if(this.state.User_Category=="Partner"){
-
 
       return(
         <div>
@@ -160,8 +202,8 @@ Studies:user.Studies,
           <h1 className="brand"><span>User</span>Profile</h1>
           <div className="wrapper animated bounceInLeft">
             <div className="company-info">
-              <h3><button >Edit Profile</button></h3>
-              <h3><button >Change Password</button></h3>
+      <h3><h3><Link  to={"/Edit/"+x.id} >Edit profile</Link></h3></h3>
+      <h3><Link  to={"/Changepw/"+x.id} >Change Password</Link></h3>
               <ul>
                 <li><i className="fa fa-road"></i> LirtenHub st</li>
                 <li><i className="fa fa-phone"></i> 0777 5000 </li>
@@ -198,8 +240,7 @@ Studies:user.Studies,
                   <input type="text" value={this.state.phone_number}/>
                 </p>
                 <p>
-                  <label> Past Projects </label>
-                  <input type="text" value={this.state.Past_Projects}/>
+                <Link  >Past Projects</Link>
                 </p>
                
               </form>
@@ -213,8 +254,7 @@ Studies:user.Studies,
 
      
     }else if(this.state.User_Category=="Member"){
-console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
-
+    
       return(
         <div>
         <link rel="shortcut icon" href=""/>
@@ -230,8 +270,8 @@ console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
           <h1 className="brand"><span>User</span>Profile</h1>
           <div className="wrapper animated bounceInLeft">
             <div className="company-info">
-              <h3><button >Edit Profile</button></h3>
-              <h3><button >Change Password</button></h3>
+              <h3><Link  to={"/Edit/"+x.id} >Edit profile</Link></h3>
+              <h3><Link  to={"/Changepw/"+x.id} >Change Password</Link></h3>
               <ul>
                 <li><i className="fa fa-road"></i> LirtenHub st</li>
                 <li><i className="fa fa-phone"></i> 0777 5000 </li>
@@ -269,9 +309,7 @@ console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
                 </p>
 
                 <p>
-                  <label> Past Projects </label>
-                  <input type="text" value={this.state.Past_Projects}/>
-
+                <Link  >Past Projects</Link>
                 </p>
                 <p>
                   <label>  Experience Level </label>
@@ -327,8 +365,8 @@ console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
           <h1 className="brand"><span>User</span>Profile</h1>
           <div className="wrapper animated bounceInLeft">
             <div className="company-info">
-              <h3><button >Edit My Profile</button></h3>
-              <h3><button >Change Password</button></h3>
+              <h3><h3><Link  to={"/Edit/"+x.id} >Edit profile</Link></h3></h3>
+              <h3><Link  to={"/Changepw/"+x.id} >Change Password</Link></h3>
               <ul>
                 <li><i className="fa fa-road"></i> LirtenHub st</li>
                 <li><i className="fa fa-phone"></i> 0777 5000 </li>
@@ -395,8 +433,8 @@ console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
         <h1 className="brand"><span>User</span>Profile</h1>
         <div className="wrapper animated bounceInLeft">
           <div className="company-info">
-            <h3><button >Edit My Profile</button></h3>
-            <h3><button >Change Password</button></h3>
+            <h3><h3><Link  to={"/Edit/"+x.id} >Edit profile</Link></h3></h3>
+            <h3><Link  to={"/Changepw/"+x.id} >Change Password</Link></h3>
             <ul>
               <li><i className="fa fa-road"></i> LirtenHub st</li>
               <li><i className="fa fa-phone"></i> 0777 5000 </li>
@@ -434,9 +472,21 @@ console.log("hellllllllllllllllllooooooooooooooooooooooooooo")
                 <input type="text" value={this.state.phone_number}/>
               </p>
               <p>
-                  <label> Past Projects </label>
-                  <input type="text" value={this.state.Past_Projects}/>
+              <Link  >Past Projects</Link>
                 </p>
+                <p>
+                  <label> Partners </label>
+                  <input type="text" value={this.state.Partners}/>
+                </p>
+                <p>
+                  <label> Board members </label>
+                  <input type="text" value={this.state.Board_members}/>
+                </p>
+                <p>
+                  <label>  Studies </label>
+                  <input type="text" value={this.state.Studies}/>
+                </p>
+
             </form>
           </div>
         </div>

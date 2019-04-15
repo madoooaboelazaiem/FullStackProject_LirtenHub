@@ -26,6 +26,7 @@ render(){
                           <a href="Project_Requests">Project Requests</a>
                         </div>
                       </div>
+
                       
                 
                     <div className="dropdown">
@@ -36,7 +37,20 @@ render(){
                     </div>
                 
                    <a className="f6 f5-l link bg-animate black-80 hover-bg-light-yellow dib pa3 ph4-l" href="/Calender">Calender</a>
+
+                   
+                   <div className="dropdown"></div>
+                       <Link  to={"/Profile/"+x.id} >My profile</Link>
+                       
+                        <div className="dropdown-content bg-light-green ">
+                          
+                          <h3>{console.log("hello "+x.id)}</h3>
+                          
+                        
+                      </div>
                   </nav>
+
+                  
                 </header>
          
           </div>
