@@ -3,20 +3,19 @@ import PropTypes from 'prop-types'
 import './Locations.css';
 import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
 
- class Location extends Component {
-  
-  state={
+ class LocationRoom extends Component {
+    state={
 
     Y:this.props.L._id
 
     }
-
   render() {
     return (//L is Actullay the Location Info itself
-     
-<div> 
+      <div>
+
+
 <Link className = "hideLink" to={{
-  pathname: '/EditLocations',
+  pathname: '/AddRoom',
   state: {
     locationID: this.state.Y
   }
@@ -37,8 +36,8 @@ import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
   }
 }
 
-Location.propTypes ={
+LocationRoom.propTypes ={
   L:PropTypes.object.isRequired
 }
 
-export default Location
+export default LocationRoom
