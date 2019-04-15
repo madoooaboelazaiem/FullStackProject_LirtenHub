@@ -144,3 +144,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(registration);
+{/* <NavLink to="/contact">Contact</NavLink> */}

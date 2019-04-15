@@ -56,10 +56,11 @@ router.post('/', async (req,res) => {
 router.put('/:id', async (req,res) => {
   try {
    const id = req.params.id
-   const locations = await location.findOne({id})
+   const locations = await location.findOne({"_id":id})
    if(!locations) return res.status(404).send({error: 'Location does not exist'})
    const updatedLocation = await location.updateOne(req.body)
    res.json({msg: 'Location updated successfully',data: updatedLocation})
+   console.log(updatedLocation)
   }
   catch(error) {
       // We will be handling the error later

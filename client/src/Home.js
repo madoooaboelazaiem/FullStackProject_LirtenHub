@@ -2,21 +2,36 @@ import React from 'react';
 import App from './App'
 import SignIn from './components/layout/SignIn'
 import Form from './components/layout/Form'
+import AddLocation from './components/AddLocation'
+import EditLocation from './components/EditLocation'
 import Header from './components/layout/HeaderHome'
 import All_Locations from './components/All_Locations'
-import All_Admins from './components/All_Admins'
-import All_Candidates from './components/All_Candidates'
-import All_ConsultancyAgencies from './components/All_ConsultancyAgencies'
+import AddRoom from './components/AddRoom'
+import LocationRoom from './components/LocationRooms'
+import EditRoom from './components/EditRoom'
+import Rooms from './components/Rooms'
+import Reserve from './components/AddReservation'
+import DeleteReservations from './components/pages/DeleteRes'
 import All_Projects from './components/All_Projects'
+import Reservations from './components/pages/Reservations'
 import Project_Requests from './components/Project_Requests'
 import Calendar from './components/layout/Calendar'
-import { Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router,Link ,browserHistory,Switch } from 'react-router-dom'
+import { connect } from "react-redux";
 import Profile from './components/pages/Profile'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
+function mapStateToProps(state) {
+  console.log(state.authentication.loggedUser)
+  
+  const { isLoggedIn,loggedUser } = state.authentication;
+ const {users} = state.users
+  return { isLoggedIn,loggedUser,users };
+}
 class Home extends React.Component {
   render() {
+      const loggedUser=this.props.loggedUser
     return (
       
       <div>
@@ -26,11 +41,17 @@ class Home extends React.Component {
       <Switch>
           <Route exact path="/home" component={App}/>
           <Route exact path="/" component={SignIn}/>
+          <Route exact path="/AddRoom" component={AddRoom}/>
+          <Route exact path="/LocationRoom" component={LocationRoom}/>
+          <Route exact path="/EditRooms" component={EditRoom}/>
+          <Route exact path="/Rooms" component={Rooms}/>
+          <Route exact path="/Reserve" component={Reserve}/>
+          <Route exact path="/AddLocations" component={AddLocation}/>
+          <Route exact path="/EditLocations" component={EditLocation}/>
           <Route exact path="/SignUp" component={Form}/>
           <Route exact path="/Locations" component={All_Locations}/>
-          <Route exact path="/Admins" component={All_Admins}/>
-          <Route exact path="/Candidates" component={All_Candidates}/>
-          <Route exact path="/ConsultancyAgencies" component={All_ConsultancyAgencies}/>
+          <Route exact path="/AcceptRejectReservation" component={Reservations}/>
+          <Route exact path="/DeleteReservations" component={DeleteReservations}/>
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
           <Route exact path="/Calendar" component={Calendar}/>
@@ -43,4 +64,4 @@ class Home extends React.Component {
     )}
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

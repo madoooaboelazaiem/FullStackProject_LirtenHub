@@ -80,7 +80,7 @@ router.post('/', async (req,res) => {
  router.put('/:id', async (req,res) => {
     try {
      const id = req.params.id
-     const rooms = await room.findOne({id})
+     const rooms = await room.findOne({"_id":id})
      if(!rooms) return res.status(404).send({error: 'Room does not exist'})
      const updatedRoom = await room.updateOne(req.body)
      res.json({msg: 'Room updated successfully',data: updatedRoom})
