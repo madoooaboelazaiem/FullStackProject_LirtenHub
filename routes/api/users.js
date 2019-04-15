@@ -108,6 +108,7 @@ router.get('/getbytype/:type',async(req,res)=>{
 	res.json({Data:X})
 	
 })
+
 router.delete('/:id',async(req,res)=>{
 	try{
 	const deletedU=await User.findByIdAndRemove(req.params.id)
@@ -125,13 +126,13 @@ if(type=='Member'){
 	isValidated = validator.updateValidationM(req.body)
 }
 else if(type=='Consulting_Agent'){
-	isValidated = validator.updateValidationM(req.body)
+	isValidated = validator.updateValidationCons(req.body)
 }
 else if(type=='Partner'){
-	isValidated = validator.updateValidationM(req.body)
+	isValidated = validator.updateValidationP(req.body)
 }
 else if(type=='Partner_CoWorkingSpace'){
-	isValidated = validator.updateValidationM(req.body)
+	isValidated = validator.updateValidationCOWS(req.body)
 }
 if (isValidated.error) 
 			return res.status(400).send({ error: isValidated.error.details[0].message });
