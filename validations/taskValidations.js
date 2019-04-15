@@ -12,7 +12,7 @@ module.exports = {
             project_id: Joi.string().required(),
             main_skill: Joi.string().required(),
             Expected_Duration: Joi.string().required(),
-            least_exp_level_needed: Joi.string().min(10).max(30).required(),
+            least_exp_level_needed: Joi.string().min(5).max(30).required(),
             comitment_level_needed: Joi.string().min(10).max(30).required()
         }
 

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import 'tachyons' 
-import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
+import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
+
+
 import { connect } from "react-redux";
 import Profile from "../pages/Profile"
 class Head extends Component{
@@ -20,10 +22,12 @@ render(){
                     <div className="dropdown">
                         <a className="f6 f5-l link bg-animate black-80 hover-bg-green dib pa3 ph4-l" >Projects</a>
                         <div className="dropdown-content bg-light-green ">
-                          <a href="/Projects">All Projects</a>
+                          <Link to="/Projects/">All Projects</ Link>
+                          <Link to="/approvedP/">Approved Projects</ Link>
+                          <Link to="/notapprovedP/">Not Approved Projects</ Link>
+                          <Link to="/Project_Requests">Project Requests</Link>
                           <Link  to={"/Profile/"+x.id} >My profile</Link>
                           <h3>{console.log("hello "+x.id)}</h3>
-                          <a href="Project_Requests">Project Requests</a>
                         </div>
                       </div>
 

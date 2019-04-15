@@ -15,6 +15,11 @@ import DeleteReservations from './components/pages/DeleteRes'
 import All_Projects from './components/All_Projects'
 import Reservations from './components/pages/Reservations'
 import Project_Requests from './components/Project_Requests'
+import Single_Project from './components/pages/Single_Project'
+import approvedP from "./components/pages/approvedP.js"
+import notapprovedP from './components/pages/notapprovedP.js'
+import { connect } from "react-redux";
+
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router,Link ,browserHistory,Switch } from 'react-router-dom'
 import { connect } from "react-redux";
@@ -38,10 +43,12 @@ class Home extends React.Component {
     return (
       
       <div>
+      
         <Header/>
-
+      
       <Router>
       <Switch>
+         <Route exact path="/SingleProject/:id" component={Single_Project}/>
           <Route exact path="/home" component={App}/>
           <Route exact path="/" component={SignIn}/>
           <Route exact path="/AddRoom" component={AddRoom}/>
@@ -57,6 +64,8 @@ class Home extends React.Component {
           <Route exact path="/DeleteReservations" component={DeleteReservations}/>
           <Route exact path="/Projects" component={All_Projects}/>
           <Route exact path="/Project_Requests" component={Project_Requests}/>
+          <Route exact path="/approvedP" component={approvedP}/>
+          <Route exact path="/notapprovedP" component={notapprovedP}/>
           <Route exact path="/Calendar" component={Calendar}/>
           <Route  exact path="/Profile/:id" component={Profile}/>
           <Route  exact path="/Edit/:id" component={Edit}/>

@@ -5,9 +5,10 @@ const Project = require('../../models/Project');
 const User = require('../../models/User');
 const Skill = require('../../models/Skill');
 const validator = require('../../validations/projectValidations')
+const jwt = require('jsonwebtoken')
+const passport = require('passport')
 
-
-router.get('/',async  (req, res) => {
+router.get('/',async  (req, res) => {   
     const Projects= await Project.find();
     res.json({ data: Projects})
     })

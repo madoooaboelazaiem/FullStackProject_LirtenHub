@@ -33,7 +33,9 @@ class Header extends Component{
           
             <h3></h3>
           </div>
+        
         </div>
+        
         )}
 }
 function mapStateToProps(state) {

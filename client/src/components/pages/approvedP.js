@@ -1,5 +1,5 @@
 import React from 'react';
-import Project from './pages/Project.js'
+import Project from './Project.js'
 import axios from 'axios';
 import { connect } from "react-redux";
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ class All_Projects extends React.Component {
     Projects:[]
   }
   componentDidMount() {
-    axios.get(`http://localhost:3000/api/Projects`)
+    axios.get(`http://localhost:3000/api/Projects/approved/yes`)
       .then(res => {
         const P = res.data.data;
         console.log(P)

@@ -23,11 +23,12 @@ router.post('/login',async (req, res) => {
 		if (match) {
             const payload = {
                 id: user._id,
-                User_Category:user.User_Category
+				User_Category:user.User_Category,
+				Email:user.Email
             }
-            
             const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
-            await user.updateOne({'Islogedin':true})
+			await user.updateOne({'Islogedin':true})
+			
             res.json({data: `Bearer ${token}`})
             
            
@@ -91,7 +92,7 @@ router.put('/validate/:id',async(req,res)=>{
 })
 
 router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-	console.log(req.user)
+	console.log(req.user+"hi")
 	const X=await User.findOne({'_id':req.params.id})
 	if(!X)
 	return res.status(400).send({ error:'User Does Not exist'})
