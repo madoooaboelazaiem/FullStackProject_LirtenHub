@@ -45,6 +45,10 @@
     "reactstrap": "^8.0.0",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2",
+    "nodemailer": "^6.1.0",
+    "express-handlebars": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "q": "^1.5.1",
     "web-push": "^3.3.3"
   },
   "repository": {
