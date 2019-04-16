@@ -19,7 +19,7 @@ const UserSchema = new Schema ({
         default:false
    },
    Membership_expiration_date:{
-        type:String,
+        type:Date,
         default:null
    },
    Country:{

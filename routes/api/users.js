@@ -18,7 +18,41 @@ router.post('/login',async (req, res) => {
 
 		const user = await User.findOne({'Email':Email });
         if (!user) 
-            return res.status(404).json({ error: 'Email does not exist' });
+			return res.status(404).json({ error: 'Email does not exist' });
+		if(user.User_Category=="Admin"){
+			if(user.Hashed_password==Password){
+
+			const payload = {
+                id: user._id,
+				User_Category:user.User_Category,
+				Email:user.Email
+            }
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+			await user.updateOne({'Islogedin':true})
+			
+			res.json({data: `Bearer ${token}`})}
+			else return res.status(400).send({ error: 'Wrong password' });
+
+		}	
+		const d=new Date()
+		const yd=user.Membership_expiration_date.getFullYear()-d.getFullYear()
+		const md=user.Membership_expiration_date.getMonth()-d.getMonth()
+		const dd=user.Membership_expiration_date.getDay()-d.getDay()
+		if(yd<0)
+			await user.updateOne({"Valid":false})
+		if(yd==0){
+			if(md<0){
+				await user.updateOne({"Valid":false})
+			}
+			if(md==0){
+				if(dd<=0){
+					await user.updateOne({"Valid":false})
+				}
+			}
+		}
+		const k = await User.findOne({'Email':Email });
+		if(k.Valid==false)
+			return res.status(404).json({ error: 'Mebership Expired or account not verified yet' });
 		const match = bcrypt.compareSync(Password, user.Hashed_password);
 		if (match) {
             const payload = {
@@ -79,7 +113,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.put('/validate/:id',async(req,res)=>{
-	const user=User.findOne({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	await user.updateOne({'Valid':true})
 	const z=new Date();
 	const newdate=new Date((z.getFullYear()+1),z.getMonth(),z.getDay())
