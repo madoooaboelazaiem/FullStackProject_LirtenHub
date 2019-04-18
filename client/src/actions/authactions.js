@@ -6,6 +6,7 @@ import setAuthorizationToken from '../utils.js/setAuthorizationToken';
 import jwtDecode from 'jwt-decode';
 
 import { LOGOUT, LOGIN } from './types';
+import { LOAD } from 'redux-storage';
 
 
 
@@ -20,20 +21,36 @@ export function setCurrentUser(user) {
   };
 
 }
+export function setuserlogout(user) {
+
+  return {
+
+    type: LOGOUT,
+
+    user
+
+  };
+
+}
+
+
 
 
 
 export function logout() {
 
   return dispatch => {
-
+    console.log(localStorage.getItem('state'))
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('state');
 
     setAuthorizationToken(false);
 
-    dispatch(setCurrentUser({}));
+    dispatch(setuserlogout({}));
 
   }
+ 
+
 
 }
 
@@ -58,3 +75,4 @@ export function login(data) {
   }
 
 }
+

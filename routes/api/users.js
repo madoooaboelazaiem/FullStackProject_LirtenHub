@@ -188,7 +188,9 @@ router.post('/changepassword/:id',async(req,res)=>{
 })
 router.put('/Logout/:id',async(req)=>{
 	const X=await User.findOne({'_id':req.params.id})
+	console.log(X)
 	await X.updateOne({'Islogedin':false})
+	
 })
 //Member 
 router.put('/addinterest/:id', async (req, res) => {
