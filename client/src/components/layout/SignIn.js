@@ -27,7 +27,19 @@ class registration extends Component {
     const { name, pwd } = this.state;
     const data = { Email: name, Password: pwd };
     dispatch(login(data));
+ 
+
+    
   };
+  onClick(e){
+
+    axios.post('localhost:3000/push', {
+      
+      title: "Testing",
+      message:"Hi you have been tested",
+      url:"https://www.google.com/"
+  })
+  }
   
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -50,7 +62,28 @@ class registration extends Component {
       <h5></h5>
       </div>
     }
+   
     return (
+      <div>
+      {/* <div className="header">
+      <a href="#" className="logo">LirtenHub</a>
+      <div className="header-right">
+        <a className="active" href="/">SignIn</a>
+        <a href="/SignUp">SignUp</a>
+        <a href="/About">About</a>
+        <Router>
+                  <Link  to={"/Profile/"+x.id} >My profile</Link>
+                    <div className="dropdown-content bg-light-green ">
+                      
+                      <h3>{console.log("hello "+x.id)}</h3>
+                      
+                    
+                  </div>
+                  </Router>
+      
+      </div>
+    
+    </div> */}
       <div>
         <link rel="shortcut icon" href="" />
         <meta charset="UTF-8" />
@@ -113,24 +146,19 @@ class registration extends Component {
                     <br />
                     <div className="shift">
                       <p classNameName="full">
-                        <button type="submit">Sign In</button>
+                        <button onSubmit = {this.send }type="submit">Sign In</button>
                       </p>
                       <br />
                       </div>
                   </span>
                 </form>
-                      <form action="http://localhost:3002/SignUp">
-                        <span className="signss">
-                          <button className="tc" type="submit">
-                            Sign Up
-                          </button>
-                        </span>
-                      </form>
+                      
                     
               </div>
             </div>
           </div>
         </body>
+      </div>
       </div>
     );
   }
