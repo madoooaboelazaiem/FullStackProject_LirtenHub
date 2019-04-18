@@ -1,0 +1,18 @@
+.but {
+    width:20%;
+    padding:1em;
+    border:3px solid #4e88bb;
+  }
+  
+  .but {
+    background:#c9e6ff;
+    border:0;
+  }
+  
+  .but:hover,.contact form button:focus{
+    background:#3f658a;
+    color:#fff;
+    outline:0;
+    transition: background-color 2s ease-out;
+  }
+  
