@@ -7,13 +7,14 @@ const Skill = require('../../models/Skill');
 const validator = require('../../validations/projectValidations')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
-
-router.get('/',async  (req, res) => {   
+//,passport.authenticate('jwt', {session: false})
+// return res.status(401).send('Unauthorized');
+router.get('/',passport.authenticate('jwt', {session: false}),async  (req, res) => {   
     const Projects= await Project.find();
     res.json({ data: Projects})
     })
 
-router.get('/:id',async (req,res)=> {
+router.get('/:id',passport.authenticate('jwt', {session: false}),async (req,res)=> {
     const pid = req.params.id
 	const X =await Project.findOne({"_id":pid})
 	if(!X)
@@ -23,7 +24,10 @@ router.get('/:id',async (req,res)=> {
 
 })
 
-router.post('/',async (req, res) => {
+router.post('/',passport.authenticate('jwt', {session: false}),async (req, res) => {
+    if(req.user.User_Category!="Partner"&&req.user.User_Category!="Admin")
+        return res.status(401).send('Unauthorized');
+    req.body.partner_id=""+req.user._id;
     let isValidated
     if(req.body.need_Consultancy==true)
          isValidated = validator.createValidation(req.body)
@@ -31,243 +35,82 @@ router.post('/',async (req, res) => {
          isValidated = validator.createValidationwithoutcons(req.body)
     if (isValidated.error) 
         return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'_id':req.body.main_skill})
-    if(!Y)
-        return res.status(400).send({error: 'We dont support that skill in lirten'})
+    if(req.body.main_skill){
+        const Y=await Skill.findOne({'_id':req.body.main_skill})
+        if(!Y)
+            return res.status(400).send({error: 'We dont support that skill in lirten'})
+    }
     const X= await Project.create(req.body)
 	return res.json({msg:'Project was Posted successfully,Now wait until an admin approves it or consultancy applies', data: X});
-});
-router.put('/:id', async(req, res) => { 
+})
+
+router.put('/:id',passport.authenticate('jwt', {session: false}), async(req, res) => { 
     const pid = req.params.id 
     const X = await Project.findOne({"_id":pid})
+
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
+    if(req.user.User_Category!="Partner"&&req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
+        return res.status(401).send('Unauthorized');
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.UpdateValidation(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'Name':req.body.main_skill})
+    if(req.body.main_skill){
+    const Y=await Skill.findOne({'_id':req.body.main_skill})
     
-    if(req.body.main_skill!=null&!Y)
+    if(!Y)
         return res.status(400).send({error: 'We dont support that skill in lirten'})
-    
+    }
     const updatedP = await X.updateOne(req.body)
     res.json({msg: "Project Updated Succsefully"})
 })
-router.put('/name/:id', async(req, res) => {
+router.put('/approved/:id',passport.authenticate('jwt', {session: false}), async(req, res) => {
+    if(req.user.User_Category!="Admin")
+        return res.status(401).send('Unauthorized');
     const pid = req.params.id 
-    const X = await Project.findOne({"_id":pid})
+    const X = await Project.findOne({'_id':pid})
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationname(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg:"Project Updated Succsefully"})
-})
-router.put('/status/:id',async (req, res) => {
-   const pid = req.params.id 
-   const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Completed'){
-        return res.status(400).send({error: 'The Project Has Been Completed Already'})
-    }
-    const isValidated = validator.updateValidationstatus(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    await X.updateOne(req.body)
-    if(req.body.status=='Implementation'){
-        await X.updateOne({"Start_Date":new Date()})}
-    else if(req.body.status=='Completed'){
-        await X.updateOne({"End_Date":new Date()})
-        for(let i=0;i<X.accepted_members_ids.length;i++){          
-            const mem_id=X.accepted_members_ids[i];
-            const Y=await User.findOne({"_id":mem_id})        
-            const result=Y.Past_Projects           
-            result.push(X._id);
-            await Y.updateOne({"Past_Projects":result})
-        }
-    }
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/approved/:id', async(req, res) => {
-    const pid = req.params.id 
-   const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
     // if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
     //     return res.status(400).send({error: 'The Project cannot be edited anymore'})
     // }
     const isValidated = validator.updateValidationapproved(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    if (isValidated.error) 
+        return res.status(400).send({ error: isValidated.error.details[0].message })
     await X.updateOne(req.body)
     if(req.body.approved==true)
-    await X.updateOne({status:'Allocation'})
+        await X.updateOne({status:'Allocation'})
     res.json({msg: 'Project updated successfully'})
 })
-router.put('/Expected_Duration/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationduration(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/exp_level/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationexplevel(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/comitment_level/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationcomitment(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/description/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationdescription(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/price/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationprice(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/PaymentType/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationpaymenttype(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/consultancy_agency_id/:id', async(req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationconsid(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    await X.updateOne({'status':"Negotiation"})
-    res.json({msg: 'Project updated successfully'})
-})
- router.put('/need_Consultancy/:id', async(req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationneedcon(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    //if(req.body.need_Consultancy==false)
-      //  const updatedP = await X.updateOne("consultancy_agency_id":"null")
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/MembersNeeded/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationmembersneeded(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-router.put('/main_skill/:id',async (req, res) => {
-    const pid = req.params.id 
-    const X = await Project.findOne({'_id':pid})
-    if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
-        return res.status(400).send({error: 'The Project cannot be edited anymore'})
-    }
-    const isValidated = validator.updateValidationmainskill(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    const Y=await Skill.findOne({'_id':req.body.main_skill})
-    if(!Y)
-        return res.status(400).send({error: 'We dont support that skill in lirten'})
-    const updatedP = await X.updateOne(req.body)
-    res.json({msg: 'Project updated successfully'})
-})
-
-router.delete('/:id',async (req, res) => {
+router.delete('/:id',passport.authenticate('jwt', {session: false}),async (req, res) => {
     try {
         const id = req.params.id
         const X = await Project.findOne({'_id':id})
         if(!X){
-        return res.status(404).send({error: 'Project does not exist'})}
-        if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
+            return res.status(404).send({error: 'Project does not exist'})}
+        if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id)
+            return res.status(401).send('Unauthorized');
+        if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'||X.status=="Negotiation"||X.status=="Review"){
             return res.status(400).send({error: 'The Project cannot be Deleted anymore'})
         }
         const deletedP = await Project.findByIdAndRemove(id)
         res.json({msg:'Project was deleted successfully', data: deletedP})
        }
        catch(error) {
-           // We will be handling the error later
+           // We will be handling the error later <-- Msh 3aref emta el sara7a
            console.log(error)
        }  
 })
 
-router.put('/addSkill/:id',async(req,res)=>{
+router.put('/addSkill/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
 	const pid=req.params.id
 	const X = await Project.findOne({'_id':pid})
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id&&(""+req.user._id)!=X.consultancy_agency_id)
+        return res.status(401).send('Unauthorized'); 
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
@@ -281,11 +124,13 @@ router.put('/addSkill/:id',async(req,res)=>{
     res.json({msg: 'Skill Added successfully'})
 })
 
-router.put('/addattrib/:id',async(req,res)=>{
+router.put('/addattrib/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
 	 const pid=req.params.id
      const X = await Project.findOne({'_id':pid})
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id&&(""+req.user._id)!=X.consultancy_agency_id)
+        return res.status(401).send('Unauthorized'); 
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
@@ -296,17 +141,19 @@ router.put('/addattrib/:id',async(req,res)=>{
     res.json({msg: 'Attribute Added successfully'})
 })
 
-router.delete('/delskill/:id',async (req, res) => {
+router.delete('/delskill/:id',passport.authenticate('jwt', {session: false}),async (req, res) => {
     const pid=req.params.id
 	const X = await Project.findOne({"_id":pid})
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id&&(""+req.user._id)!=X.consultancy_agency_id)
+        return res.status(401).send('Unauthorized');
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.addskill(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    var result=[]
+    const result=[]
     
     for(var i=0;i<(X.extra_skills).length;i++){
         if((X.extra_skills)[i]._id!=req.body.Skill)
@@ -316,17 +163,19 @@ router.delete('/delskill/:id',async (req, res) => {
     const updatedP=await X.updateOne({"extra_skills":result})
     res.json({msg: 'Skill Deleted successfully'})
 })
-router.delete('/delattrib/:id',async (req, res) => {
+router.delete('/delattrib/:id',passport.authenticate('jwt', {session: false}),async (req, res) => {
     const pid=req.params.id
 	const X = await Project.findOne({"_id":pid})
     if(!X)
-    return res.status(404).send({error: 'Project does not exist'})
+        return res.status(404).send({error: 'Project does not exist'})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id&&(""+req.user._id)!=X.consultancy_agency_id)
+        return res.status(401).send('Unauthorized');
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.addattribute(req.body)
     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
-    var result=[]
+    const result=[]
     
     for(var i=0;i<(X.extra_attributes).length;i++){
         if((X.extra_attributes)[i]!=req.body.attribute)
@@ -335,7 +184,9 @@ router.delete('/delattrib/:id',async (req, res) => {
     const updatedP=await X.updateOne({"extra_attributes":result})
     res.json({msg: 'Attribute Deleted successfully'})
 })
-router.get('/approved/notyet',async  (req, res) => {
+router.get('/approved/notyet',passport.authenticate('jwt', {session: false}),async  (req, res) => {
+    if(req.user.User_Category!="Admin")
+        return res.status(401).send('Unauthorized');
     const Projects= await Project.find();
     const result=[]
     for(let i=0;i<Projects.length;i++){
@@ -344,7 +195,7 @@ router.get('/approved/notyet',async  (req, res) => {
     }
     res.json({ data: result})
     })
-router.get('/approved/Yes',async  (req, res) => {
+router.get('/approved/Yes',passport.authenticate('jwt', {session: false}),async  (req, res) => { //I think its ussless though
     const Projects= await Project.find();
     const result=[]
     for(let i=0;i<Projects.length;i++){
@@ -353,7 +204,9 @@ router.get('/approved/Yes',async  (req, res) => {
     }
     res.json({ data: result})
 })
-router.get('/approved/No',async  (req, res) => {
+router.get('/approved/No',passport.authenticate('jwt', {session: false}),async  (req, res) => {
+    if(req.user.User_Category!="Admin")
+        return res.status(401).send('Unauthorized');
     const Projects= await Project.find();
     const result=[]
     for(let i=0;i<Projects.length;i++){
@@ -362,67 +215,10 @@ router.get('/approved/No',async  (req, res) => {
     }
     res.json({ data: result})
 })
-router.put('/assign/:id',async (req,res)=>{
-    const pid=req.params.id
-    const memberid=req.body.memberid
-    const X= await Project.findOne({"_id":pid})
-    if(X.accepted_members_ids.length==X.members_needed)
-        return res.status(404).send({error: 'Project Team is Already Full'})
 
-    const result1=[]
-    const result2=X.accepted_members_ids
-    const newcount=X.current_members_count+1
-    result2.push(memberid)
-
-
-    for(let i=0;i<X.current_members_applied_ids.length;i++){   
-        if(X.current_members_applied_ids[i]!=memberid) 
-            result1.push(X.current_members_applied_ids[i])
-    }
-    await X.updateOne({"current_members_applied_ids":result1})
-    await X.updateOne({"accepted_members_ids":result2})
-    await X.updateOne({"current_members_count":newcount})
-    res.json({msg: 'Member is now Assigned to the Project'})
-
-})
-router.put('/apply/:id',async(req,res)=>{
-    const pid=req.params.id
-    const memberid=req.body.memberid
-    const X= await Project.findOne({"_id":pid})
-    if(X.accepted_members_ids.length==X.members_needed)
-        return res.status(404).send({error: 'Project Team is Already Full'})
-    const result=X.current_members_applied_ids
-    result.push(memberid)
-    
-    await X.updateOne({"current_members_applied_ids":result})
-    res.json({msg:'Your requesnt to work on the project has been submitted'})
-})
-router.get('/Pending/projects',async(req,res)=>{ //Projects that members applied to but still not approved
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].accepted_members_ids.length<X[i].members_needed&&X[i].current_members_applied_ids.length!=0&&X[i].status=='Allocation')
-            result.push(X[i])
-    }
-    res.json({data:result})
-})
-router.get('/Pending/member',async(req,res)=>{ // returns for each project the members who applied to it
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].current_members_applied_ids.length!=0 && X[i].status=='Allocation')
-            result.push({Project:X[i]._id,candidates:X[i].current_members_applied_ids})
-    }
-    res.json({data:result})
-})
-router.get('/Pendingmember/:id',async(req,res)=>{ // returns for each project the members who applied to it
-    const pid=req.params.id
-    const X=await Project.findOne({"_id":pid})
-    if(!X)
-        return res.status(404).send({error: 'Project not found'})
-    res.json({data:X.current_members_applied_ids})
-})
-router.get('/Consultancy/needed',async(req,res)=>{
+router.get('/Consultancy/needed',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Consulting_Agent")
+        return res.status(401).send('Unauthorized');
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
@@ -431,9 +227,11 @@ router.get('/Consultancy/needed',async(req,res)=>{
     }
     res.json({data:result})
 })
-router.put('/consapply/:id',async(req,res)=>{
+router.put('/consapply/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    if(req.user.User_Category!="Consulting_Agent")
+        return res.status(401).send('Unauthorized');
     const pid=req.params.id
-    const consid=req.body.consid
+    const consid=req.user._id
     const X= await Project.findOne({"_id":pid})
     if(X.need_Consultancy!=true||X.consultancy_agency_id!=null)
         return res.status(404).send({error: 'Sorry you cant apply to this Project'})
@@ -443,10 +241,13 @@ router.put('/consapply/:id',async(req,res)=>{
     await X.updateOne({"current_cons_applied_ids":result})
     res.json({msg:'Your requesnt to consult the project has been submitted'})
 })
-router.put('/consassign/:id',async(req,res)=>{
+router.put('/consassign/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     const pid=req.params.id
     const consid=req.body.id
     const X= await Project.findOne({"_id":pid})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id)
+        return res.status(401).send('Unauthorized');
+
     if(X.need_Consultancy==false||X.consultancy_agency_id!=null)
         return res.status(404).send({error: 'Sorry you cant assign A consultancy to this Project'})
     await X.updateOne({'consultancy_agency_id':consid})
@@ -454,22 +255,29 @@ router.put('/consassign/:id',async(req,res)=>{
 
 })
 
-router.get('/consapplied/:id',async(req,res)=>{
+router.get('/consapplied/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     const pid=req.params.id
-    const X=Project.findOne({'_id':pid})
-    res.json({data:X.current_cons_applied_ids})
+    const X=await Project.findOne({'_id':pid})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id)
+        return res.status(401).send('Unauthorized');
+    const result=[]
+    for(let i=0;i<X.current_cons_applied_ids.length;i++){
+        const u=User.findOne({"_id":X.current_cons_applied_ids[i]})
+        result.push(u)
+    }
+    res.json({data:result})
 })
-router.get('/View/avalible',async(req,res)=>{
+router.get('/View/avalible',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
-        if(X[i].approved==true&&X[i].need_Consultancy==false&&X[i].status=='Allocation'&&X[i].accepted_members_ids.length!=X[i].members_needed)
+        if(X[i].approved==true&&X[i].accepted_members_ids.length!=X[i].members_needed&&X[i].tasks.length!=0)
             result.push(X[i])
     }
     res.json({data:result})
 })
-router.get('/View/myprojects',async(req,res)=>{
-    const id=req.body.id
+router.get('/View/myprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    const id=""+req.user._id
     const X=await Project.find()
     result=[]
     for(let i=0;i<X.length;i++){
@@ -478,22 +286,25 @@ router.get('/View/myprojects',async(req,res)=>{
     }
     res.json({data:result})
 })
-router.put('/declinemember/:id',async(req,res)=>{
-    const pid=req.params.id
-    const memberid=req.body.memberid
-    const X=await Project.findOne({'_id':pid})
+router.get('/View/myappliedprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    if(req.user.User_Category!="Member")
+        return res.status(401).send('Unauthorized');
+    const id=""+req.user._id
+    const X=await Project.find()
     result=[]
-    for(let i=0;i<X.current_members_applied_ids.length;i++){
-        if(X.current_members_applied_ids[i]!=memberid)
-            result.push(X.current_members_applied_ids[i])
+    for(let i=0;i<X.length;i++){
+        if(X[i].current_members_applied_ids.includes(id))
+            result.push(X[i])
     }
-    await X.updateOne({"current_members_applied_ids":result})
-    res.json({msg:'membere was declined sucessfully'})
+    res.json({data:result})
 })
-router.put('/declinecons/:id',async(req,res)=>{
+
+router.put('/declinecons/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     const pid=req.params.id
     const consid=req.body.consid
     const X=await Project.findOne({'_id':pid})
+    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id)
+        return res.status(401).send('Unauthorized');
     result=[]
     for(let i=0;i<X.current_cons_applied_ids.length;i++){
         if(X.current_cons_applied_ids[i]!=consid)
@@ -502,9 +313,11 @@ router.put('/declinecons/:id',async(req,res)=>{
     await X.updateOne({'current_cons_applied_ids':result})
     res.json({msg:'consultancy was declined sucessfully'})
 })
-router.post('/certified/:id',async(req,res)=>{ // check 3aleh tany
+router.post('/certified/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{ // check 3aleh tany
+    if(req.user.User_Category!="Member")
+        return res.status(401).send("Unauthorized")
     const pid=req.params.id
-    const mem_id=req.body.id
+    const mem_id=req.user._id
     //console.log(mem_id)
     const X=await Project.findOne({"_id":pid})
     const Y=await User.findOne({"_id":mem_id})
@@ -522,6 +335,80 @@ router.post('/certified/:id',async(req,res)=>{ // check 3aleh tany
     res.json({data:true})
     }
 })
+// router.put('/declinemember/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+//     const pid=req.params.id
+//     const memberid=req.body.memberid
+//     const X=await Project.findOne({'_id':pid})
+//     result=[]
+//     for(let i=0;i<X.current_members_applied_ids.length;i++){
+//         if(X.current_members_applied_ids[i]!=memberid)
+//             result.push(X.current_members_applied_ids[i])
+//     }
+//     await X.updateOne({"current_members_applied_ids":result})
+//     res.json({msg:'membere was declined sucessfully'})
+// })
+// router.put('/assign/:id',passport.authenticate('jwt', {session: false}),async (req,res)=>{
+//     if(req.user.User_Category!="Admin")
+//         return res.status(401).send('Unauthorized');
+//     const pid=req.params.id
+//     const memberid=req.body.memberid
+//     const X= await Project.findOne({"_id":pid})
+//     if(X.accepted_members_ids.length==X.members_needed)
+//         return res.status(404).send({error: 'Project Team is Already Full'})
+
+//     const result1=[]
+//     const result2=X.accepted_members_ids
+//     const newcount=X.current_members_count+1
+//     result2.push(memberid)
+
+
+//     for(let i=0;i<X.current_members_applied_ids.length;i++){   
+//         if(X.current_members_applied_ids[i]!=memberid) 
+//             result1.push(X.current_members_applied_ids[i])
+//     }
+//     await X.updateOne({"current_members_applied_ids":result1})
+//     await X.updateOne({"accepted_members_ids":result2})
+//     await X.updateOne({"current_members_count":newcount})
+//     res.json({msg: 'Member is now Assigned to the Project'})
+
+// })
+// router.put('/apply/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+//     const pid=req.params.id
+//     const memberid=req.body.memberid
+//     const X= await Project.findOne({"_id":pid})
+//     if(X.accepted_members_ids.length==X.members_needed)
+//         return res.status(404).send({error: 'Project Team is Already Full'})
+//     const result=X.current_members_applied_ids
+//     result.push(memberid)
+    
+//     await X.updateOne({"current_members_applied_ids":result})
+//     res.json({msg:'Your requesnt to work on the project has been submitted'})
+// })
+// router.get('/Pending/projects',passport.authenticate('jwt', {session: false}),async(req,res)=>{ //Projects that members applied to but still not approved
+//     const X=await Project.find()
+//     result=[]
+//     for(let i=0;i<X.length;i++){
+//         if(X[i].accepted_members_ids.length<X[i].members_needed&&X[i].current_members_applied_ids.length!=0&&X[i].status=='Allocation')
+//             result.push(X[i])
+//     }
+//     res.json({data:result})
+// })
+// router.get('/Pending/member',passport.authenticate('jwt', {session: false}),async(req,res)=>{ // returns for each project the members who applied to it
+//     const X=await Project.find()
+//     result=[]
+//     for(let i=0;i<X.length;i++){
+//         if(X[i].current_members_applied_ids.length!=0 && X[i].status=='Allocation')
+//             result.push({Project:X[i]._id,candidates:X[i].current_members_applied_ids})
+//     }
+//     res.json({data:result})
+// })
+// router.get('/Pendingmember/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{ // returns for each project the members who applied to it
+//     const pid=req.params.id
+//     const X=await Project.findOne({"_id":pid})
+//     if(!X)
+//         return res.status(404).send({error: 'Project not found'})
+//     res.json({data:X.current_members_applied_ids})
+// })
 
 module.exports = router;
  

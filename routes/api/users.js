@@ -126,7 +126,6 @@ router.put('/validate/:id',async(req,res)=>{
 })
 
 router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-	console.log(req.user+"hi")
 	const X=await User.findOne({'_id':req.params.id})
 	if(!X)
 	return res.status(400).send({ error:'User Does Not exist'})
@@ -230,7 +229,7 @@ router.put('/addinterest/:id', async (req, res) => {
 	const X = await User.findOne({"_id":req.params.id})
 	if(!X)
 		return res.status(404).send({error: 'User does not exist'})
-	const result=X.Interests
+	const result=X.Intrests
 	result.push(req.body.Interest)
 	await X.updateOne({'Intrests':result})
 	res.json({msg:'OK'})
