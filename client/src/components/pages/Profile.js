@@ -185,6 +185,7 @@ Studies:user.Studies,
     const x = this.props.loggedUser
     console.log(this.state.User_Category)
     console.log("HELLOOOOOOOOOOOO")
+    if(this.state.id==loggedUser.id||loggedUser.User_Category=="Admin"){
     if(this.state.User_Category=="Partner"){
 
       return(
@@ -497,7 +498,315 @@ Studies:user.Studies,
   )
   }
    
+}else{
+  if(this.state.User_Category=="Partner"){
+
+    return(
+      <div>
+      <link rel="shortcut icon" href=""/>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+      <title>Registration Form</title>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+      <link rel="stylesheet" href="../layout/Form.css"/>
+    <body>
+      <div className="container">
+        <h1 className="brand"><span>User</span>Profile</h1>
+        <div className="wrapper animated bounceInLeft">
+          <div className="company-info">
+   
+            <ul>
+              <li><i className="fa fa-road"></i> LirtenHub st</li>
+              <li><i className="fa fa-phone"></i> 0777 5000 </li>
+              <li><i className="fa fa-envelope"></i> LirtenHub@Lirten.com </li>
+            </ul>
+          </div>
+          <div className="contact">
+            <h3>Profile</h3>
+            <form method="POST" action="send">
+              <p>
+                <label>FirstName</label>
+                <input type="text" value={this.state.First_Name}/>
+              </p>
+              <p>
+                <label>LastName</label>
+                <input type="text" value={this.state.Last_Name}/>
+              </p>
+              <p>
+                <label>Email Address</label>
+                <input type="email" value={this.state.Email}/>
+              </p>
+              <p>
+                <label> Country</label>
+                <input type="text" value={this.state.Country}/>
+              </p> <p>
+                <label> City</label>
+                <input type="text"value={this.state.City}/>
+              </p> <p>
+                <label> Bio</label>
+                <input type="text" value={this.state.Bio}/>
+              </p>
+              <p>
+                <label>phone_number </label>
+                <input type="text" value={this.state.phone_number}/>
+              </p>
+              <p>
+              <Link  >Past Projects</Link>
+              </p>
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </body>
+      </div>
+  )
+
+   
+  }else if(this.state.User_Category=="Member"){
   
+    return(
+      <div>
+      <link rel="shortcut icon" href=""/>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+      <title>Registration Form</title>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+      <link rel="stylesheet" href="../layout/Form.css"/>
+    <body>
+      <div className="container">
+        <h1 className="brand"><span>User</span>Profile</h1>
+        <div className="wrapper animated bounceInLeft">
+          <div className="company-info">
+          
+            <ul>
+              <li><i className="fa fa-road"></i> LirtenHub st</li>
+              <li><i className="fa fa-phone"></i> 0777 5000 </li>
+              <li><i className="fa fa-envelope"></i> LirtenHub@Lirten.com </li>
+            </ul>
+          </div>
+          <div className="contact">
+            <h3>Profile</h3>
+            <form method="POST" action="send">
+              <p>
+                <label>FirstName</label>
+                <input type="text" value={this.state.First_Name}/>
+              </p>
+              <p>
+                <label>LastName</label>
+                <input type="text" value={this.state.Last_Name}/>
+              </p>
+              <p>
+                <label>Email Address</label>
+                <input type="email" value={this.state.Email}/>
+              </p>
+              <p>
+                <label> Country</label>
+                <input type="text" value={this.state.Country}/>
+              </p> <p>
+                <label> City</label>
+                <input type="text"value={this.state.City}/>
+              </p> <p>
+                <label> Bio</label>
+                <input type="text" value={this.state.Bio}/>
+              </p>
+              <p>
+                <label>phone_number </label>
+                <input type="text" value={this.state.phone_number}/>
+              </p>
+
+              <p>
+              <Link  >Past Projects</Link>
+              </p>
+              <p>
+                <label>  Experience Level </label>
+                <input type="text" value={this.state.Experience_Level}/>
+
+              </p>
+              <p>
+                <label>   Skills </label>
+                <input type="text" value={this.state.Skills}/>
+
+              </p>
+              <p>
+                <label>   Applied Skills </label>
+                <input type="text" value={this.state.Applied_Skills}/>
+
+              </p>
+              <p>
+                <label> Intrests   </label>
+                <input type="text" value={this.state.Intrests}/>
+
+              </p>
+              <p>
+                <label> Certificates   </label>
+                <input type="text" value={this.state.Certificates}/>
+
+              </p>
+            
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </body>
+      </div>
+  )
+
+
+  }
+  if(this.state.User_Category=="Partner_CoWorkingSpace"){
+    
+    return(
+      <div>
+      <link rel="shortcut icon" href=""/>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+      <title>Profile Form</title>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+      <link rel="stylesheet" href="../layout/Form.css"/>
+    <body>
+      <div className="container">
+        <h1 className="brand"><span>User</span>Profile</h1>
+        <div className="wrapper animated bounceInLeft">
+          <div className="company-info">
+           
+            <ul>
+              <li><i className="fa fa-road"></i> LirtenHub st</li>
+              <li><i className="fa fa-phone"></i> 0777 5000 </li>
+              <li><i className="fa fa-envelope"></i> LirtenHub@Lirten.com </li>
+            </ul>
+          </div>
+          <div className="contact">
+            <h3>Profile</h3>
+            <form method="POST" action="send">
+            
+            <p>
+                <label>Established Since</label>
+                <input type="text" value={this.state.Established_since}/>
+              </p>
+              <p>
+                <label>Name</label>
+                <input type="text" value={this.state.Name}/>
+              </p>
+              <p>
+                <label>Email Address</label>
+                <input type="email" value={this.state.Email}/>
+              </p>
+              <p>
+                <label> Country</label>
+                <input type="text" value={this.state.Country}/>
+              </p> <p>
+                <label> City</label>
+                <input type="text"value={this.state.City}/>
+              </p> <p>
+                <label> Bio</label>
+                <input type="text" value={this.state.Bio}/>
+              </p>
+              <p>
+                <label>phone_number </label>
+                <input type="text" value={this.state.phone_number}/>
+              </p>
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </body>
+      </div>
+  )
+
+
+
+  }
+if(this.state.User_Category=="Consulting_Agent"){
+
+  return(
+    <div>
+    <link rel="shortcut icon" href=""/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Profile Form</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+    <link rel="stylesheet" href="../layout/Form.css"/>
+  <body>
+    <div className="container">
+      <h1 className="brand"><span>User</span>Profile</h1>
+      <div className="wrapper animated bounceInLeft">
+        <div className="company-info">
+          <ul>
+            <li><i className="fa fa-road"></i> LirtenHub st</li>
+            <li><i className="fa fa-phone"></i> 0777 5000 </li>
+            <li><i className="fa fa-envelope"></i> LirtenHub@Lirten.com </li>
+          </ul>
+        </div>
+        <div className="contact">
+          <h3>Profile</h3>
+          <form method="POST" action="send">
+          
+          <p>
+              <label>Established Since</label>
+              <input type="text" value={this.state.Established_since}/>
+            </p>
+            <p>
+              <label>Name</label>
+              <input type="text" value={this.state.Name}/>
+            </p>
+            <p>
+              <label>Email Address</label>
+              <input type="email" value={this.state.Email}/>
+            </p>
+            <p>
+              <label> Country</label>
+              <input type="text" value={this.state.Country}/>
+            </p> <p>
+              <label> City</label>
+              <input type="text"value={this.state.City}/>
+            </p> <p>
+              <label> Bio</label>
+              <input type="text" value={this.state.Bio}/>
+            </p>
+            <p>
+              <label>phone_number </label>
+              <input type="text" value={this.state.phone_number}/>
+            </p>
+            <p>
+            <Link  >Past Projects</Link>
+              </p>
+              <p>
+                <label> Partners </label>
+                <input type="text" value={this.state.Partners}/>
+              </p>
+              <p>
+                <label> Board members </label>
+                <input type="text" value={this.state.Board_members}/>
+              </p>
+              <p>
+                <label>  Studies </label>
+                <input type="text" value={this.state.Studies}/>
+              </p>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  </body>
+    </div>
+)
+}
+ 
+}
 }
 }
 
