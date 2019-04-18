@@ -11,9 +11,9 @@ import SignIn from "./components/layout/SignIn"
 import { Provider } from "react-redux";
 
 ReactDOM.render(
-  <Provider store={store}>
-  
 
+  
+  <Provider store={store}>
     <Home />
   </Provider>,
 
