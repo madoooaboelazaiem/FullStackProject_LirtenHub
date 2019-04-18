@@ -5,7 +5,22 @@ import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'reac
 
 import { connect } from "react-redux";
 import Profile from "../pages/Profile"
+import axios from "axios"
+import { logout } from "../../actions/authactions";
+import {createHashHistory}from "history"
 class Head extends Component{
+
+  onSubmit = e => {
+    e.preventDefault();
+  axios.put('http://localhost:3000/api/users/Logout/'+(this.props.loggedUser.id), {}).then(res => {
+  });
+    const { dispatch } = this.props;
+    console.log("HIIIIIIIIII")
+    dispatch(logout());
+
+
+}
+
 render(){
   const {isLoggedIn,loggedUser,users} = this.props;
   const x = this.props.loggedUser
@@ -59,6 +74,11 @@ render(){
                           
                         
                       </div>
+                          <p></p>
+        
+                      <form onSubmit={this.onSubmit.bind(this)}>
+                      <button type="submit">Logout</button></form>
+
 
                   </nav>
 

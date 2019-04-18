@@ -27,18 +27,6 @@ class registration extends Component {
     const { name, pwd } = this.state;
     const data = { Email: name, Password: pwd };
     dispatch(login(data));
- 
-
-    
-  };
-  onClick(e){
-
-    axios.post('localhost:3000/push', {
-      
-      title: "Testing",
-      message:"Hi you have been tested",
-      url:"https://www.google.com/"
-  })
   }
   
   onChange(e) {
