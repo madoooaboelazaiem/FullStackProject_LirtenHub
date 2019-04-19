@@ -61,7 +61,8 @@ const UserSchema = new Schema ({
    },
    //Partner&Member&Consultancy
    Past_Projects:{
-       type:[String]
+       type:[String],
+       default:[]
    },
 
    //Partner&Member

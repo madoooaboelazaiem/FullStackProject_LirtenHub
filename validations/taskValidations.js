@@ -59,7 +59,7 @@ module.exports = {
     },
     updateValidationstatus: request => {
         const updateSchema = {
-            status: Joi.string().valid('Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed').required()
+            status: Joi.string().valid('Allocation','Implementation','Completed').required()
         }
         return Joi.validate(request, updateSchema)
     },

@@ -4,24 +4,61 @@ const mongoose = require('mongoose');
 const Project = require('../../models/Project');
 const User = require('../../models/User');
 const Skill = require('../../models/Skill');
+const Task = require('../../models/Task');
 const validator = require('../../validations/projectValidations')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 //,passport.authenticate('jwt', {session: false})
 // return res.status(401).send('Unauthorized');
-router.get('/',passport.authenticate('jwt', {session: false}),async  (req, res) => {   
+router.get('/'  ,async  (req, res) => {   
     const Projects= await Project.find();
     res.json({ data: Projects})
     })
 
-router.get('/:id',passport.authenticate('jwt', {session: false}),async (req,res)=> {
+router.get('/:id',async (req,res)=> {
     const pid = req.params.id
 	const X =await Project.findOne({"_id":pid})
 	if(!X)
         return res.status(404).send({error: 'Project does not exist'})
-	else
-		res.json({data:X});
+    X.partner_id=await User.findOne({"_id":X.partner_id})
+    X.consultancy_agency_id=await User.findOne({"_id":X.consultancy_agency_id})
+    X.main_skill=await Skill.findOne({"_id":X.main_skill})
+    const result1=[]
+    const result2=[]
+    const result3=[]
+    const result4=[]
+    const result5=[]
+    for(let i=0;i<X.current_cons_applied_ids.length;i++){
+        const user=await User.findOne({"_id":X.current_cons_applied_ids[i]})
+        user.Hashed_password=null
+        result1.push(user)
+    }
+    for(let i=0;i<X.current_members_applied_ids.length;i++){
+        const user=await User.findOne({"_id":X.current_members_applied_ids[i]})
+        user.Hashed_password=null
+        result2.push(user)
+    }
+    for(let i=0;i<X.accepted_members_ids.length;i++){
+        const user=await User.findOne({"_id":X.accepted_members_ids[i]})
+        user.Hashed_password=null
+        result3.push(user)
+    }
+    for(let i=0;i<X.extra_skills.length;i++){
+        const skill=await Skill.findOne({"_id":X.extra_skills[i]})
+        result4.push(skill)
+    }
+    for(let i=0;i<X.tasks.length;i++){
+        const task=await Task.findOne({"_id":X.tasks[i]})
+        result5.push(task)
+    }
+    X.current_cons_applied_ids=result1
+    X.current_members_applied_ids=result2
+    X.accepted_members_ids=result3
+    X.extra_skills=result4
+    X.tasks=result5
 
+    
+    res.json({data:X})
 })
 
 router.post('/',passport.authenticate('jwt', {session: false}),async (req, res) => {
@@ -50,7 +87,7 @@ router.put('/:id',passport.authenticate('jwt', {session: false}), async(req, res
 
     if(!X)
         return res.status(404).send({error: 'Project does not exist'})
-    if(req.user.User_Category!="Partner"&&req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
+    if(req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
         return res.status(401).send('Unauthorized');
     if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
@@ -80,10 +117,45 @@ router.put('/approved/:id',passport.authenticate('jwt', {session: false}), async
     if (isValidated.error) 
         return res.status(400).send({ error: isValidated.error.details[0].message })
     await X.updateOne(req.body)
-    if(req.body.approved==true)
+    if(req.body.approved==true){
         await X.updateOne({status:'Allocation'})
+    const user =await User.findOne({"_id":X.partner_id})
+    const result=user.Past_Projects
+    result.push(X._id)
+    await user.updateOne({"Past_Projects":result})
+    }
     res.json({msg: 'Project updated successfully'})
 })
+router.put('/status/:id',passport.authenticate('jwt', {session: false}),async (req, res) => {
+    const pid = req.params.id 
+    const X = await Project.findOne({'_id':pid})
+     if(!X)
+        return res.status(404).send({error: 'Project does not exist'})
+     
+     if(req.user.User_Category!="Admin"&&(""+req.user.id)!=X.partner_id&&(""+req.user.id)!=X.consultancy_agency_id)   
+        return res.status(401).send("Unauthorized")
+     if(X.status=='Completed'&&req.user.User_Category!="Admin"){
+         return res.status(400).send({error: 'The Project Has Been Completed Already'})
+     }
+     const isValidated = validator.updateValidationstatus(req.body)
+     if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+     await X.updateOne(req.body)
+     if(req.body.status=='Implementation'){
+         await X.updateOne({"Start_Date":new Date()})
+    }
+     else if(req.body.status=='Completed'){
+         await X.updateOne({"End_Date":new Date()})
+         for(let i=0;i<X.accepted_members_ids.length;i++){
+             const user =await User.findOne({"_id":X.accepted_members_ids[i]})
+             const pps=user.Past_Projects
+             pps.push(X._id)
+             await user.updateOne({"Past_Projects":pps})
+         }          
+        
+         
+     }
+     res.json({msg: 'Project updated successfully'})
+ })
 router.delete('/:id',passport.authenticate('jwt', {session: false}),async (req, res) => {
     try {
         const id = req.params.id
@@ -251,54 +323,21 @@ router.put('/consassign/:id',passport.authenticate('jwt', {session: false}),asyn
     if(X.need_Consultancy==false||X.consultancy_agency_id!=null)
         return res.status(404).send({error: 'Sorry you cant assign A consultancy to this Project'})
     await X.updateOne({'consultancy_agency_id':consid})
+    await X.updateOne({"status":"Negotiation"})
+    const user =await User.findOne({"_id":consid})
+    const result=user.Past_Projects
+    result.push(X._id)
+    await user.updateOne({"Past_Projects":result})
+    const result1=[]
+    // for(let i=0;i<X.current_cons_applied_ids.length;i++){   
+    //              if(X.current_cons_applied_ids[i]!=consid) 
+    //                  result1.push(X.current_cons_applied_ids[i])
+    //          }
+    await X.updateOne({current_cons_applied_ids:result1})
+    
     res.json({msg:'The consultancy has been assigned to your project sucessfully'})
 
 })
-
-router.get('/consapplied/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    const pid=req.params.id
-    const X=await Project.findOne({'_id':pid})
-    if(req.user.User_Category!="Admin"&&(""+req.user._id)!=X.partner_id)
-        return res.status(401).send('Unauthorized');
-    const result=[]
-    for(let i=0;i<X.current_cons_applied_ids.length;i++){
-        const u=User.findOne({"_id":X.current_cons_applied_ids[i]})
-        result.push(u)
-    }
-    res.json({data:result})
-})
-router.get('/View/avalible',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].approved==true&&X[i].accepted_members_ids.length!=X[i].members_needed&&X[i].tasks.length!=0)
-            result.push(X[i])
-    }
-    res.json({data:result})
-})
-router.get('/View/myprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    const id=""+req.user._id
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].partner_id==id||(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==id)||X[i].accepted_members_ids.includes(id))
-            result.push(X[i])
-    }
-    res.json({data:result})
-})
-router.get('/View/myappliedprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    if(req.user.User_Category!="Member")
-        return res.status(401).send('Unauthorized');
-    const id=""+req.user._id
-    const X=await Project.find()
-    result=[]
-    for(let i=0;i<X.length;i++){
-        if(X[i].current_members_applied_ids.includes(id))
-            result.push(X[i])
-    }
-    res.json({data:result})
-})
-
 router.put('/declinecons/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     const pid=req.params.id
     const consid=req.body.consid
@@ -313,28 +352,96 @@ router.put('/declinecons/:id',passport.authenticate('jwt', {session: false}),asy
     await X.updateOne({'current_cons_applied_ids':result})
     res.json({msg:'consultancy was declined sucessfully'})
 })
-router.post('/certified/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{ // check 3aleh tany
-    if(req.user.User_Category!="Member")
-        return res.status(401).send("Unauthorized")
-    const pid=req.params.id
-    const mem_id=req.user._id
-    //console.log(mem_id)
-    const X=await Project.findOne({"_id":pid})
-    const Y=await User.findOne({"_id":mem_id})
-    
-    if(Y.Skills.length==0)
-        res.json({data:false})
-    else if(!(Y.Skills.includes(X.main_skill)))
-        res.json({data:false})
-    else{
-    for(let i=0;i<X.extra_skills.length;i++){
-        if(!(Y.Skills.includes(X.extra_skills[i]))){
-            res.json({data:false})
-        }
+router.get('/View/avalible',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    const X=await Project.find()
+    result=[]
+    for(let i=0;i<X.length;i++){
+        if(X[i].approved==true&&X[i].accepted_members_ids.length!=X[i].members_needed&&X[i].tasks.length!=X[i].accepted_members_ids.length)
+            result.push(X[i])
     }
-    res.json({data:true})
-    }
+    res.json({data:result})
 })
+router.get('/View/myprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    const id=""+req.user._id
+    const X=await Project.find()
+    result=[]
+    for(let i=0;i<X.length;i++){
+        if(X[i].partner_id==id||(X[i].need_Consultancy==true&&X[i].consultancy_agency_id==id)||X[i].accepted_members_ids.includes(id))
+            result.push(X[i])
+    }
+    res.json({data:result})
+})
+
+router.get('/View/myappliedprojects',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    // if(req.user.User_Category!="Member")
+    //     return res.status(401).send('Unauthorized');
+    const id=""+req.user._id
+    const X=await Project.find()
+    result=[]
+    for(let i=0;i<X.length;i++){
+        if(X[i].current_members_applied_ids.includes(id)||X[i].current_cons_applied_ids.includes(id))
+            result.push(X[i])
+    }
+    res.json({data:result})
+})
+router.get('/Rate/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+        const X=await Project.findOne({"_id":req.params.id})
+        const result=[]
+        if(X.status!="Completed"||req.user._id!=X.partner_id||req.user._id!=X.consultancy_agency_id||!X.accepted_members_ids.includes(req.user._id))
+            res.json({data:result})
+        const R=await Rating.find({"project_id":req.params.id,"reviewer_id":(""+req.user._id)})
+        const R1=[]
+        for(let i=0;i<R.length;i++)
+            R1.push(R[i].reviewed_id)
+        
+        
+        
+        if(req.user.User_Category=="Partner"){
+            if(X.need_Consultancy==true){
+                if(!R1.includes(X.consultancy_agency_id)){
+                    const user=await User.findOne({"_id":X.consultancy_agency_id})
+                    result.push(user)
+                }
+            }
+            else{
+                for(let i=0;i<X.accepted_members_ids.length;i++){
+                    if(!R1.includes(X.accepted_members_ids[i])){
+                    const user=await User.findOne({"_id":X.accepted_members_ids[i]})
+                    result.push(user)
+                    }
+                }                 
+            }
+
+                
+        }
+        if(req.user.User_Category=="Member"){
+           if(X.need_Consultancy==true){
+                if(!R1.includes(X.consultancy_agency_id)){
+                    const user=await User.findOne({"_id":X.consultancy_agency_id})
+                    result.push(user)
+                }
+
+           }
+           else{
+               if(!R1.includes(X.partner_id)){
+                    const user=await User.findOne({"_id":X.partner_id})
+                    result.push(user)
+                }
+
+           }  
+        }
+        if(req.user.User_Category=="Consulting_Agent"){
+            for(let i=0;i<X.accepted_members_ids.length;i++){
+                if(!R1.includes(X.accepted_members_ids[i])){
+                const user=await User.findOne({"_id":X.accepted_members_ids[i]})
+                result.push(user)
+                }
+            }
+        }
+
+        res.json({data:result})
+})
+
 // router.put('/declinemember/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
 //     const pid=req.params.id
 //     const memberid=req.body.memberid

@@ -7,6 +7,7 @@ const router = express.Router();
 const User = require('../../models/User');
 const Skill = require('../../models/Skill');
 const tokenKey = require('../../config/keys').secretOrKey
+const Project = require('../../models/Project');
 
 //All Users
 router.post('/login',async (req, res) => {
@@ -19,21 +20,23 @@ router.post('/login',async (req, res) => {
 		const user = await User.findOne({'Email':Email });
         if (!user) 
 			return res.status(404).json({ error: 'Email does not exist' });
-		if(user.User_Category=="Admin"){
-			if(user.Hashed_password==Password){
+		// if(user.User_Category=="Admin"){
+		// 	if(user.Hashed_password==Password){
 
-			const payload = {
-                id: user._id,
-				User_Category:user.User_Category,
-				Email:user.Email
-            }
-            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
-			await user.updateOne({'Islogedin':true})
+		// 	const payload = {
+        //         id: user._id,
+		// 		User_Category:user.User_Category,
+		// 		Email:user.Email
+        //     }
+        //     const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+		// 	await user.updateOne({'Islogedin':true})
 			
-			res.json({data: `Bearer ${token}`})}
-			else return res.status(400).send({ error: 'Wrong password' });
+		// 	res.json({data: `Bearer ${token}`})}
+		// 	else return res.status(400).send({ error: 'Wrong password' });
 
-		}	
+		// }
+		
+		if(user.Membership_expiration_date!=null){
 		const d=new Date()
 		const yd=user.Membership_expiration_date.getFullYear()-d.getFullYear()
 		const md=user.Membership_expiration_date.getMonth()-d.getMonth()
@@ -49,18 +52,19 @@ router.post('/login',async (req, res) => {
 					await user.updateOne({"Valid":false})
 				}
 			}
-		}
+		}}
 		const k = await User.findOne({'Email':Email });
 		if(k.Valid==false)
 			return res.status(404).json({ error: 'Mebership Expired or account not verified yet' });
 		const match = bcrypt.compareSync(Password, user.Hashed_password);
+		
 		if (match) {
             const payload = {
                 id: user._id,
 				User_Category:user.User_Category,
 				Email:user.Email
             }
-            const token = jwt.sign(payload, tokenKey, { expiresIn: '1h' })
+            const token = jwt.sign(payload, tokenKey, { expiresIn: '4h' })
 			await user.updateOne({'Islogedin':true})
 			
             res.json({data: `Bearer ${token}`})
@@ -126,13 +130,14 @@ router.put('/validate/:id',async(req,res)=>{
 })
 
 router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-	const X=await User.findOne({'_id':req.params.id})
+	const X=await User.findOne({'_id':req.params.id},{"Hashed_password":0})
 	if(!X)
 	return res.status(400).send({ error:'User Does Not exist'})
-	
+	if(X.Birth_Date!=null){
 	const age=((new Date()).getFullYear())-(X.Birth_Date.getFullYear())
 	await X.updateOne({'Age':age})
-	const newUser= await User.findOne({'_id':req.params.id})
+	}
+	const newUser= await User.findOne({'_id':req.params.id},{Hashed_password:0})
 	res.json({Data:newUser})
 })
 
@@ -374,8 +379,32 @@ router.delete('/Business_Plans_Offered/:id', async (req, res) => {
 			result.push(user.Business_Plans_Offered[i])
 	await user.updateOne({'Business_Plans_Offered':result})
 	res.json({msg:'OK'})
-});	
-				 
+});
+//Admin	
+router.get('/valid/notyet',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+	if(req.user.User_Category!="Admin")
+		res.status(401).send("Unauthorized")
+	
+	const X=await User.find()
+	const result=[]
+	for(let i=0;i<X.length;i++)
+		if(X[i].Valid!=true)
+			result.push(X[i])	
+	
+	res.json({Data:result})
+})
+//Member-Partner-Consultancy
+router.get('/past/projects/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+	const user =await User.findOne({"_id":req.params.id})
+	const result=[]
+	for(let i=0;i<user.Past_Projects.length;i++){
+		const p=await Project.findOne({"_id":user.Past_Projects[i]})
+		result.push(p)
+	}
+	
+	
+	res.json({data:result})
+})			 
  
 	
 				

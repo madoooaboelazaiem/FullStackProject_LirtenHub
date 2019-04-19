@@ -45,7 +45,6 @@ module.exports = {
             name: Joi.string().min(5).max(50),
             description: Joi.string().min(20).max(500),
             Payment_Type: Joi.string().valid('Online','FaceToFace'),
-            status: Joi.string().valid('Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed'),
             main_skill : Joi.string(),
             price: Joi.number(),
             members_needed:Joi.number(),
@@ -74,6 +73,13 @@ module.exports = {
     addattribute: request => {
         const updateSchema = {
             attribute: Joi.string().required()
+        }
+        return Joi.validate(request, updateSchema)
+    },
+    updateValidationstatus: request => {
+        const updateSchema = {
+            status: Joi.string().valid('Initiation','Analysis','Negotiation ','Review','Allocation','Implementation','Completed').required()
+            
         }
         return Joi.validate(request, updateSchema)
     },
