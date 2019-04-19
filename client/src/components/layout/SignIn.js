@@ -27,7 +27,7 @@ class registration extends Component {
     const { name, pwd } = this.state;
     const data = { Email: name, Password: pwd };
     dispatch(login(data));
-  };
+  }
   
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
