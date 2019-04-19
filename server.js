@@ -54,71 +54,70 @@ app.use('/api/rooms',rooms)
 
 
 
-//Notifications plus nodemailer
+// //Notifications plus nodemailer
+// app.set('trust proxy', true);
+// // parse application/json
+// app.use(bodyParser.json());
+// // parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({
+//     extended: false
+// }));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.set('views', path.join(__dirname, 'views'));
 
-app.set('trust proxy', true);
-// parse application/json
-app.use(bodyParser.json());
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.set('views', path.join(__dirname, 'views'));
+// // Set static folder
+// app.use(express.static(path.join(__dirname, 'public')));
+// // app.set('views', __dirname + '/public/js');
 
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
-// app.set('views', __dirname + '/public/js');
+// // Set global vars
+// app.use((req, res, next) => {
+//     res.locals.user = req.user || null;
+//     next();
+// });
+// app.use('/', index);
+// app.use('/subscribe', subscribe);
+// app.use('/push', push);
+// // catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
 
-// Set global vars
-app.use((req, res, next) => {
-    res.locals.user = req.user || null;
-    next();
-});
+// // error handlers
 
+// // development error handler
+// // will print stacktrace
+// if (app.get('env') === 'development') {
+//     app.use(function (err, req, res, next) {
+//         res.status(err.status || 500);
+//         res.render('error', {
+//             message: err.message,
+//             error: err
+//         });
+//     });
+// }
+// // production error handler
+// // no stacktraces leaked to user
+// app.use(function (err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: {}
+//     });
+// });
 
+app.use(express.static(path.join(__dirname,'client/build')));
 
-
-  
-    
-
-app.use('/', index);
-app.use('/subscribe', subscribe);
-app.use('/push', push);
-
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static(path.join(__dirname,'client/build')));
+    app.get('*',(req,res)=>{
+        res.sendfile(path.join(__dirname='client/build/index.html'));
+    })
 }
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
-
-
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname+'/client/public/index.html'))
+})
 
 
 
@@ -129,4 +128,5 @@ app.use((req, res) => {
  })
 
 const port = process.env.PORT ||3000
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
+app.listen(port, (req,res) => {console.log(`Server up and running on port ${port}`)
+})
