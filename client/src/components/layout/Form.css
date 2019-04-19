@@ -2,13 +2,6 @@
     box-sizing: border-box;
   }
   
-  body{
-    background:#021b35;
-    color:#3f658a;
-    line-height:1.6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding:1em;
-  }
   
   .container{
     max-width:1270px;
@@ -28,7 +21,7 @@
   }
   
   .brand span{
-    color:#fff;
+    color:#1a2b3d;
   }
   
   .wrapper{
@@ -47,7 +40,10 @@
   .wrapper > *{
     padding: 1em;
   }
-  
+  h3 {
+    text-align: center;
+    color: #1a2b3d;
+}
   .company-info{
     background:#b5d7f5;
   }
@@ -126,3 +122,4 @@
     border:1px solid #4e88bb;
     
   }
+  

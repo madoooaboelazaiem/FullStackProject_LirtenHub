@@ -17,11 +17,12 @@ class Header extends Component{
   
         return(
         <div className="header">
-          <a href="#default" className="logo">LirtenHub</a>
+          <a href="/home" className="logo">LirtenHub</a>
           <div className="header-right">
-            <a className="active" href="/home">Home</a>
-            <a href="#about">About</a>
-            <Router>
+            <a className="active" href="/">SignIn</a>
+            <a href="/SignUp">SignUp</a>
+            <a href="/About">About</a>
+            {/* <Router>
                       <Link  to={"/Profile/"+x.id} >My profile</Link>
                         <div className="dropdown-content bg-light-green ">
                           
@@ -29,11 +30,12 @@ class Header extends Component{
                           
                         
                       </div>
-                      </Router>
+                      </Router> */}
           
-            <h3></h3>
           </div>
+        
         </div>
+        
         )}
 }
 function mapStateToProps(state) {

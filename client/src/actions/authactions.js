@@ -75,6 +75,7 @@ export function login(data) {
     }) .catch(function (error) {
       alert("you have enter either the wrong username or password")
     });
+    
 
   }
 

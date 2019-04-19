@@ -1,12 +1,30 @@
 h3:hover {
 
-    background-color:#E0FFFF;
+    background-color:#021b35;
 
   }
+  .tt:hover {
+    border-radius: 15px   ;
+    outline: 0px solid transparent;
+  padding: 1px 1px;
+  border: 2px solid green;
+}
 
 h3{
 
     text-align : center;
-    color: green;
+    color: #E0FFFF;
 
+}
+.tt  button{
+  width:100%;
+  padding:1em;
+  border:1px solid #021b35;
+  background:#021b35;
+  color:#fff;
+
+
+}
+.L {
+  text-decoration: none;
 }

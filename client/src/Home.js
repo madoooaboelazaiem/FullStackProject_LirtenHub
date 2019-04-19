@@ -74,7 +74,7 @@ class Home extends React.Component {
           </Switch>
           <Link  class="nav-link bottom tc"  to={"/home"} >Home </Link>
           </Router>
-      </div>
+</div>
 
         )
       }
