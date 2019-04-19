@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Profile from "../pages/Profile"
 import axios from "axios"
 import { logout } from "../../actions/authactions";
+import { Redirect } from 'react-router-dom';
 import {createHashHistory}from "history"
 class Head extends Component{
 
@@ -15,14 +16,16 @@ class Head extends Component{
     const { dispatch } = this.props;
     console.log("HIIIIIIIIII")
     dispatch(logout());
-
-
 }
 
 render(){
   const {isLoggedIn,loggedUser,users} = this.props;
   const x = this.props.loggedUser
-  console.log(this.props.loggedUser)
+  console.log(this.props.isLoggedIn)
+  if(this.props.isLoggedIn===false){
+    return  <div><Redirect to='/' />;
+    </div>
+  }
     return(
         <div>
               <header className="bg-light-blue black-80 tc pv4 avenir">
