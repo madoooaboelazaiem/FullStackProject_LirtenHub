@@ -27,7 +27,7 @@ render(){
   console.log(this.props.loggedUser)
     return(
         <div>
-              <header className="bg-light-blue black-80 tc pv4 avenir">
+              <header className=" black-80 tc pv4 avenir">
                   <a href="" className="bg-black-80 ba b--black dib pa3 w2 h2 br-100">
                   </a>
                   <h1 className="mt2 mb0 baskerville i fw1 f1">LirtenHub</h1>
