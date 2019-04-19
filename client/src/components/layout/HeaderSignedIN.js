@@ -51,7 +51,7 @@ return(
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
-        <Link to={"/SingleProject/"+x.id} className="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
 
       </div>
     </div>
@@ -83,6 +83,7 @@ return(
                 <a className="dropdown-item black-80" href="/" >Log Out</a>
                 <a className="dropdown-item black-80" href="/">ChangeAccount</a>
                 <div className="dropdown-divider white-80"></div>
+                
                 <a className="dropdown-item black-80" href="#">About</a>
               </div>
             </li>
