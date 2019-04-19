@@ -45,7 +45,7 @@ class registration extends Component {
     if(isLoggedIn) {
       return <div>
       <h3>{console.log(loggedUser)}</h3>
-      <h4>{this.props.history.push("/home")}</h4>
+      <h4>{this.props.history.push("/")}</h4>
      
       <h5></h5>
       </div>
