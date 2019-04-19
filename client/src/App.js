@@ -47,9 +47,9 @@ class App extends React.Component {
           
           
           <div>
-           <X/>
+           
       <Router >
-        
+      <X/>
       <Switch>
       <Route  exact path="/" component={HomePage}/>
       <Route  exact path="/SingleProject/:id" component={Single_Project}/>
@@ -82,8 +82,9 @@ class App extends React.Component {
       else{
     return (
       <div>
-        <Header/>
+        
       <Router>
+      <Header/>
       <Route exact  path="/" component={SignIn}/>
       <Route exact  path="/SignUp" component={Form}/>
       </Router>

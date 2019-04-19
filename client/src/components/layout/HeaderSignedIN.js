@@ -77,6 +77,7 @@ return(
                 <a className="dropdown-item black-80" href="/" >Log Out</a>
                 <a className="dropdown-item black-80" href="/">ChangeAccount</a>
                 <div className="dropdown-divider white-80"></div>
+                <Link  className="nav-link hover-bg-light-blue"  to={"/Profile/"+x.id} > MyProfile</Link>
                 <a className="dropdown-item black-80" href="#">About</a>
               </div>
             </li>
