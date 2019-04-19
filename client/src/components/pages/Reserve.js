@@ -87,7 +87,7 @@ import {createHashHistory}from "history"
     return <div className="loader center"></div>
     return (
      
-<div> 
+<div id="page-content-wrapper"> 
 <form onSubmit={this.handleSubmitReserve} className="Field">
 
 <Link className = "hideLink" to={{

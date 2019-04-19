@@ -22,8 +22,8 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=
 	else
         res.json({data:X});});
 //Get the reservations of a certain user so that he can be able to see edit or delete them.
-router.get('/client',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    req.body.client=""+req.user._id;
+router.get('/client/res',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    req.body.client=""+req.user.id;
 	const X =await reservation.findOne({"client":req.body.client})
 	if(!X)
         return res.status(404).send({error: 'Reservation does not exist'})
@@ -31,7 +31,7 @@ router.get('/client',passport.authenticate('jwt', {session: false}),async(req,re
         res.json({data:X});}); 
 
 router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
-    req.body.client = ""+req.user._id;
+    req.body.client = ""+req.user.id;
     const pid = req.params.id
 	const X =await reservation.findById(req.body.client)
 	if(!X)
@@ -71,7 +71,7 @@ router.put('/confirmed/:id',passport.authenticate('jwt', {session: false}),async
     // if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
     //     return res.status(400).send({error: 'The Project cannot be edited anymore'})
     // }
-    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace" && req.user._id!=(""+X.OwnerId))
+    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace" && req.user.id!=(""+X.OwnerId))
     return res.status(401).send('Unauthorized');
     await X.updateOne({status:true})
     res.json({msg: 'Reservation Accepted '})
@@ -86,7 +86,7 @@ router.put('/declined/:id',passport.authenticate('jwt', {session: false}),async(
     // if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
     //     return res.status(400).send({error: 'The Project cannot be edited anymore'})
     // }
-    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace" && req.user._id!=(""+X.OwnerId))
+    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace" && req.user.id!=(""+X.OwnerId))
     return res.status(401).send('Unauthorized');
     await X.updateOne({status:false})
     res.json({msg: 'Reservation Declined '})
@@ -95,7 +95,7 @@ router.get('/confirmed/Yes',passport.authenticate('jwt', {session: false}),async
     const reservations= await reservation.find();
     const result=[]
     for(let i=0;i<reservations.length;i++){
-        if((reservations[i]).status==true&&reservations([i]).client==(""+req.user._id))
+        if((reservations[i]).status==true&&reservations([i]).client==(""+req.user.id))
             result.push(reservations[i])
     }
     res.json({ data: result})
@@ -113,7 +113,7 @@ router.get('/confirmed/No',passport.authenticate('jwt', {session: false}),async 
     const reservations= await reservation.find();
     const result=[]
     for(let i=0;i<reservations.length;i++){
-        if((reservations[i]).status==false&&reservations([i]).client==(""+req.user._id))
+        if((reservations[i]).status==false&&reservations([i]).client==(""+req.user.id))
             result.push(reservations[i])
     }
     res.json({ data: result})
@@ -133,7 +133,7 @@ router.get('/confirmed/notYet',passport.authenticate('jwt', {session: false}),as
     const reservations= await reservation.find();
     const result=[]
     for(let i=0;i<reservations.length;i++){
-        if((reservations[i]).status==null&&reservations([i]).OwnerId==(""+req.user._id))
+        if((reservations[i]).status==null&&reservations([i]).OwnerId==(""+req.user.id))
             result.push(reservations[i])
     }
     res.json({ data: result})

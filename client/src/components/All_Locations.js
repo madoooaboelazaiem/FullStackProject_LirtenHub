@@ -22,7 +22,7 @@ class All_Locations extends React.Component {
     if(this.state.done==null)
     return <div className="loader center"></div>
     return (
-      <div className = 'locations'>
+      <div className = 'locations' id="page-content-wrapper">
       <React.Fragment>
 
              <h1 className = "">Locations</h1>

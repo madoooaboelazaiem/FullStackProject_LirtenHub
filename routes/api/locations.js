@@ -24,10 +24,10 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=
 
 })
 //getting a location of a certain coworking space
-router.get('/CoWorkingLocation',passport.authenticate('jwt', {session: false}),async  (req, res) => {
+router.get('/CoWorkingLocation/all',passport.authenticate('jwt', {session: false}),async  (req, res) => {
   const locations= await location.find();
   // const usr = await user.findOne({id})
-  req.body.ownerID=""+req.user._id;
+  req.body.ownerID=""+req.user.id;
   const result=[]
   for(let i=0;i<locations.length;i++){
       if(((req.body.ownerID) == (locations[i]).ownerID))
@@ -39,7 +39,7 @@ router.get('/CoWorkingLocation',passport.authenticate('jwt', {session: false}),a
 router.post('/', passport.authenticate('jwt', {session: false}),async (req,res) => {
   if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace")
   return res.status(401).send('Unauthorized');
-  req.body.ownerID=""+req.user._id;
+  req.body.ownerID=""+req.user.id;
 
   try {
     const newLocation = await location.create(req.body)
@@ -62,13 +62,13 @@ router.post('/', passport.authenticate('jwt', {session: false}),async (req,res) 
 router.put('/:id', passport.authenticate('jwt', {session: false}),async (req,res) => {
   if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace")
   return res.status(401).send('Unauthorized');
-  req.body.ownerID=""+req.user._id;
+  req.body.ownerID=""+req.user.id;
 
   try {
    const id = req.params.id
    const locations = await location.findOne({"_id":id})
    if(!locations) return res.status(404).send({error: 'Location does not exist'})
-   const updatedLocation = await locations.updateOne(req.body)
+   const updatedLocation = await location.updateOne(req.body)
    res.json({msg: 'Location updated successfully',data: updatedLocation})
    console.log(updatedLocation)
   }
@@ -82,7 +82,7 @@ router.put('/:id', passport.authenticate('jwt', {session: false}),async (req,res
  router.delete('/:id', passport.authenticate('jwt', {session: false}),async (req,res) => {
   if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace")
   return res.status(401).send('Unauthorized');  
-  req.body.ownerID=""+req.user._id;
+  req.body.ownerID=""+req.user.id;
 
   try {
      const id = req.params.id

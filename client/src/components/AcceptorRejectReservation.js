@@ -87,7 +87,7 @@ class Cards extends Component{
      return <div className="loader center"></div>
         return(
 
-    <div className = "tc">
+    <div className = "tc" id="page-content-wrapper">
     <form onSubmit={this.handleSubmitReserve} className="Field">
             <Link className = "hideLink" to={{
                 state: {

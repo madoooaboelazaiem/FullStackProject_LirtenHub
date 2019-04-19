@@ -14,7 +14,7 @@ import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
   render() {
     return (//R is Actullay the Room Info itself
      
-<div> 
+<div id="page-content-wrapper"> 
 <Link className = "hideLink" to={{
   pathname: '/EditRooms',
   state: {

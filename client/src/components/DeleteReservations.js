@@ -69,7 +69,7 @@ class Delete extends Component{
         const {RoomID,from , to} = this.props.dele
       
         return(
-            <div className = "tc">
+            <div className = "tc" id="page-content-wrapper">
     <form onSubmit={this.routeChangeDelete} className="Field">
             <Link className = "hideLink" to={{
                 state: {

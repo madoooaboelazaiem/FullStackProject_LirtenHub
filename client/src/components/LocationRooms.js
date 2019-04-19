@@ -22,7 +22,7 @@ class All_Locations extends React.Component {
   }
   render() {
     if(this.state.done==null)
-      return <div className="loader center"></div>
+      return <div className="loader center" id="page-content-wrapper"></div>
     return (
       <React.Fragment>
              <h1 className = 'regReq'>Choose The Desired Location</h1>

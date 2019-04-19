@@ -23,9 +23,9 @@ class Reservations extends React.Component {
   }
   render() {
     if(this.state.done==null)
-     return <div className="loader center"></div>
+     return <div className="loader center" ></div>
     return ( 
-      <div>
+      <div id="page-content-wrapper">
         <h1 className = 'regReq'>Registration Requests</h1>
       {this.state.Reservations.map((reserv)=>(
      <Cards reserv={reserv}/>  

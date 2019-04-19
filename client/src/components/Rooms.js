@@ -21,10 +21,10 @@ class Rooms extends React.Component {
   }
   render() {
     if(this.state.done==null)
-      return <div className="loader center"></div>
+      return <div className="loader center" id="page-content-wrapper"></div>
     return (
       <React.Fragment>
-  <h2 className ="regReq">Click on the Desired Room you want to Edit</h2>
+  <h2 className ="regReq" id="page-content-wrapper">Click on the Desired Room you want to Edit</h2>
 
         {this.state.rooms.map((R)=>(
       <Room R={R}/>    

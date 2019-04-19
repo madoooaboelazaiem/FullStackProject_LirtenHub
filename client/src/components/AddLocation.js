@@ -50,7 +50,7 @@ class AddLocation extends Component{
     render(){
      
         return(
-          <div>
+          <div id="page-content-wrapper">
           <link rel="shortcut icon" href=""/>
           <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

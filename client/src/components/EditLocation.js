@@ -52,7 +52,7 @@ class AddLocation extends Component{
       if(this.state.done==null)
       return <div className="loader center"></div>
         return(
-          <div>
+          <div id="page-content-wrapper">
           <link rel="shortcut icon" href=""/>
           <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

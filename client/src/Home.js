@@ -6,6 +6,7 @@ import AddLocation from './components/AddLocation'
 import EditLocation from './components/EditLocation'
 import Header from './components/layout/HeaderHome'
 import All_Locations from './components/All_Locations'
+import CoworkingLocations from './components/CoworkingLocations'
 import AddRoom from './components/AddRoom'
 import LocationRoom from './components/LocationRooms'
 import EditRoom from './components/EditRoom'
@@ -47,8 +48,9 @@ class Home extends React.Component {
           <div>
 
       <Router >
+          <X/>
       <Switch>
-      <Route  exact path="/" component={X}/>
+      {/* <Route  exact path="/" component={X}/> */}
 
 
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
@@ -56,6 +58,7 @@ class Home extends React.Component {
           <Route exact  path="/unregistered" component={SignIn}/>
           <Route  exact path="/AddRoom" component={AddRoom}/>
           <Route  exact path="/LocationRoom" component={LocationRoom}/>
+          <Route  exact path="/CoworkingLoc" component={CoworkingLocations}/>
           <Route  exact path="/EditRooms" component={EditRoom}/>
           <Route  exact path="/Rooms" component={Rooms}/>
           <Route  exact path="/Reserve" component={Reserve}/>

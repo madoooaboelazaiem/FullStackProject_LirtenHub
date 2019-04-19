@@ -13,6 +13,7 @@ body {
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    
   }
   
   #sidebar-wrapper .sidebar-heading {
@@ -46,6 +47,7 @@ body {
       margin-left: -15rem;
     }
   }
+
   .bg-light {
     background-color: #101f50!important;
 }.border-bottom {

@@ -50,7 +50,7 @@ class AddRoom extends Component{
     render(){
       
         return(
-          <div>
+          <div id="page-content-wrapper">
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <title>Registration Form</title>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />

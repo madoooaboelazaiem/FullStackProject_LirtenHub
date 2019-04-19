@@ -20,7 +20,7 @@ class Rooms extends React.Component {
   }
   render() {
     if(this.state.done==null)
-    return <div className="loader center"></div>
+    return <div className="loader center" id="page-content-wrapper"></div>
     return (
       <React.Fragment>
   <h2 className ="regReq">Choose a corresponding date to the room you wish to reserve</h2>

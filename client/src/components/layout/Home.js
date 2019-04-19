@@ -51,13 +51,13 @@ return(
       <div className="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
       <div className="list-group list-group-flush">
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">Locations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AcceptRejectReservation">Reservations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Reserve">Add Reservation</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/DeleteReservations">Cancel Reservation</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
-        <Link to={"/SingleProject/"+x.id} className="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
         <Link to={"/SingleProject/"+x.id} className="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
         <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Status</a>
       </div>
@@ -93,6 +93,8 @@ return(
               </div>
             </li>
           </ul>
+          
+
         </div>
         
       </nav>
