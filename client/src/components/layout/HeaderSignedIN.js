@@ -3,6 +3,7 @@ import 'tachyons'
 import {createHashHistory}from "history"
 import { connect } from "react-redux";
 import { login } from "../../actions/authactions";
+
 import $ from 'jquery';
 
 import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
@@ -42,12 +43,16 @@ return(
     <div className="bg-light border-right" id="sidebar-wrapper">
       <div className="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
       <div className="list-group list-group-flush">
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Dashboard</a>
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Shortcuts</a>
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Overview</a>
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Events</a>
-        <a href="" className="list-group-item list-group-item-action white-80 bg-light">Profile</a>
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Status</a>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AcceptRejectReservation">Reservations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Reserve">Add Reservation</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/DeleteReservations">Cancel Reservation</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
+
       </div>
     </div>
 
@@ -67,7 +72,8 @@ return(
             </li>
              <li className="nav-item">
              
-                         
+             <Link  className="nav-link hover-bg-light-blue"  to={"/Profile/"+x.id} >MyProfile</Link>
+
                   </li> 
             <li className="nav-item dropdown white ">
               <a className="nav-link dropdown-toggle hover-bg-light-blue " href="#" id="navbarDropdown" role="button " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

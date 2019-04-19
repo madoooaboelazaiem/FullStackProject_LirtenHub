@@ -14,9 +14,15 @@ class DelRes extends React.Component {
      
   }
   render() {
-    return this.state.dele.map((dele)=>(
-      <DelCards dele={dele}/>    
-    ));
+    return( 
+      <div>
+        <h1 className = 'regReq'>Cancel Reservations</h1>
+      {this.state.dele.map((dele)=>(
+      <DelCards dele={dele}/>
+    ))}
+          </div>   
+
+    );
   }
 }
 

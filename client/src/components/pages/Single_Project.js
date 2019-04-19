@@ -139,13 +139,14 @@ function mapStateToProps(state) {
   render() {  
     
     if(this.state.done==null||this.state.P==null||this.state.skills==null||this.state.UP==null||this.state.consultancy==null||this.state.Apconsultancy==null||this.state.Acmembers==null||this.state.Apmembers==null){
-      return <h1>loading</h1>
+      return <div className="loader center" id="page-content-wrapper"></div>
+
     
     }
   else{
     console.log(this.state.Apconsultancy)
     return (
-      <div>     
+      <div id="page-content-wrapper">     
       <span2><h1 >{this.state.P.name}</h1></span2>    
       <p>{this.state.P.description}</p>
       <h2><span>Status :</span> {this.state.P.status}</h2>

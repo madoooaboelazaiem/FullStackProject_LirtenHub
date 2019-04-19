@@ -15,7 +15,7 @@ class All_Projects extends React.Component {
     Projects:[]
   }
   componentDidMount() {
-    axios.get(`http://localhost:3000/api/Projects`)
+    axios.get(`https://lirtenhubtest.herokuapp.com/api/Projects`)
       .then(res => {
         const P = res.data.data;
         console.log(P)
@@ -32,7 +32,7 @@ class All_Projects extends React.Component {
   render() {
     console.log(this.props.loggedUser)
     return this.state.Projects.map((P)=>(
-     <div>
+     <div id="page-content-wrapper">
       <Project P={P} /> 
       
       </div>

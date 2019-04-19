@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './Locations.css';
 import { Route, BrowserRouter as Router,Link,Redirect ,Switch } from 'react-router-dom'
+import { connect } from "react-redux";
 import axios from 'axios';
 import {createHashHistory}from "history"
 
@@ -16,7 +17,8 @@ import {createHashHistory}from "history"
           Y:this.props.R.Roomname,
           Z:this.props.R.OwnerId,
             added: false,
-          redirect: false
+          redirect: false,
+          done:null
 
         }
         this.onChange = this.onChange.bind(this)
@@ -38,6 +40,7 @@ import {createHashHistory}from "history"
 
     }
     handleSubmitReserve(event) {
+      const {isLoggedIn,loggedUser,users} = this.props;
 
         event.preventDefault();
        
@@ -50,11 +53,13 @@ import {createHashHistory}from "history"
           to: this.state.to,
           LocationID: this.state.X,
           OwnerId: this.state.Z,
-          client: "5cafcdadeebff820a470a077"
+          client: loggedUser.id
   
         }).then(res => {
           this.setState({
           })
+          this.setState({done:true})
+
           console.log(res.data)
         })
         .then(alert('Room Reserved Successfully '))
@@ -78,9 +83,11 @@ import {createHashHistory}from "history"
         }
       }
   render() {
+    if(this.state.done==null)
+    return <div className="loader center"></div>
     return (
      
-<div> 
+<div id="page-content-wrapper"> 
 <form onSubmit={this.handleSubmitReserve} className="Field">
 
 <Link className = "hideLink" to={{
@@ -92,11 +99,14 @@ import {createHashHistory}from "history"
   }
 }} onClick={this.onClick}> 
 
-    <h3>{this.props.R.Roomname}
+    <h3 className = 'loc'> 
+    <p className = 'blue'>Room Name</p>
+    {this.props.R.Roomname}
         <br></br>
-
+        <p className = 'blue'>Room Capacity</p>
       {this.props.R.capacity}
       <br></br>
+      <p className = 'blue'>Room Price</p>
         {this.props.R.fee}
         </h3>
         </Link>
@@ -125,8 +135,14 @@ import {createHashHistory}from "history"
 Room.propTypes ={
   R:PropTypes.object.isRequired
 }
-
-export default Room
+function mapStateToProps(state) {
+  // console.log(state.authentication.loggedUser)
+   
+   const { isLoggedIn,loggedUser } = state.authentication;
+  const {users} = state.users
+   return { isLoggedIn,loggedUser,users };
+ }
+export default connect(mapStateToProps)(Room) 
 // redirectFunction() {
     //   this.handleSubmit()
     //   router.push({
