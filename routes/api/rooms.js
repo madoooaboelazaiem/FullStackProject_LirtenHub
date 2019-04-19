@@ -24,12 +24,13 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=
 
 //getting a locationRoom of a certain coworking space
 router.get('/CoWorkingRoom',passport.authenticate('jwt', {session: false}),async  (req, res) => {
-    
-    const rooms= await Room.find();
+    req.body.OwnerId=""+req.user._id;
+
+    const rooms= await Room.findOne({"OwnerId":req.body.OwnerId});
     // const usr = await user.findOne({id})
     const result=[]
     for(let i=0;i<rooms.length;i++){
-        if(((req.body.OwnerId) == (rooms[i]).OwnerId))
+        if(((req.body.OwnerId   +"") == (rooms[i]).OwnerId))
             result.push(rooms[i])
     }
     res.json({ data: result})
@@ -51,7 +52,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),async (req,res) 
     return res.status(401).send('Unauthorized');
     try {
         const X=await location.findById(req.body.LocationID)
-        if(req.user._id!=(""+X.OwnerId))
+        if(req.user._id!=(""+X.ownerID))
         return res.status(401).send('Unauthorized');
         const loc=await location.findOne({"_id":req.body.LocationID})
         const result=loc.locationRooms
@@ -94,7 +95,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),async (req,res) 
      
      if(!rooms) return res.status(404).send({error: 'Room does not exist'})
      
-     const updatedRoom = await room.updateOne(req.body)
+     const updatedRoom = await rooms.updateOne(req.body)
      res.json({msg: 'Room updated successfully',data: updatedRoom})
     }
     catch(error) {

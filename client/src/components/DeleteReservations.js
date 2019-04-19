@@ -17,7 +17,8 @@ class Delete extends Component{
     this.state = {
      status: false,
       redirect: false,
-      Y:this.props.dele._id
+      Y:this.props.dele._id,
+      done:null
 
     }
     this.onClick = this.onClick.bind(this)
@@ -39,7 +40,9 @@ class Delete extends Component{
     }).then(res => {
       this.setState({
         status: true 
+        
      }) 
+
 
     }).then(res =>{
         alert('Room Deleted')
@@ -59,11 +62,12 @@ class Delete extends Component{
 
         return (
 
-        <Redirect to='/home' />)
+        <Redirect to='/' />)
     }
   }
     render(){
         const {RoomID,from , to} = this.props.dele
+      
         return(
             <div className = "tc">
     <form onSubmit={this.routeChangeDelete} className="Field">
@@ -72,8 +76,8 @@ class Delete extends Component{
                   ReservID: this.state.Y
                 }
               }}  onClick={this.onClick}>
-            <Card>
-              <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
+            <Card className='flexx'>
+              <CardBody >
                 <CardText>{RoomID}</CardText>
                 <CardText>{from}</CardText>
                 <CardText>{to}</CardText>

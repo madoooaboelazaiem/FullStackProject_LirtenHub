@@ -179,7 +179,7 @@ Studies:user.Studies,
 
   render() {
     if(this.state.User_Category==null){
-      return "loading"
+      return <div className="loader center"></div>
     }
     const {isLoggedIn,loggedUser,users} = this.props;
     const x = this.props.loggedUser

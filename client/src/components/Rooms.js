@@ -5,22 +5,26 @@ import 'tachyons'
 
 class Rooms extends React.Component {
   state={
-    rooms:[]
+    rooms:[],
+    done: null
   }
   componentDidMount() {
-    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/`)
+    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/CoWorkingRoom`)
       .then(res => {
         const R = res.data.data;
         this.setState({rooms:R });
-        
+
       })  
+      this.setState({done:true})
+
      
   }
   render() {
-    
+    if(this.state.done==null)
+      return <div className="loader center"></div>
     return (
       <React.Fragment>
-  <h2 className = 'tc red'>Click on the Desired Room you want to Edit</h2>
+  <h2 className ="regReq">Click on the Desired Room you want to Edit</h2>
 
         {this.state.rooms.map((R)=>(
       <Room R={R}/>    

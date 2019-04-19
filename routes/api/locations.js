@@ -68,7 +68,7 @@ router.put('/:id', passport.authenticate('jwt', {session: false}),async (req,res
    const id = req.params.id
    const locations = await location.findOne({"_id":id})
    if(!locations) return res.status(404).send({error: 'Location does not exist'})
-   const updatedLocation = await location.updateOne(req.body)
+   const updatedLocation = await locations.updateOne(req.body)
    res.json({msg: 'Location updated successfully',data: updatedLocation})
    console.log(updatedLocation)
   }

@@ -5,7 +5,9 @@ import 'tachyons'
 
 class All_Locations extends React.Component {
   state={
-    locations:[]
+    locations:[],
+    done:null
+
   }
   componentDidMount() {
     axios.get(`https://lirtenhubtest.herokuapp.com/api/Locations/`)
@@ -13,14 +15,17 @@ class All_Locations extends React.Component {
         const L = res.data.data;
         this.setState({locations:L });
         
-      })  
+      })
+      this.setState({done:true})
+  
      
   }
   render() {
-    
+    if(this.state.done==null)
+      return <div className="loader center"></div>
     return (
       <React.Fragment>
-             <h1 className = "tc red">Choose The Desired Location</h1>
+             <h1 className = 'regReq'>Choose The Desired Location</h1>
 
         {this.state.locations.map((L)=>(
       <LocationRoom L={L}/>    

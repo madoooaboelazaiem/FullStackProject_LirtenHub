@@ -5,22 +5,25 @@ import 'tachyons'
 
 class Rooms extends React.Component {
   state={
-    rooms:[]
+    rooms:[],
+    done:null
   }
   componentDidMount() {
     axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/`)
       .then(res => {
         const R = res.data.data;
         this.setState({rooms:R });
-        
+        this.setState({done:true})
+
       })  
      
   }
   render() {
-    
+    if(this.state.done==null)
+    return <div className="loader center"></div>
     return (
       <React.Fragment>
-  <h2 className = 'tc red'>Choose a corresponding date to the room you wish to reserve</h2>
+  <h2 className ="regReq">Choose a corresponding date to the room you wish to reserve</h2>
   <p className = "tc ">
         <label className='red '> {"Date Format : <YYYY-mm-ddTHH:MM:ss>"} </label>
         </p>

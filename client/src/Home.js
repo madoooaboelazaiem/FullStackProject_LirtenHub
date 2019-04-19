@@ -47,12 +47,13 @@ class Home extends React.Component {
           <div>
 
       <Router >
-        <X/>
       <Switch>
+      <Route  exact path="/" component={X}/>
+
 
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           {/* <Route  exact path="/home" component={App}/> */}
-          {/* <Route exact  path="/unregistered" component={SignIn}/> */}
+          <Route exact  path="/unregistered" component={SignIn}/>
           <Route  exact path="/AddRoom" component={AddRoom}/>
           <Route  exact path="/LocationRoom" component={LocationRoom}/>
           <Route  exact path="/EditRooms" component={EditRoom}/>
@@ -72,7 +73,7 @@ class Home extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
-          <Link  class="nav-link bottom tc"  to={"/home"} >Home </Link>
+          <Link  className="nav-link bottom tc"  to={"/"} >Home </Link>
           </Router>
       </div>
 

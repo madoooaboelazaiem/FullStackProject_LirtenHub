@@ -22,7 +22,14 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=
 	else
         res.json({data:X});});
 //Get the reservations of a certain user so that he can be able to see edit or delete them.
-        
+router.get('/client',passport.authenticate('jwt', {session: false}),async(req,res)=>{
+    req.body.client=""+req.user._id;
+	const X =await reservation.findOne({"client":req.body.client})
+	if(!X)
+        return res.status(404).send({error: 'Reservation does not exist'})
+	else
+        res.json({data:X});}); 
+
 router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{
     req.body.client = ""+req.user._id;
     const pid = req.params.id
@@ -55,7 +62,8 @@ router.post('/',passport.authenticate('jwt', {session: false}), async (req,res) 
 
 // Update a reservation's details
 router.put('/confirmed/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{//Hay confirm w yeb3at notifications 
-   
+    if(req.user.User_Category!="Admin"&&req.user.User_Category!="Partner_CoWorkingSpace")
+    return res.status(401).send('Unauthorized');
     const pid = req.params.id 
     const X = await reservation.findOne({'_id':pid})
     if(!X)
