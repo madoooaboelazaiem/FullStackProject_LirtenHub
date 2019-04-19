@@ -17,7 +17,8 @@ class Cards extends Component{
     this.state = {
      status: false,
       redirect: false,
-      Y:this.props.reserv._id
+      Y:this.props.reserv._id,
+      done:null
 
     }
     this.onClick = this.onClick.bind(this)
@@ -31,13 +32,17 @@ class Cards extends Component{
     event.preventDefault();
   
     console.log(this.state.Y)
-    axios.put(`https://lirtenhub-nav2.herokuapp.com/api/reservations/declined/`+this.state.Y,{
+    axios.put(`https://lirtenhubtest.herokuapp.com/api/reservations/declined/`+this.state.Y,{
 
     }).then(res => {
       this.setState({
         status: true 
      }) 
+     this.setState({done:true})
+
       alert('Room Rejected')
+    }).catch(err=>{
+      console.log(err)
     })
 
   
@@ -49,14 +54,18 @@ class Cards extends Component{
   routeChangeAccept(event) {
     event.preventDefault();
     console.log(this.state.Y)
-    axios.put(`https://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/`+this.state.Y,{
+    axios.put(`https://lirtenhubtest.herokuapp.com/api/reservations/confirmed/`+this.state.Y,{
 
     }).then(res => {
       this.setState({
         status: true 
      }) 
+     this.setState({done:true})
+
       alert('Room Accepted')
 
+    }).catch(err=>{
+      console.log(err)
     })
 
     
@@ -72,20 +81,24 @@ class Cards extends Component{
     }
   }
     render(){
+      
         const {RoomID,from , to} = this.props.reserv
+        if(this.state.done==null)
+     return <div className="loader center"></div>
         return(
-            <div className = "tc">
+
+    <div className = "tc" id="page-content-wrapper">
     <form onSubmit={this.handleSubmitReserve} className="Field">
             <Link className = "hideLink" to={{
                 state: {
                   ReservID: this.state.Y
                 }
               }}  onClick={this.onClick}>
-            <Card>
-              <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
-                <CardText>{RoomID}</CardText>
-                <CardText>{from}</CardText>
-                <CardText>{to}</CardText>
+            <Card className ='flexx'>
+              <CardBody  >
+                <CardText >{RoomID}</CardText>
+                <CardText >{from}</CardText>
+                <CardText >{to}</CardText>
               </CardBody>
             </Card>
             </Link>

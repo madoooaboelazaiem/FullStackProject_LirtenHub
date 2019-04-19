@@ -47,9 +47,9 @@ class App extends React.Component {
           
           
           <div>
-           <X/>
       <Router >
-        
+      <X/>
+
       <Switch>
       <Route  exact path="/" component={HomePage}/>
       <Route  exact path="/SingleProject/:id" component={Single_Project}/>
