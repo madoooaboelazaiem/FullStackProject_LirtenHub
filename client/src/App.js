@@ -24,7 +24,7 @@ import Profile from './components/pages/Profile'
 import {createHashHistory}from "history"
 import Edit from './components/pages/Edit';
 import X from './components/layout/HeaderSignedIN'
-
+import HomePage from './components/pages/HomePage'
 import Changepw from './components/pages/Changepw';
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
@@ -51,7 +51,8 @@ class App extends React.Component {
       <Router >
         
       <Switch>
-      
+      <Route  exact path="/" component={HomePage}/>
+      <Route  exact path="/SingleProject/:id" component={Single_Project}/>
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           <Route  exact path="/home" component={App}/>
           <Route  exact path="/AddRoom" component={AddRoom}/>
@@ -73,7 +74,6 @@ class App extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
-          <Link  class="nav-link bottom tc"  to={"/"} >Home </Link>
           </Router>
       </div>
 
