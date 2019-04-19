@@ -51,7 +51,8 @@ class Home extends React.Component {
       <Switch>
 
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
-          <Route  exact path="/home" component={App}/>
+          {/* <Route  exact path="/home" component={App}/> */}
+          {/* <Route exact  path="/unregistered" component={SignIn}/> */}
           <Route  exact path="/AddRoom" component={AddRoom}/>
           <Route  exact path="/LocationRoom" component={LocationRoom}/>
           <Route  exact path="/EditRooms" component={EditRoom}/>
@@ -71,7 +72,7 @@ class Home extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
-          <Link  class="nav-link bottom tc"  to={"/"} >Home </Link>
+          <Link  class="nav-link bottom tc"  to={"/home"} >Home </Link>
           </Router>
       </div>
 

@@ -8,7 +8,7 @@ class Rooms extends React.Component {
     rooms:[]
   }
   componentDidMount() {
-    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/rooms/`)
+    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/`)
       .then(res => {
         const R = res.data.data;
         this.setState({rooms:R });

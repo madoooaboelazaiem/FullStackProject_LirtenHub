@@ -19,7 +19,7 @@ class Header extends Component{
         <div className="header">
           <a href="/home" className="logo">LirtenHub</a>
           <div className="header-right">
-            <a className="active" href="/">SignIn</a>
+            <a className="active" href="/unregistered">SignIn</a>
             <a href="/SignUp">SignUp</a>
             <a href="/About">About</a>
             {/* <Router>

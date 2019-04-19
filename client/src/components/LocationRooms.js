@@ -8,7 +8,7 @@ class All_Locations extends React.Component {
     locations:[]
   }
   componentDidMount() {
-    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/Locations/`)
+    axios.get(`https://lirtenhubtest.herokuapp.com/api/Locations/`)
       .then(res => {
         const L = res.data.data;
         this.setState({locations:L });

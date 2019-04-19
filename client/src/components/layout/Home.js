@@ -16,8 +16,13 @@ class Home extends Component{
     constructor(props) {
     super(props)
     this._toggleDiv = this._toggleDiv.bind(this)
+    this.onClick = this.onClick.bind(this)
+
   }
-  
+  onClick(e) {
+    this.props.isLoggedIn = false;
+    this.props.loggedUser = null;
+  }
   _toggleDiv() {
     
       $("#wrapper").toggleClass("toggled");
@@ -46,7 +51,7 @@ return(
         <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Shortcuts</a>
         <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Overview</a>
         <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Events</a>
-        <a href="" class="list-group-item list-group-item-action white-80 bg-light">Profile</a>
+        <Link to={"/SingleProject/"+x.id} class="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
         <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Status</a>
       </div>
     </div>
@@ -74,8 +79,8 @@ return(
                 Account
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item black-80" href="/" >Log Out</a>
-                <a class="dropdown-item black-80" href="/">ChangeAccount</a>
+                <Link class="dropdown-item black-80" to="/unregistered"onClick = {this.remove} >Log Out</Link>
+                <a class="dropdown-item black-80" href="/unregistered">ChangeAccount</a>
                 <div class="dropdown-divider white-80"></div>
                 <a class="dropdown-item black-80" href="#">About</a>
               </div>

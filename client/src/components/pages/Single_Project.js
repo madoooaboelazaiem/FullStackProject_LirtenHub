@@ -139,7 +139,8 @@ function mapStateToProps(state) {
   render() {  
     
     if(this.state.done==null||this.state.P==null||this.state.skills==null||this.state.UP==null||this.state.consultancy==null||this.state.Apconsultancy==null||this.state.Acmembers==null||this.state.Apmembers==null){
-      return <h1>loading</h1>
+      return <div class="loader"></div>
+
     
     }
   else{
