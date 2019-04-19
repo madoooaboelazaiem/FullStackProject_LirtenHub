@@ -32,11 +32,11 @@ class formpartner extends Component{
                   <h3>Create New Account</h3>
                   <form method="POST" action="send">
                     <p>
-                      <label>Name</label>
+                      <label>FirstName</label>
                       <input type="text" name="name"/>
                     </p>
                     <p>
-                      <label>Company</label>
+                      <label>LastName</label>
                       <input type="text" name="company"/>
                     </p>
                     <p>
@@ -44,23 +44,20 @@ class formpartner extends Component{
                       <input type="email" name="email"/>
                     </p>
                     <p>
-                      <label>Phone Number</label>
+                      <label>Country</label>
                       <input type="text" name="phone"/>
                     </p>
                     <p>
-                      <label>Phone Number</label>
+                      <label>City</label>
+                      <input type="text" name="phone"/>
+                    </p> <p>
+                      <label> Bio</label>
                       <input type="text" name="phone"/>
                     </p> <p>
                       <label>Phone Number</label>
                       <input type="text" name="phone"/>
-                    </p> <p>
-                      <label>Phone Number</label>
-                      <input type="text" name="phone"/>
                     </p>
-                    <p>
-                      <label>Phone Number</label>
-                      <input type="text" name="phone"/>
-                    </p>
+                    
                     <p classNameName="full">
                      <span className = 'reg'> <button type="submit">Register</button> </span>
                     </p>
