@@ -81,9 +81,11 @@ router.post('/login',async (req, res) => {
 
 router.post('/register', async (req, res) => {
 	try {
+		console.log("where are uuuuuuuuuuuuuuuuu")
 		if(!req.body.Password)
 		return res.status(400).send({ error:'Please Enter Password'})
 
+		
 		let isValidated;
 
 		if(req.body.User_Category=='Member')

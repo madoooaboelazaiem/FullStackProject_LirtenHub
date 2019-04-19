@@ -57,6 +57,7 @@ class formpartner extends Component{
                       <label>Phone Number</label>
                       <input type="text" name="phone"/>
                     </p>
+                    <p></p>
                     
                     <p classNameName="full">
                      <span className = 'reg'> <button type="submit">Register</button> </span>

@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
+import {createHashHistory}from "history"
 
 export default class preRegistration extends Component {
+
+  onSubmitpartner = e => {
+  this.props.history.push("/SignUp4")
+}
+onSubmitconsult = e => {
+  this.props.history.push("/SignUp2")
+}
+onSubmitmember = e => {
+  this.props.history.push("/SignUp1")
+}
+onSubmitcoworking = e => {
+  this.props.history.push("/SignUp3")
+}
+
+
   render() {
     return (
         <div>
@@ -31,22 +47,22 @@ export default class preRegistration extends Component {
                 <p>
                   <label>please select which User category are u </label>
                 </p>
-                <form onSubmit={<div><Redirect to='/SignUp2' /> </div>}>
+                <form onSubmit={this.onSubmitconsult.bind(this)}>
                 <p classNameName="full">
                  <span className = 'reg'> <button type="submit">Consulting Agent</button> </span>
                 </p>
                 </form>
-                <form  onSubmit={<div><Redirect to='/SignUp4' /> </div>} >
+                <form  onSubmit={this.onSubmitpartner.bind(this)} >
                 <p classNameName="full">
                  <span className = 'reg'> <button type="submit">Partner</button> </span>
                 </p>
                 </form>
-                <form  onSubmit={<div><Redirect to='/SignUp' /> </div>}> 
+                <form  onSubmit={this.onSubmitmember.bind(this)}> 
                 <p classNameName="full">
                  <span className = 'reg'> <button type="submit">Member</button> </span>
                 </p>
                 </form>
-                <form   onSubmit={<div><Redirect to='/SignUp3' /> </div>}>
+                <form   onSubmit={this.onSubmitcoworking.bind(this)}>
                 <p classNameName="full">
                  <span className = 'reg'> <button type="submit">Co Working Space</button> </span>
                 </p>

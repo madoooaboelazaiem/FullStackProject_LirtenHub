@@ -4,8 +4,10 @@ import {createHashHistory}from "history"
 import { connect } from "react-redux";
 import { login } from "../../actions/authactions";
 import $ from 'jquery';
-
+import { Redirect } from 'react-router-dom';
 import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
+import axios from "axios"
+import { logout } from "../../actions/authactions";
 class Home extends Component{
   // onClick(e){
   //   ("#menu-toggle").click(function(e) {
@@ -23,12 +25,24 @@ class Home extends Component{
       $("#wrapper").toggleClass("toggled");
     
   }
+  onSubmit = e => {
+    e.preventDefault();
+  axios.put('http://localhost:3000/api/users/Logout/'+(this.props.loggedUser.id), {}).then(res => {
+  });
+    const { dispatch } = this.props;
+    console.log("HIIIIIIIIII")
+    dispatch(logout());
+}
+
 
     render(){
       const { dispatch } = this.props;
       const x = this.props.loggedUser
       console.log(this.props.loggedUser)
-
+      if(this.props.isLoggedIn===false){
+        return  <div><Redirect to='/' />;
+        </div>
+      }
 return(
     <div>
 
@@ -74,7 +88,10 @@ return(
                 Account
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item black-80" href="/" >Log Out</a>
+                
+              <form onSubmit={this.onSubmit.bind(this)}>
+                      <button class="dropdown-item black-80" type="submit">Logout</button></form>
+
                 <a class="dropdown-item black-80" href="/">ChangeAccount</a>
                 <div class="dropdown-divider white-80"></div>
                 <a class="dropdown-item black-80" href="#">About</a>

@@ -25,8 +25,11 @@ import Profile from './components/pages/Profile'
 import {createHashHistory}from "history"
 import Edit from './components/pages/Edit';
 import X from '../src/components/layout/Home'
-
+import formconsultancy from "./components/layout/formconsultancy"
+import formcoworking from "./components/layout/formcoworking"
 import Changepw from './components/pages/Changepw';
+import preRegistration from './components/pages/preRegistration';
+import formpartner from './components/layout/formpartner';
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -72,7 +75,7 @@ class Home extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
-          <Link  class="nav-link bottom tc"  to={"/home"} >Home </Link>
+          <Link  class="nav-link bottom tc"  to={"/"} >Home </Link>
           </Router>
 </div>
 
@@ -86,8 +89,11 @@ class Home extends React.Component {
       <Header/>
 
       <Route exact  path="/" component={SignIn}/>
-      <Route exact  path="/SignUp" component={Form}/>
-     
+      <Route exact  path="/SignUp" component={preRegistration}/>
+      <Route exact  path="/SignUp1" component={Form}/>
+      <Route exact  path="/SignUp2" component={formconsultancy}/>
+      <Route exact  path="/SignUp3" component={formcoworking}/>
+      <Route exact  path="/SignUp4" component={formpartner}/>
 
 
       </Router>

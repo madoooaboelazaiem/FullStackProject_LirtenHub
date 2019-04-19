@@ -14,7 +14,7 @@ class Header extends Component{
       const {isLoggedIn,loggedUser,users} = this.props;
       const x = this.props.loggedUser
       console.log(this.props.loggedUser)
-  
+    
         return(
         <div className="header">
           <a href="/home" className="logo">LirtenHub</a>
