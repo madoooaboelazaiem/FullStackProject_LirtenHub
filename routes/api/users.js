@@ -8,6 +8,7 @@ const User = require('../../models/User');
 const Skill = require('../../models/Skill');
 const tokenKey = require('../../config/keys').secretOrKey
 const Project = require('../../models/Project');
+const nodemailer = require('nodemailer');
 
 //All Users
 router.post('/login',async (req, res) => {
@@ -109,34 +110,41 @@ router.post('/register', async (req, res) => {
 		const age=((new Date()).getFullYear())-(newUser.Birth_Date.getFullYear())
 		await newUser.updateOne({'Age':age})
 		const Z=await User.findOne({'_id':newUser._id})
-		let transporter = nodemailer.createTransport({
-			service: 'gmail',
-			auth: {
-				user: 'lirtenhubn.a@gmail.com', // generated ethereal user
-				pass: 'madolirten1234'  // generated ethereal password
-			},
-		  
-		  });
 		
-		  // setup email data with unicode symbols
-		  let mailOptions = {
-			  from: 'LirtenHub@Lirten.com', // sender address
-			  to: req.body.email, // list of receivers
-			  subject: 'Registration', // Subject line
-			  text: 'Congrats you are now a LirtenHub Member', // plain text body
-			  url: 'https://localhost:3000/validate/'+Z._id // html body
-		  };
 		
-		  // send mail with defined transport object
-		  transporter.sendMail(mailOptions, (error, info) => {
-			  if (error) {
-				  return console.log(error);
-			  }
-			  console.log('Message sent: %s', info.messageId);   
-			  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-		
-			  res.render('contact', {msg:'Email has been sent'});
-		  });
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: 'lirtenhubn.a@gmail.com', // generated ethereal user
+          pass: 'madolirten1234'  // generated ethereal password
+      },
+    
+    });
+  
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: 'LirtenHub@Lirten.com', // sender address
+        to: req.body.Email, // list of receivers
+        subject: 'Registration', // Subject line
+        text: 'Congrats you are now only one step away to Join LirtenHub  \n please join us at our HeadQuarters so you can sign the contract', // plain text body
+         // html body
+    };
+  
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);   
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  
+        
+    });
+     
+
+
 		res.json({ msg: 'User created successfully', data: Z });
 	} catch (error) {
 		console.log(error)
