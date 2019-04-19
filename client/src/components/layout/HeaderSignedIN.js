@@ -3,35 +3,28 @@ import 'tachyons'
 import {createHashHistory}from "history"
 import { connect } from "react-redux";
 import { login } from "../../actions/authactions";
+
 import $ from 'jquery';
-import createHistory from 'history/createBrowserHistory'
-import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
-import {browserHistory} from 'react-router'
-class Home extends Component{
+
+import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
+class HeaderSignedIN extends Component{
   // onClick(e){
   //   ("#menu-toggle").click(function(e) {
   //     e.preventDefault();
-  //     ("#wrapper").toggleclassName("toggled");
+  //     ("#wrapper").toggleClass("toggled");
   //   });
   // }
     constructor(props) {
     super(props)
     this._toggleDiv = this._toggleDiv.bind(this)
-    // this.remove = this.remove.bind()
-
   }
-  // remove() {
-  //   const { dispatch } = this.props;
-  //   this.props.isLoggedIn = false;
-  //   this.props.loggedUser = null;
-
-  // }
+  
   _toggleDiv() {
     
       $("#wrapper").toggleClass("toggled");
     
   }
-
+//<Link  className="nav-link hover-bg-light-blue"  to={"/Profile/"+x.id} >MyProfile</Link>
     render(){
       const { dispatch } = this.props;
       const x = this.props.loggedUser
@@ -41,7 +34,7 @@ return(
     <div>
 
 
-<body >
+
 
 
 
@@ -59,12 +52,12 @@ return(
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
         <Link to={"/SingleProject/"+x.id} className="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
-        <a href="#" className="list-group-item list-group-item-action white-80 bg-light">Status</a>
+
       </div>
     </div>
 
     <div id="page-content-wrapper">
-
+    
       <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <button className="btn btn-primary" id="menu-toggle" onClick={this._toggleDiv}>LirtenHub</button>
 
@@ -78,23 +71,22 @@ return(
               {/* <a className="nav-link hover-bg-light-blue" href="#">Home <span className="sr-only">(current)</span></a> */}
             </li>
              <li className="nav-item">
+             
              <Link  className="nav-link hover-bg-light-blue"  to={"/Profile/"+x.id} >MyProfile</Link>
-                         
+
                   </li> 
             <li className="nav-item dropdown white ">
               <a className="nav-link dropdown-toggle hover-bg-light-blue " href="#" id="navbarDropdown" role="button " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Account
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item black-80" href="/"  >Log Out</a>
+                <a className="dropdown-item black-80" href="/" >Log Out</a>
                 <a className="dropdown-item black-80" href="/">ChangeAccount</a>
                 <div className="dropdown-divider white-80"></div>
                 <a className="dropdown-item black-80" href="#">About</a>
               </div>
             </li>
           </ul>
-          
-
         </div>
         
       </nav>
@@ -106,7 +98,8 @@ return(
 
 
 
-</body>
+
+
 </div>
 )
 }
@@ -119,4 +112,4 @@ function mapStateToProps(state) {
  const {users} = state.users
   return { isLoggedIn,loggedUser,users };
 }
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(HeaderSignedIN);

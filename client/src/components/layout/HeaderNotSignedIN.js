@@ -4,7 +4,7 @@ import '../layout/HeaderHome.css'
 import {createHashHistory}from "history"
 import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
 import { connect } from "react-redux";
-class Header extends Component{
+class HeaderNotSignedIN extends Component{
   constructor(props) {
     super(props);
   }
@@ -45,4 +45,4 @@ function mapStateToProps(state) {
   const {users} = state.users
    return { isLoggedIn,loggedUser,users };
  }
- export default connect(mapStateToProps)(Header);
+ export default connect(mapStateToProps)(HeaderNotSignedIN);
