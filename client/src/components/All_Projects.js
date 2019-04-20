@@ -15,7 +15,7 @@ class All_Projects extends React.Component {
     Projects:[]
   }
   componentDidMount() {
-    axios.get(`http://localhost:3000/api/Projects`)
+    axios.get(`Https://Lirtenhubtest.herokuapp.com/api/Projects`)
       .then(res => {
         const P = res.data.data;
         console.log(P)

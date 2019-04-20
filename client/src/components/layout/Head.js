@@ -69,6 +69,7 @@ render(){
 
                    
                    <div className="dropdown"></div>
+                   
                        <Link  to={"/Profile/"+x.id} >My profile</Link>
                        
                         <div className="dropdown-content bg-light-green ">

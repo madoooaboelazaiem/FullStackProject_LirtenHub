@@ -98,7 +98,7 @@ this.setState({Skills:result})
 })
 
 }
-for(let i=0;i<this.state.Skills.length;i++){
+for(let i=0;i<this.state.Applied_Skills.length;i++){
 
   axios.get('http://localhost:3000/api/skills/'+(this.state.Applied_Skills[i]))
 

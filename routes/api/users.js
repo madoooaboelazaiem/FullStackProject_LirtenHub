@@ -258,8 +258,8 @@ router.post('/changepassword/:id',async(req,res)=>{
 	}
 	const salt = bcrypt.genSaltSync(10);
 	const hashedPassword = bcrypt.hashSync(newpassword, salt);
-	const U=await User.find({'_id':req.params.id})
-	await U.updateOne({'Hashed_password':hashedPassword})
+	const user= await User.findOne({'_id':req.params.id})
+	await user.updateOne({'Hashed_password':hashedPassword})
 	res.json({msg:'OK'})
 
 })
@@ -341,9 +341,9 @@ router.put('/declineSkill/:id',async(req,res)=>{
 router.get('/pending/Skill',async(req,res)=>{
 	const U=await User.find()
 	const result=[]
-	for(let i=0;i<U.length;i++)
-		for(let j=0;j<U[i].Applied_Skills.length;j++)
-			result.push({user:U[i],skill:U[i].Applied_Skills[j]})
+	for(let i=0;i<U.length;i++){
+		for(let j=0;j<U[i].Applied_Skills.length;j++){
+			result.push({user:U[i],skill:U[i].Applied_Skills[j]})}}
 	return res.json({Data: result})
 })
 router.post('/Certificate/:id', async (req, res) => {

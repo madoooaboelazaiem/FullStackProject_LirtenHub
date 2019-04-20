@@ -49,9 +49,7 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='http://localhost:3000/api/users/'+(this.props.match.params.id)
-
-  //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
+  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   console.log(sendtoaxios) 
 
@@ -124,7 +122,7 @@ if(user.User_Category=="Consulting_Agent"){
     
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/'+loggedUser.id,
+      url: 'Https://Lirtenhubtest.herokuapp.com/api/users/'+loggedUser.id,
       data: {
          
         First_Name:this.state.First_Name,
