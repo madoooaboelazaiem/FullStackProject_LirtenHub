@@ -11,12 +11,7 @@ import EditRoom from './components/EditRoom'
 import Rooms from './components/Rooms'
 import Reserve from './components/AddReservation'
 import DeleteReservations from './components/pages/DeleteRes'
-import All_Projects from './components/All_Projects'
 import Reservations from './components/pages/Reservations'
-import Project_Requests from './components/Project_Requests'
-import Single_Project from './components/pages/Single_Project'
-import approvedP from "./components/pages/approvedP.js"
-import notapprovedP from './components/pages/notapprovedP.js'
 import { connect } from "react-redux";
 import Calendar from './components/layout/Calendar'
 import { Route, BrowserRouter as Router,Link ,browserHistory,Switch } from 'react-router-dom'
@@ -26,6 +21,11 @@ import Edit from './components/pages/Edit';
 import X from './components/layout/HeaderSignedIN'
 import HomePage from './components/pages/HomePage'
 import Changepw from './components/pages/Changepw';
+import All_Projects from './components/pages/Projects/All_Projects'
+import Project_Requests from './components/pages/Projects/Project_Requests'
+import Single_Project from './components/pages/Projects/Single_Project'
+import approvedP from "./components/pages/Projects/approvedP.js"
+import notapprovedP from './components/pages/Projects/notapprovedP.js'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -52,7 +52,7 @@ class App extends React.Component {
 
       <Switch>
       <Route  exact path="/" component={HomePage}/>
-      <Route  exact path="/SingleProject/:id" component={Single_Project}/>
+      
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           <Route  exact path="/home" component={App}/>
           <Route  exact path="/AddRoom" component={AddRoom}/>
