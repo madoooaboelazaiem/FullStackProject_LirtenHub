@@ -54,10 +54,12 @@ return(
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
 
       </div>
+      
     </div>
+    
 
     <div id="page-content-wrapper">
-    
+      
       <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <button className="btn btn-primary" id="menu-toggle" onClick={this._toggleDiv}>LirtenHub</button>
 
@@ -86,16 +88,21 @@ return(
                 
                 <a className="dropdown-item black-80" href="#">About</a>
               </div>
+              
             </li>
           </ul>
+          
         </div>
         
+        
       </nav>
+      {this.props.children}
 
      
     </div>
 
   </div>
+  
 
 
 

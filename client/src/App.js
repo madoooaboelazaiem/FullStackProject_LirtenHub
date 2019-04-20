@@ -26,6 +26,7 @@ import Project_Requests from './components/pages/Projects/Project_Requests'
 import Single_Project from './components/pages/Projects/Single_Project'
 import approvedP from "./components/pages/Projects/approvedP.js"
 import notapprovedP from './components/pages/Projects/notapprovedP.js'
+
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -47,8 +48,9 @@ class App extends React.Component {
           
           
           <div>
+            
       <Router >
-      <X/>
+      <X>
 
       <Switch>
       <Route  exact path="/" component={HomePage}/>
@@ -74,6 +76,7 @@ class App extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
+          </X>
           </Router>
       </div>
 
