@@ -89,7 +89,7 @@ router.put('/:id',passport.authenticate('jwt', {session: false}), async(req, res
         return res.status(404).send({error: 'Project does not exist'})
     if(req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
         return res.status(401).send('Unauthorized');
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
+    if((X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed')&& req.user.User_Category!="Admin"){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.UpdateValidation(req.body)
@@ -141,6 +141,7 @@ router.put('/status/:id',passport.authenticate('jwt', {session: false}),async (r
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      await X.updateOne(req.body)
      if(req.body.status=='Implementation'){
+         if(X.status!="Implementation"&&X.status!="Completed")
          await X.updateOne({"Start_Date":new Date()})
     }
      else if(req.body.status=='Completed'){
