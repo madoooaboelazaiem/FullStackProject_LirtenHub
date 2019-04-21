@@ -15,22 +15,29 @@ function mapStateToProps(state) {
     super(props);
   }
   state={ 
-   P:null,
-   R:false 
+    P:null,
+    ccap:[],
+    am1:[],
+    ami:[],
+    skills:[],
+    tasks:[],
+    partner:null,
+    cons:null,
+    R:false
   }
-   async componentDidMount() {
+    componentDidMount() {
     
-    const asdas='http://localhost:3000/api/projects/'+(this.props.match.params.id)
-    const res=await axios.get(asdas)
-      // .then(res => {       
-        const P = res.data.data;
-        if(P.Start_Date==null)
-            P.Start_Date="Not Available"
-        if(P.End_Date==null)
-          P.End_Date="Not yet"   
-        this.setState({P:P});
-      //   console.log(this.state.P)
-      //  }).catch(err => this.setState({R:true}))
+      axios.get(`http://localhost:3000/api/Projects/`+this.props.match.params.id)
+      .then(res => {
+        this.setState({ccap:res.P});
+        this.setState({P:res.P});
+        this.setState({P:res.P});
+        this.setState({P:res.P});
+        this.setState({P:res.P});
+        this.setState({P:res.P});
+        this.setState({P:res.P});
+        
+      }) .catch(err => this.setState({R:true}))
        
     
   

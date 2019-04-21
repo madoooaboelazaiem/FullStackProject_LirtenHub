@@ -20,8 +20,8 @@ router.get('/:id',async (req,res)=> {
 	const X =await Project.findOne({"_id":pid})
 	if(!X)
         return res.status(404).send({error: 'Project does not exist'})
-    const partner=await User.findOne({"_id":X.partner_id})
-    const cons=await User.findOne({"_id":X.consultancy_agency_id})
+    const partner=await User.findOne({"_id":X.partner_id},{"Hashed_password":0})
+    const cons=await User.findOne({"_id":X.consultancy_agency_id},{"Hashed_password":0})
     const result1=[]
     const result2=[]
     const result3=[]
@@ -29,17 +29,17 @@ router.get('/:id',async (req,res)=> {
     const result5=[]
     result4.push(await Skill.findOne({"_id":X.main_skill}))
     for(let i=0;i<X.current_cons_applied_ids.length;i++){
-        const user=await User.findOne({"_id":X.current_cons_applied_ids[i]})
+        const user=await User.findOne({"_id":X.current_cons_applied_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result1.push(user)
     }
     for(let i=0;i<X.current_members_applied_ids.length;i++){
-        const user=await User.findOne({"_id":X.current_members_applied_ids[i]})
+        const user=await User.findOne({"_id":X.current_members_applied_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result2.push(user)
     }
     for(let i=0;i<X.accepted_members_ids.length;i++){
-        const user=await User.findOne({"_id":X.accepted_members_ids[i]})
+        const user=await User.findOne({"_id":X.accepted_members_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result3.push(user)
     }
@@ -54,7 +54,7 @@ router.get('/:id',async (req,res)=> {
     const Y={
         P:X,
         ccap:result1,
-        am1:result2,
+        cmai:result2,
         ami:result3,
         skills:result4,
         tasks:result5,
