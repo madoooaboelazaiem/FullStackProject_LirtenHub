@@ -64,14 +64,10 @@ class registration extends Component{
         </div> */}
             <div>
             <link rel="shortcut icon" href=""/>
-            <meta charset="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
             <title className = 'Dark-blue'>Registration Form</title>
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
             <link rel="stylesheet" href="../layout/Form.css"/>
-          <body className="mado">
             <div className="container">
               <h1 className="brand"><span>Registration</span> Form</h1>
               <div className="wrapper animated bounceInLeft">
@@ -114,7 +110,7 @@ class registration extends Component{
                       <input type="text" onChange={this.onChange.bind(this)} value={this.state.phone} name="phone" required/>
                     </p>
                     <p></p>
-                    <p classNameName="full">
+                    <p className="ful">
                      <span className = 'reg'> <button  onClick={this.send} type="submit" required>Register </button> </span>
                     </p>
 
@@ -123,7 +119,6 @@ class registration extends Component{
               </div>
             </div>
           
-          </body>
             </div>
             </div>
         )

@@ -26,6 +26,7 @@ import Edit from './components/pages/Edit';
 import X from './components/layout/HeaderSignedIN'
 import HomePage from './components/pages/HomePage'
 import Changepw from './components/pages/Changepw';
+import CoworkingLocations from './components/CoworkingLocations';
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -48,10 +49,10 @@ class App extends React.Component {
           
           <div>
       <Router >
-      <X/>
+      <X>
 
       <Switch>
-      <Route  exact path="/" component={HomePage}/>
+      {/* // <Route  exact path="/" component={HomePage}/> */}
       <Route  exact path="/SingleProject/:id" component={Single_Project}/>
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           <Route  exact path="/home" component={App}/>
@@ -62,7 +63,8 @@ class App extends React.Component {
           <Route  exact path="/Reserve" component={Reserve}/>
           <Route  exact path="/AddLocations" component={AddLocation}/>
           <Route  exact path="/EditLocations" component={EditLocation}/>
-          <Route  exact path="/Locations" component={All_Locations}/>
+          <Route  exact path="/Locations/notEdit" component={All_Locations}/>
+          <Route  exact path="/CoworkingLoc" component={CoworkingLocations}/>
           <Route  exact path="/AcceptRejectReservation" component={Reservations}/>
           <Route  exact path="/DeleteReservations" component={DeleteReservations}/>
           <Route  exact path="/Projects" component={All_Projects}/>
@@ -74,6 +76,7 @@ class App extends React.Component {
           <Route   exact path="/Edit/:id" component={Edit}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
+          </X>
           </Router>
       </div>
 

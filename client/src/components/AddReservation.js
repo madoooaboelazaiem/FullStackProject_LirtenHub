@@ -6,21 +6,33 @@ import 'tachyons'
 class Rooms extends React.Component {
   state={
     rooms:[],
-    done:null
+    done:null,
+    error:null
   }
   componentDidMount() {
-    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/`)
+    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/rooms/`)
       .then(res => {
         const R = res.data.data;
         this.setState({rooms:R });
         this.setState({done:true})
 
-      })  
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Reserving this room please try again later')
+          this.setState({error:false})
+
+        }
+        
+        
+      })
      
   }
   render() {
     if(this.state.done==null)
-    return <div className="loader center" id="page-content-wrapper"></div>
+    return <div className="loader center" ></div>
     return (
       <React.Fragment>
   <h2 className ="regReq">Choose a corresponding date to the room you wish to reserve</h2>

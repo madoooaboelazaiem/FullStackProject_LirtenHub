@@ -29,6 +29,13 @@ class HeaderSignedIN extends Component{
       const { dispatch } = this.props;
       const x = this.props.loggedUser
       console.log(this.props.loggedUser)
+      if(x.User_Category=="Admin"){
+
+      }
+      else if(x.User_Category=="Partner"){}
+      else if(x.User_Category=="Member"){}
+      else if(x.User_Category=="Consulting_Agent"){}
+      else{
 
 return(
     <div>
@@ -43,15 +50,15 @@ return(
     <div className="bg-light border-right" id="sidebar-wrapper">
       <div className="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
       <div className="list-group list-group-flush">
-      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations">Locations</Link>
-      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">MyLocations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations/notEdit">All Locations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AcceptRejectReservation">Reservations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Reserve">Add Reservation</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/DeleteReservations">Cancel Reservation</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
-        <Link to={"/SingleProject/"+x.id} className="list-group-item list-group-item-action white-80 bg-light">Single Project</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Calendar">Calendar</Link>
 
       </div>
     </div>
@@ -90,7 +97,7 @@ return(
         </div>
         
       </nav>
-
+        {this.props.children}
      
     </div>
 
@@ -101,7 +108,9 @@ return(
 
 
 </div>
+      
 )
+      }
 }
 }
 

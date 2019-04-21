@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './Locations.css';
 import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
 
- class Location extends Component {
+ class Location_notMine extends Component {
   
   state={
     all:this.props.L,
@@ -38,7 +38,7 @@ componentDidMount(){
      
 <div> 
 <Link className = "hideLink" to={{
-  pathname: '/EditLocations',
+  pathname: '/LocationProfile',
   state: {
     locationID: this.state.Y
   }
@@ -58,8 +58,8 @@ componentDidMount(){
   }
 }
 
-Location.propTypes ={
+Location_notMine.propTypes ={
   L:PropTypes.object.isRequired
 }
 
-export default Location
+export default Location_notMine
