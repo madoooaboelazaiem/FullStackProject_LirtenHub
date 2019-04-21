@@ -85,7 +85,7 @@ class registration extends Component {
           <div className="container">
             <div className="wrapper animated bounceInLeft">
               <div className="company-info">
-                <h3>Contact Us</h3>
+                <h3 className = 'black'>Contact Us</h3>
                 <ul>
                   <li>
                     <i className="fa fa-road" /> LirtenHub st

@@ -45,14 +45,25 @@ const rooms=require('./routes/api/rooms')
 app.use('/api/reservations',reservations)
 app.use('/api/locations',locations)
 app.use('/api/projects',projects)
+app.use('/subscribe', subscribe);
 app.use('/api/ratings',ratings)
 app.use('/api/skills',skills)
 app.use('/api/tasks',tasks)
 app.use('/api/users',users)
 app.use('/api/rooms',rooms)
+app.use('/push', push);
 
 
-
+app.use(bodyParser.urlencoded({
+        extended: false
+    }));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 
 // //Notifications plus nodemailer
 // app.set('trust proxy', true);

@@ -23,6 +23,7 @@ class Rooms extends React.Component {
         if(this.state.error){
           alert('There was a problem Reserving this room please try again later')
           this.setState({error:false})
+          window.location.href = "/"
 
         }
         

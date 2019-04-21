@@ -27,6 +27,7 @@ import X from './components/layout/HeaderSignedIN'
 import HomePage from './components/pages/HomePage'
 import Changepw from './components/pages/Changepw';
 import CoworkingLocations from './components/CoworkingLocations';
+import LandingPage from './components/layout/LandingPage';
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -85,11 +86,16 @@ class App extends React.Component {
       else{
     return (
       <div>
-        <Header/>
+
       <Router>
-      <Route exact  path="/" component={SignIn}/>
+      <Header/>
+
+      <Route exact  path="/" component={LandingPage}/>
+
+      <Route exact  path="/SignIn" component={SignIn}/>
       <Route exact  path="/SignUp" component={Form}/>
       </Router>
+
       </div>
 
     )}

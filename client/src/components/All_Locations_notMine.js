@@ -23,6 +23,7 @@ class All_Locations extends React.Component {
         if(this.state.error){
           alert('There was a problem Retrieving the Locations please try again later')
           this.setState({error:false})
+          window.location.href = "/"
 
         }
       })

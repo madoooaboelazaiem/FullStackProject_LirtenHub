@@ -90,8 +90,11 @@ class Delete extends Component{
               }}  onClick={this.onClick}>
                 <h3 className = 'loc'> 
                     <p className = 'blue'>Room Name</p> {RoomID}
+                    <p></p>
                     <p className = 'blue'>From</p> 
                     {from}
+                    <p></p>
+
                     <p className = 'blue'>To</p> 
                     {to}
                 </h3>
