@@ -37,9 +37,16 @@ function mapStateToProps(state) {
  const {users} = state.users
   return { isLoggedIn,loggedUser,users };
 }
+
 class App extends React.Component {
- 
-  render(){ 
+  
+    
+  
+  
+  
+  
+  
+  render(){
       const loggedUser=this.props.loggedUser
       if(this.props.isLoggedIn){        
         return(

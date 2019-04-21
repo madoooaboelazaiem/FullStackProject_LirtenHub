@@ -96,6 +96,8 @@ return(
         
         
       </nav>
+      <br>
+      </br>
       {this.props.children}
 
      

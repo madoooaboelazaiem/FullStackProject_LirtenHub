@@ -20,14 +20,14 @@ router.get('/:id',async (req,res)=> {
 	const X =await Project.findOne({"_id":pid})
 	if(!X)
         return res.status(404).send({error: 'Project does not exist'})
-    X.partner_id=await User.findOne({"_id":X.partner_id})
-    X.consultancy_agency_id=await User.findOne({"_id":X.consultancy_agency_id})
-    X.main_skill=await Skill.findOne({"_id":X.main_skill})
+    const partner=await User.findOne({"_id":X.partner_id})
+    const cons=await User.findOne({"_id":X.consultancy_agency_id})
     const result1=[]
     const result2=[]
     const result3=[]
     const result4=[]
     const result5=[]
+    result4.push(await Skill.findOne({"_id":X.main_skill}))
     for(let i=0;i<X.current_cons_applied_ids.length;i++){
         const user=await User.findOne({"_id":X.current_cons_applied_ids[i]})
         user.Hashed_password=null
@@ -51,14 +51,19 @@ router.get('/:id',async (req,res)=> {
         const task=await Task.findOne({"_id":X.tasks[i]})
         result5.push(task)
     }
-    X.current_cons_applied_ids=result1
-    X.current_members_applied_ids=result2
-    X.accepted_members_ids=result3
-    X.extra_skills=result4
-    X.tasks=result5
+    const Y={
+        P:X,
+        ccap:result1,
+        am1:result2,
+        ami:result3,
+        skills:result4,
+        tasks:result5,
+        partner:partner,
+        cons:cons
+    }
 
     
-    res.json({data:X})
+    res.json({data:Y})
 })
 
 router.post('/',passport.authenticate('jwt', {session: false}),async (req, res) => {
