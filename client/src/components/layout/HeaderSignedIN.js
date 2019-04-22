@@ -99,7 +99,7 @@ axios.put('Https://Lirtenhubtest.herokuapp.com/api/users/Logout/'+(this.props.lo
           
                   <div class="collapse navbar-collapse white-80" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
-                      <li class="nav-item active white-80">
+                    <li class="nav-item active white-80">
                         {/* <a class="nav-link hover-bg-light-gray" href="#">Home <span class="sr-only">(current)</span></a> */}
                       </li>
                       <li class="nav-item">
