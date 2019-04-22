@@ -48,8 +48,9 @@ console.log(this.props.P2.id)
         return(
             <div className = "tc">
     <form onSubmit={this.handleSubmitReserve} className="Field">
+
             <div   onClick={this.onClick}>
-            <Card>
+            <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }} >
               <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
                 <CardText>{Name}</CardText>
                 <CardText>{Description}</CardText>
@@ -57,7 +58,7 @@ console.log(this.props.P2.id)
             </Card>
             </div>
             <span className = 'tc'>
-                  <button className = 'but tc'  onClick={this.ApplyforSkill.bind(this)}>Apply for this Skill</button>
+                  <button className = 'but tc' color="secondary"  onClick={this.ApplyforSkill.bind(this)}>Apply for this Skill</button>
                   </span>
               </form>
           </div>
