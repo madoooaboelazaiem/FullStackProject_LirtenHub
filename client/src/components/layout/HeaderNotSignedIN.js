@@ -14,7 +14,7 @@ class HeaderNotSignedIN extends Component{
       const {isLoggedIn,loggedUser,users} = this.props;
       const x = this.props.loggedUser
       console.log(this.props.loggedUser)
-  
+    
         return(
         <div className="header">
           <a href="/" className="logo">LirtenHub</a>
