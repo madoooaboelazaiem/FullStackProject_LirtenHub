@@ -98,7 +98,7 @@ class Calendar extends Component {
           />
         </div>
         <div style={styles.main}>
-            <h1>Calendar Entry</h1> 
+            <h1 className='valender'>Calendar Entry</h1> 
         <DayPilotCalendar
           {...config}
           ref={component => {

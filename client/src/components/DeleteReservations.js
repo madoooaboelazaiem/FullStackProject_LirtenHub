@@ -44,11 +44,23 @@ class Delete extends Component{
      }) 
 
 
-    }).then(res =>{
-        alert('Room Deleted')
+    }).catch(err=>{
+      console.log(err)
+      this.setState({error: true})
+    }).then(res => {
+      if(this.state.error){
+        alert('There was a problem Cancelling the reservation please contact the adminstrator for more information')
+        this.setState({error:false})
+        window.location.href = "/"
 
-
+      }
+      else{
+        alert('Reservation Cancelled')
+      }
     })
+
+
+    
 
     
   }
@@ -69,20 +81,23 @@ class Delete extends Component{
         const {RoomID,from , to} = this.props.dele
       
         return(
-            <div className = "tc" id="page-content-wrapper">
+            <div className = "tc">
     <form onSubmit={this.routeChangeDelete} className="Field">
-            <Link className = "hideLink" to={{
+            <Link  to={{
                 state: {
                   ReservID: this.state.Y
                 }
               }}  onClick={this.onClick}>
-            <Card className='flexx'>
-              <CardBody >
-                <CardText>{RoomID}</CardText>
-                <CardText>{from}</CardText>
-                <CardText>{to}</CardText>
-              </CardBody>
-              </Card>
+                <h3 className = 'loc'> 
+                    <p className = 'blue'>Room Name</p> {RoomID}
+                    <p></p>
+                    <p className = 'blue'>From</p> 
+                    {from}
+                    <p></p>
+
+                    <p className = 'blue'>To</p> 
+                    {to}
+                </h3>
               </Link>
 
             <span className = 'tc'> 

@@ -21,11 +21,11 @@
   }
   
   .brand span{
-    color:#1a2b3d;
+    color:#657280;
   }
   
   .wrapper{
-    box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+    box-shadow: 0 0 20px 0 rgba(125, 127, 129, 0.7);
   }
   .reg{
     position:relative;
@@ -42,7 +42,10 @@
   }
   h3 {
     text-align: center;
-    color: #1a2b3d;
+    color:black 
+}
+.h3:hover {
+  text-decoration: none
 }
   .company-info{
     background:#b5d7f5;
@@ -134,4 +137,7 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+  }h3:hover {
+    background-color: transparent;
+}
+

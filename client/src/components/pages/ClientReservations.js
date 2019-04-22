@@ -7,8 +7,8 @@ class ClientReservations extends React.Component {
     Reservations:[],
     done:null
   }
-  componentDidMount() {//https://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/notYet
-    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/reservations//client/res`)
+  componentDidMount() {//https://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/notYet///CoWorking/notYet/:id
+    axios.get(`https://lirtenhub-nav2.herokuapp.com/api/reservations/client/res`)
       .then(res => {
         const reserv = res.data.data;
         this.setState({Reservations:reserv });

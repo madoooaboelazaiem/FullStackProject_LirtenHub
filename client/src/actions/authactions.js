@@ -60,9 +60,10 @@ export function login(data) {
 
   return dispatch => {
     console.log(data)
-    return axios.post('http://localhost:3000/api/users/login', data).then(res => {
+    return axios.post('Https://Lirtenhubtest.herokuapp.com/api/users/login', data).then(res => {
 
       const token = res.data.data;
+     
       localStorage.setItem('jwtToken', token);
       console.log(token)
 
@@ -70,6 +71,9 @@ export function login(data) {
 
       dispatch(setCurrentUser(jwtDecode(token)));
 
+      
+    }) .catch(function (error) {
+      alert("you have enter either the wrong username or password")
     });
     
 

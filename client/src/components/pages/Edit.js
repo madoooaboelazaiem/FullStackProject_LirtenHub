@@ -49,9 +49,7 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='http://localhost:3000/api/users/'+(this.props.match.params.id)
-
-  //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
+  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   console.log(sendtoaxios) 
 
@@ -124,7 +122,7 @@ if(user.User_Category=="Consulting_Agent"){
     
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/'+loggedUser.id,
+      url: 'Https://Lirtenhubtest.herokuapp.com/api/users/'+loggedUser.id,
       data: {
          
         First_Name:this.state.First_Name,
@@ -138,6 +136,7 @@ if(user.User_Category=="Consulting_Agent"){
         Experience_Level:this.state.Experience_Level
       }
     })
+    if(this.state.Certificates!=""){
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/users/Certificate/'+loggedUser.id,
@@ -145,7 +144,8 @@ if(user.User_Category=="Consulting_Agent"){
          
         Certificate:this.state.Certificates
       }
-    })
+    })}
+    if(this.state.Certificatesdel!=""){
     axios({
       method: 'delete',
       url: 'http://localhost:3000/api/users/Certificates/'+loggedUser.id,
@@ -153,7 +153,8 @@ if(user.User_Category=="Consulting_Agent"){
          
         Certificate:this.state.Certificatesdel
       }
-    })
+    })}
+    if(this.state.Intrests!=""){
     axios({
       method: 'put',
       url: 'http://localhost:3000/api/users/addinterest/'+loggedUser.id,
@@ -161,7 +162,8 @@ if(user.User_Category=="Consulting_Agent"){
          
         Interest:this.state.Intrests
       }
-    })
+    })}
+    if(this.state.Intrestsdel!=""){
     axios({
       method: 'delete',
       url: 'http://localhost:3000/api/users/delinterest/'+loggedUser.id,
@@ -169,7 +171,7 @@ if(user.User_Category=="Consulting_Agent"){
          
         Interest:this.state.Intrestsdel
       }
-    })
+    })}
   }
   if(user.User_Category=="Partner"){
 
@@ -259,20 +261,22 @@ if(user.User_Category=="Consulting_Agent"){
         Established_since:this.state.Established_since
       }
     })
+    if(this.state.Business_Plans_Offered!=""){
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/users/Business_Plans_Offered/'+loggedUser.id,
       data: {
         Plan:this.state.Business_Plans_Offered
       }
-    })
+    })}
+    if(this.state.Business_Plans_Offereddel!=""){
     axios({
       method: 'delete',
       url: 'http://localhost:3000/api/users/Business_Plans_Offered/'+loggedUser.id,
       data: {
         Plan:this.state.Business_Plans_Offereddel
       }
-    })
+    })}
   }
   if(user.User_Category=="Consulting_Agent"){
     if(this.state.Email==""){
@@ -314,34 +318,38 @@ if(user.User_Category=="Consulting_Agent"){
         
       }
     })
+    if(this.state.Board_members!=""){
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/users/BoardMembers/'+loggedUser.id,
       data: {
         Board_member:this.state.Board_members
       }
-    })
+    })}
+    if(this.state.Board_membersdel!=""){
     axios({
       method: 'delete',
       url: 'http://localhost:3000/api/users/BoardMembers/'+loggedUser.id,
       data: {
         Board_member:this.state.Board_membersdel
       }
-    })
+    })}
+    if(this.state.Studies){
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studies
       }
-    })
+    })}
+    if(this.state.Studiesdel){
     axios({
       method: 'delete',
       url: 'http://localhost:3000/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studiesdel
       }
-    })
+    })}
 
   }  
   

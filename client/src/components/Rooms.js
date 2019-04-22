@@ -6,25 +6,41 @@ import 'tachyons'
 class Rooms extends React.Component {
   state={
     rooms:[],
-    done: null
+    done: null,
+    error: null
   }
   componentDidMount() {
-    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/CoWorkingRoom`)
+    axios.get(`https://lirtenhubtest.herokuapp.com/api/rooms/CoWorkingRoom/cowork/loc`)//will be accepted after pushing to heroku 
       .then(res => {
         const R = res.data.data;
         this.setState({rooms:R });
 
-      })  
-      this.setState({done:true})
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+        this.setState({done: true})
+
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Retrieving the Locations please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
+        else{
+          this.setState({done:true})
+
+        }
+      })
 
      
   }
   render() {
     if(this.state.done==null)
-      return <div className="loader center" id="page-content-wrapper"></div>
+      return <div className="loader center" ></div>
     return (
       <React.Fragment>
-  <h2 className ="regReq" id="page-content-wrapper">Click on the Desired Room you want to Edit</h2>
+  <h2 className ="regReq" >Click on the Desired Room you want to Edit</h2>
 
         {this.state.rooms.map((R)=>(
       <Room R={R}/>    

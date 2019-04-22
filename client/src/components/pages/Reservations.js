@@ -18,14 +18,24 @@ class Reservations extends React.Component {
         this.setState({Reservations:reserv });
         this.setState({done:true})
 
-      })  
-     
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Retrieving the reservations please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
+      
+      })      
   }
   render() {
     if(this.state.done==null)
      return <div className="loader center" ></div>
     return ( 
-      <div id="page-content-wrapper">
+      <div>
         <h1 className = 'regReq'>Registration Requests</h1>
       {this.state.Reservations.map((reserv)=>(
      <Cards reserv={reserv}/>  
