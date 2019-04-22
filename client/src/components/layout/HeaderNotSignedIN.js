@@ -17,7 +17,7 @@ class HeaderNotSignedIN extends Component{
     
         return(
         <div className="header">
-          <a href="/home" className="logo">LirtenHub</a>
+          <a href="/" className="logo">LirtenHub</a>
           <div className="header-right">
             <a className="active" href="/">SignIn</a>
             <a href="/SignUp">SignUp</a>

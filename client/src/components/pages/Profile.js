@@ -179,7 +179,7 @@ Studies:user.Studies,
 
   render() {
     if(this.state.User_Category==null){
-      return "loading"
+      return <div className="loader center"></div>
     }
     const {isLoggedIn,loggedUser,users} = this.props;
     const x = this.props.loggedUser
@@ -189,7 +189,7 @@ Studies:user.Studies,
     if(this.state.User_Category=="Partner"){
 
       return(
-        <div>
+        <div id="page-content-wrapper">
         <link rel="shortcut icon" href=""/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -257,7 +257,7 @@ Studies:user.Studies,
     }else if(this.state.User_Category=="Member"){
     
       return(
-        <div>
+        <div id="page-content-wrapper">
         <link rel="shortcut icon" href=""/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -352,7 +352,7 @@ Studies:user.Studies,
     if(this.state.User_Category=="Partner_CoWorkingSpace"){
       
       return(
-        <div>
+        <div id="page-content-wrapper">
         <link rel="shortcut icon" href=""/>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -420,7 +420,7 @@ Studies:user.Studies,
   if(this.state.User_Category=="Consulting_Agent"){
 
     return(
-      <div>
+      <div id="page-content-wrapper">
       <link rel="shortcut icon" href=""/>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -502,7 +502,7 @@ Studies:user.Studies,
   if(this.state.User_Category=="Partner"){
 
     return(
-      <div>
+      <div id="page-content-wrapper">
       <link rel="shortcut icon" href=""/>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -569,7 +569,7 @@ Studies:user.Studies,
   }else if(this.state.User_Category=="Member"){
   
     return(
-      <div>
+      <div id="page-content-wrapper">
       <link rel="shortcut icon" href=""/>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -663,7 +663,7 @@ Studies:user.Studies,
   if(this.state.User_Category=="Partner_CoWorkingSpace"){
     
     return(
-      <div>
+      <div id="page-content-wrapper">
       <link rel="shortcut icon" href=""/>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -730,7 +730,7 @@ Studies:user.Studies,
 if(this.state.User_Category=="Consulting_Agent"){
 
   return(
-    <div>
+    <div id="page-content-wrapper">
     <link rel="shortcut icon" href=""/>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

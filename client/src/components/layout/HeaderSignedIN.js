@@ -62,20 +62,24 @@ class HeaderSignedIN extends Component{
           <body >
           
           
-          
-            <div class="d-flex toggled" id="wrapper">
-          
-              <div class="bg-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
-                <div class="list-group list-group-flush">
-                  <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Dashboard</a>
-                  <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Shortcuts</a>
-                  <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Overview</a>
-                  <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Events</a>
-                  <a href="" class="list-group-item list-group-item-action white-80 bg-light">Profile</a>
-                  <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Status</a>
-                </div>
-              </div>
+          <div className="d-flex toggled" id="wrapper">
+
+<div className="bg-light border-right" id="sidebar-wrapper">
+  <div className="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
+  <div className="list-group list-group-flush">
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations">Locations</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">Locations</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AcceptRejectReservation">Reservations</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Reserve">Add Reservation</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/DeleteReservations">Cancel Reservation</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
+  <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
+
+  </div>
+</div>
+
           
               <div id="page-content-wrapper">
           
@@ -131,26 +135,33 @@ class HeaderSignedIN extends Component{
         )
       }
 return(
-  <div>
+    <div>
 
+
+
+
+  
 
   <body >
   
-  
-  
-    <div class="d-flex toggled" id="wrapper">
-  
-      <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Dashboard</a>
-          <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Shortcuts</a>
-          <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Overview</a>
-          <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Events</a>
-          <a href="" class="list-group-item list-group-item-action white-80 bg-light">Profile</a>
-          <a href="#" class="list-group-item list-group-item-action white-80 bg-light">Status</a>
-        </div>
+    <div className="d-flex toggled" id="wrapper">
+
+    <div className="bg-light border-right" id="sidebar-wrapper">
+      <div className="sidebar-heading"> <img src="https://img.icons8.com/color/48/000000/superman.png"/>    </div>
+      <div className="list-group list-group-flush">
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Locations">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/CoworkingLoc">Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AcceptRejectReservation">Reservations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Reserve">Add Reservation</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/DeleteReservations">Cancel Reservation</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/AddLocations">Add Locations</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/LocationRoom">Add Room</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/Rooms">Edit Room</Link>
+      <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
+
       </div>
+    </div>
+
   
       <div id="page-content-wrapper">
   
