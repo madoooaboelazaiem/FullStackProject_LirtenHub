@@ -25,7 +25,7 @@ class ValidateUser extends Component{
 console.log(this.props.P2.id)
       axios({
         method: 'put',
-        url:'http://localhost:3000/api/users/validate/'+(this.props.P2._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/users/validate/'+(this.props.P2._id),
         data: {
         }
       }).then(res => {

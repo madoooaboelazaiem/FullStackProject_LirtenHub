@@ -13,7 +13,7 @@ class Head extends Component{
 
   onSubmit = e => {
     e.preventDefault();
-  axios.put('http://localhost:3000/api/users/Logout/'+(this.props.loggedUser.id), {}).then(res => {
+  axios.put('https://lirtenhub-nav2.herokuapp.com/api/users/Logout/'+(this.props.loggedUser.id), {}).then(res => {
   });
     const { dispatch } = this.props;
     console.log("HIIIIIIIIII")

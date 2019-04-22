@@ -9,7 +9,7 @@ class SingleUpdate extends React.Component {
   }
   componentDidMount() {
 
-  axios.get('http://localhost:3000/api/users/pending/update')
+  axios.get('https://lirtenhub-nav2.herokuapp.com/api/users/pending/update')
 
 .then(res => {       
 
