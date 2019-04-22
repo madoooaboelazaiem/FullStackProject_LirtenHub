@@ -27,7 +27,7 @@ class ApplySkill extends Component{
 console.log(this.props.P2.id)
       axios({
         method: 'put',
-        url:'http://localhost:3000/api/users/applyskill/'+(this.props.loggedUser.id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/users/applyskill/'+(this.props.loggedUser.id),
         data: {
             Skill:this.props.P2._id
         }

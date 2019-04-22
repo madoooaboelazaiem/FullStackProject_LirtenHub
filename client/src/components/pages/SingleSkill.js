@@ -8,7 +8,7 @@ class SingleSkill extends React.Component {
   }
   componentDidMount() {
 
-  axios.get('http://localhost:3000/api/skills')
+  axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills')
 
 .then(res => {       
 

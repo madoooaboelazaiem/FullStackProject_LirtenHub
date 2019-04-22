@@ -80,7 +80,7 @@ if(user.User_Category=="Consulting_Agent"){
   }
   onSubmit = e => {
     const {isLoggedIn,loggedUser,users} = this.props;
-    const sendtoaxios='http://localhost:3000/api/users/'+(loggedUser.id)
+    const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(loggedUser.id)
   
     console.log(sendtoaxios) 
   
@@ -139,7 +139,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Certificates!=""){
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/users/Certificate/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Certificate/'+loggedUser.id,
       data: {
          
         Certificate:this.state.Certificates
@@ -148,7 +148,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Certificatesdel!=""){
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/users/Certificates/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Certificates/'+loggedUser.id,
       data: {
          
         Certificate:this.state.Certificatesdel
@@ -157,7 +157,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Intrests!=""){
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/addinterest/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/addinterest/'+loggedUser.id,
       data: {
          
         Interest:this.state.Intrests
@@ -166,7 +166,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Intrestsdel!=""){
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/users/delinterest/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/delinterest/'+loggedUser.id,
       data: {
          
         Interest:this.state.Intrestsdel
@@ -206,7 +206,7 @@ if(user.User_Category=="Consulting_Agent"){
 
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/'+loggedUser.id,
       data: {
          
         First_Name:this.state.First_Name,
@@ -250,7 +250,7 @@ if(user.User_Category=="Consulting_Agent"){
   //  Business_Plans_Offered:user.Business_Plans_Offered
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/'+loggedUser.id,
       data: {
         Email:this.state.Email,
         Country:this.state.Country,
@@ -264,7 +264,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Business_Plans_Offered!=""){
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/users/Business_Plans_Offered/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Business_Plans_Offered/'+loggedUser.id,
       data: {
         Plan:this.state.Business_Plans_Offered
       }
@@ -272,7 +272,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Business_Plans_Offereddel!=""){
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/users/Business_Plans_Offered/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Business_Plans_Offered/'+loggedUser.id,
       data: {
         Plan:this.state.Business_Plans_Offereddel
       }
@@ -305,7 +305,7 @@ if(user.User_Category=="Consulting_Agent"){
   
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/users/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/'+loggedUser.id,
       data: {
          
         Email:this.state.Email,
@@ -321,7 +321,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Board_members!=""){
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/users/BoardMembers/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/BoardMembers/'+loggedUser.id,
       data: {
         Board_member:this.state.Board_members
       }
@@ -329,7 +329,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Board_membersdel!=""){
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/users/BoardMembers/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/BoardMembers/'+loggedUser.id,
       data: {
         Board_member:this.state.Board_membersdel
       }
@@ -337,7 +337,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Studies){
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/users/Studies/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studies
       }
@@ -345,7 +345,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Studiesdel){
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/users/Studies/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studiesdel
       }

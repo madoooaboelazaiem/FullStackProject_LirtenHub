@@ -87,7 +87,7 @@ class AcceptorDeclineSkill extends Component{
             return ( <Redirect to='/AcceptorDeclineSkill' />)
         }
         const {user,skill} = this.props.P2
-        axios.get('http://localhost:3000/api/skills/'+(skill))
+        axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(skill))
 
 .then(res => {       
 
