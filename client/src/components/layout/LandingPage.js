@@ -17,11 +17,11 @@ class Landing extends Component{
     render(){
         return(
             <body>
-            <video id="myVideo" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <video id="myVideo" playsInline="playsinline" autoPlay="autoplay" muted="muted" loop="loop">
             <source src="1.mp4" type="video/mp4"/>
             </video>
 
-            <div class="content">
+            <div className="content">
             <h1> Welcome to LirtenHub...</h1>
             <h1> Create Your Future</h1>
             <Link id="myBtn" to="/SignIn">Get Started</Link>

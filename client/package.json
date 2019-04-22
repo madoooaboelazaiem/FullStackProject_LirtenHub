@@ -11,6 +11,7 @@
     "html-react-parser": "^0.7.0",
     "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
+    "nodemon": "^1.18.11",
     "react": "^16.8.6",
     "react-adminlte-dash": "^0.4.0",
     "react-dom": "^16.8.6",

@@ -4,19 +4,23 @@ import PropTypes from 'prop-types'
 import 'tachyons'
 import axios from 'axios';
 
-class registration extends Component{
+class formcoworking extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      company: '',
-      email: '',
-      pass: '',
-      phone: ''
+      Email: '',
+      Password: '',
+      phone_number: '',
+      User_Category:'Partner_CoWorkingSpace',
+      Bio:'',
+      Country:'',
+      City:'',
+      Password2:'',
+      Name:'',
+      Established_since:''
     }
 
   this.onChange = this.onChange.bind(this)
-  this.send = this.send.bind(this)
 
   }
   onChange(e) {
@@ -24,21 +28,37 @@ class registration extends Component{
     console.log(e.target.value);
 
   }
-  send(event) {
+  onSubmit=event => {
+   console.log(this.state.Email)
+   console.log(this.state.Country)
+   console.log(this.state.Bio)
+   console.log(this.state.City)
+   console.log(this.state.Birth_Date)
+   console.log(this.state.User_Category)
+   console.log(this.state.FirstName)
     event.preventDefault();
-  
-    axios.post('https://localhost:3000/api/register',{
-      name: this.state.name,
-      company: this.state.company,
-      email: this.state.city,
-      pass: this.state.pass,
-      phone: this.state.phone
+    axios({
+      method: 'post',
+      url:'Https://Lirtenhubtest.herokuapp.com/api/users/register',
+      data: {
+        Email:this.state.Email,
+    Country:this.state.Country,
+    City:this.state.City,
+    Bio:this.state.Bio,
+    phone_number:this.state.phone_number,
+    Password:this.state.Password,
+    User_Category:this.state.User_Category,
+    Name:this.state.Name ,
+    Established_since: this.state.Established_since,
+      }
     }).then(res => {
       alert('An Email Have Been Sent To The Admin For Approval')
       
     }).catch(err=>{
-      console.log(err);
+      console.log(err)
+      alert(err.response.data.error);
     })
+  
   }
     render(){
         return(
@@ -81,37 +101,49 @@ class registration extends Component{
                 </div>
                 <div className="contact">
                   <h3>Create New Account</h3>
-                  <form method="POST" action= 'localhost:3000/api/register'>
+                  <form onSubmit={this.onSubmit.bind(this)}>
+                  
                     <p>
                       <label>Name</label>
-                      <input type="text"  onChange={this.onChange.bind(this)} value={this.state.name} name="name" required/>
-                    </p>
-                    <p>
-                      <label>Company</label>
-                      <input type="text"  onChange={this.onChange.bind(this)}value={this.state.company} name="company" required/>
+                      <input type="text"  onChange={this.onChange.bind(this)}value={this.state.Name} name="Name" required/>
                     </p>
                     <p>
                       <label>Email Address</label>
-                      <input type="email" onChange={this.onChange.bind(this)} value={this.state.email}  name="email"required/>
+                      <input type="email" onChange={this.onChange.bind(this)} value={this.state.Email}  name="Email"required/>
                     </p>
                     <p>
                       <label>Password</label>
-                      <input type="password" onChange={this.onChange.bind(this)} value={this.state.pass} name="pass" required/>
+                      <input type="password" onChange={this.onChange.bind(this)} value={this.state.Password} name="Password" required/>
                     </p>
                     <p>
                       <label>Repeat Password</label>
-                      <input type="password" onChange={this.onChange.bind(this)}name="phone" required/>
+                      <input type="password" onChange={this.onChange.bind(this)}name="Password2" required/>
                     </p> <p>
                       <label>Phone Number</label>
-                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.phone} name="phone" required/>
+                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.phone_number} name="phone_number" required/>
                     </p>
                     <p>
-                      <label>Phone Number</label>
-                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.phone} name="phone" required/>
+                      <label> Bio</label>
+                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.Bio} name="Bio" required/>
+                    </p>
+                    <p>
+                      <label>City</label>
+                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.City} name="City" required/>
+                    </p>
+                    
+                    <p>
+                      <label>Country</label>
+                      <input type="text" onChange={this.onChange.bind(this)} value={this.state.Country} name="Country" required/>
+                    </p>
+                    
+                    <p>
+                      <label>Established since</label>
+                      <input type="Date" onChange={this.onChange.bind(this)} value={this.state.Established_since} name="Established_since" required/>
                     </p>
                     <p></p>
-                    <p className="ful">
-                     <span className = 'reg'> <button  onClick={this.send} type="submit" required>Register </button> </span>
+
+                    <p classNameName="full">
+                     <span className = 'reg'> <button type="submit" required>Register </button> </span>
                     </p>
 
                   </form>
@@ -126,4 +158,4 @@ class registration extends Component{
     
 
 }
-export default registration
+export default formcoworking

@@ -16,10 +16,9 @@ function loadFromLocalStorage(){
   }
   
 
-export default function setAuthorizationToken(token) {
+export default function setAuthorizationToken() {
 
-  if (token) {
-  console.log(token)
+  if (loadFromLocalStorage()) {
   const x = loadFromLocalStorage()
     axios.defaults.headers.common['Authorization'] = `${x}`;
 

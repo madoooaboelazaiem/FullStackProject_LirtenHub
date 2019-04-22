@@ -50,7 +50,7 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='http://localhost:3000/api/users/'+(this.props.match.params.id)
+  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
 
@@ -84,14 +84,23 @@ if(user.User_Category=="Consulting_Agent"){
   onSubmit = e => {
     const {isLoggedIn,loggedUser,users} = this.props;
       if(this.state.Password==this.state.Passwordconfirm){
+        console.log(this.state.Password)
+        console.log(this.state.Passwordconfirm)
     axios({
         method: 'post',
-        url: 'http://localhost:3000/api/users/changepassword/'+loggedUser.id,
+        url: 'http://localhost:3000/api/users/changepassword/'+(this.props.match.params.id),
         data: {
            
             newpassword:this.state.Password,
             confirm:this.state.Passwordconfirm
         }
+      }).then(res => {
+        console.log(res)
+        alert(res)
+        
+      }).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
       })
     }
     else{
@@ -126,7 +135,7 @@ if(user.User_Category=="Consulting_Agent"){
           <h1 className="brand"><span>User</span>Profile</h1>
           <div className="wrapper animated bounceInLeft">
             <div className="company-info">
-            <h3><Link  to={"/Profile"} >Back to profile</Link></h3>
+            <h3><Link  to={"/Profile/"+x.id} >Back to profile</Link></h3>
               <ul>
                 <li><i className="fa fa-road"></i> LirtenHub st</li>
                 <li><i className="fa fa-phone"></i> 0777 5000 </li>
@@ -135,7 +144,7 @@ if(user.User_Category=="Consulting_Agent"){
             </div>
             <div className="contact">
               <h3>Profile</h3>
-              <form onSubmit={this.onSubmit.bind(this)}>
+              <form>
               <p>
                   <label>New Password</label>
                   <input name="Password"type="text"  onChange={e => this.handleInputChange(e)}/>
@@ -145,9 +154,9 @@ if(user.User_Category=="Consulting_Agent"){
                   <input name="Passwordconfirm"type="text" onChange={e => this.handleInputChange(e)}/>
                 </p>
                
-                <button type="submit">update Password</button>
-               
-              </form>
+                <button onClick={this.onSubmit.bind(this)}>update Password</button>
+                </form>
+              
             </div>
           </div>
         </div>

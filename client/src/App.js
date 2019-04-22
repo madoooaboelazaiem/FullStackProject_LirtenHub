@@ -1,6 +1,6 @@
 import React from 'react';
 import SignIn from './components/layout/SignIn'
-import Form from './components/layout/Form'
+import Form from './components/pages/Form'
 import AddLocation from './components/AddLocation'
 import EditLocation from './components/EditLocation'
 import Header from './components/layout/HeaderNotSignedIN'
@@ -28,8 +28,21 @@ import HomePage from './components/pages/HomePage'
 import Changepw from './components/pages/Changepw';
 import CoworkingLocations from './components/CoworkingLocations';
 import LandingPage from './components/layout/LandingPage';
+import preRegistration from './components/pages/preRegistration';
+import formconsultancy from './components/pages/formconsultancy';
+import formcoworking from './components/pages/formcoworking';
+import formpartner from './components/pages/formpartner';
+import setAuthorizationToken from './utils.js/setAuthorizationToken';
+import ApplySkill from './components/pages/ApplySkill';
+import SingleSkill from './components/pages/SingleSkill';
+import AcceptorDeclineSkill from './components/pages/AcceptorDeclineSkill';
+import AcceptrejectSingleSkill from './components/pages/AcceptrejectSingleSkill';
+import UpdateAcceptorReject from './components/pages/UpdateAcceptorReject';
+import SingleUpdate from './components/pages/SingleUpdate';
+
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
+
 
 function mapStateToProps(state) {
   console.log(state.authentication.loggedUser)
@@ -42,6 +55,7 @@ class App extends React.Component {
  
   render(){ 
       const loggedUser=this.props.loggedUser
+ setAuthorizationToken()
       if(this.props.isLoggedIn){        
         return(
           
@@ -54,6 +68,7 @@ class App extends React.Component {
 
       <Switch>
       {/* // <Route  exact path="/" component={HomePage}/> */}
+      
       <Route  exact path="/SingleProject/:id" component={Single_Project}/>
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           <Route  exact path="/home" component={App}/>
@@ -75,6 +90,13 @@ class App extends React.Component {
           <Route  exact path="/Calendar" component={Calendar}/>
           <Route   exact path="/Profile/:id" component={Profile}/>
           <Route   exact path="/Edit/:id" component={Edit}/>
+          <Route   exact path="/AcceptorDeclineSkill/" component={AcceptorDeclineSkill}/>
+          <Route   exact path="/AcceptrejectSingleSkill/" component={AcceptrejectSingleSkill}/>
+          <Route  exact path="/SignIn" component={SignIn}/>
+          <Route  exact path="/ApplySkill" component={ApplySkill}/>
+          <Route  exact path="/UpdateAcceptorReject" component={UpdateAcceptorReject}/>
+          <Route  exact path="/SingleUpdate" component={SingleUpdate}/>
+          <Route  exact path="/SingleSkill" component={SingleSkill}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
           </X>
@@ -82,18 +104,20 @@ class App extends React.Component {
       </div>
 
         )
-      }
-      else{
+      }else{
     return (
       <div>
-
+        
       <Router>
       <Header/>
-
       <Route exact  path="/" component={LandingPage}/>
 
       <Route exact  path="/SignIn" component={SignIn}/>
-      <Route exact  path="/SignUp" component={Form}/>
+      <Route exact  path="/SignUp" component={preRegistration}/>
+      <Route exact  path="/SignUp1" component={Form}/>
+      <Route exact  path="/SignUp2" component={formconsultancy}/>
+      <Route exact  path="/SignUp3" component={formcoworking}/>
+      <Route exact  path="/SignUp4" component={formpartner}/>
       </Router>
 
       </div>
