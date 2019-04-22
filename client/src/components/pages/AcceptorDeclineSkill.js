@@ -99,7 +99,7 @@ this.setState({skillinstring:P2})
             <div className = "tc">
     <form onSubmit={this.handleSubmitReserve} className="Field">
         
-            <Card>
+            <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
               <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
               <CardText>id: {user._id} category: {user.User_Category}</CardText>
                 <CardText>{user.First_Name} {user.Last_Name}</CardText>
