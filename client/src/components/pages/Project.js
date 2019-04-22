@@ -15,7 +15,7 @@ import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'reac
   render() {
     
     return (//P is Actullay the Project Info itself
-      <div className = "tt" id="page-content-wrapper">  
+      <div className = "tt">  
       <Link className = "L" to={"/SingleProject/"+this.state.Y} ><h3>{this.props.P.name }
         <div></div>
         {this.props.P.description}</h3></Link>     

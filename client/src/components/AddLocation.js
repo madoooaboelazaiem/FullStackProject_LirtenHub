@@ -15,7 +15,8 @@ class AddLocation extends Component{
       city: '',
       street: '',
       extraInfo: '',
-      done:null
+      done:null,
+      error:null
     }
     this.onChange = this.onChange.bind(this)
     this.handleSubmitAddLocation = this.handleSubmitAddLocation.bind(this)
@@ -44,13 +45,24 @@ class AddLocation extends Component{
         this.setState({done:true})
 
         console.log(res.data)
-      }).then(alert('A Location was Added '))
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem adding this Location please try again later')
+          this.setState({error:false})
+
+        }
+        else{
+        alert('Location added successfully')}
+      })
       
     }
     render(){
      
         return(
-          <div id="page-content-wrapper">
+          <div >
           <link rel="shortcut icon" href=""/>
           <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

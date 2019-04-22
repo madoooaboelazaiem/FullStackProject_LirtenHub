@@ -18,7 +18,8 @@ class Cards extends Component{
      status: false,
       redirect: false,
       Y:this.props.reserv._id,
-      done:null
+      done:null,
+      error:null
 
     }
     this.onClick = this.onClick.bind(this)
@@ -40,9 +41,16 @@ class Cards extends Component{
      }) 
      this.setState({done:true})
 
-      alert('Room Rejected')
     }).catch(err=>{
       console.log(err)
+      this.setState({error: true})
+    }).then(res => {
+      if(this.state.error){
+        alert('There was a problem rejecting this reservation please try again later')
+        this.setState({error:false})
+      }
+      else{
+      alert('Room rejected')}
     })
 
   
@@ -62,10 +70,18 @@ class Cards extends Component{
      }) 
      this.setState({done:true})
 
-      alert('Room Accepted')
 
     }).catch(err=>{
       console.log(err)
+      this.setState({error: true})
+    }).then(res => {
+      if(this.state.error){
+        alert('There was a problem accepting this reservation please try again later')
+        this.setState({error:false})
+
+      }
+      else{
+      alert('Room accepted')}
     })
 
     
@@ -87,7 +103,7 @@ class Cards extends Component{
      return <div className="loader center"></div>
         return(
 
-    <div className = "tc" id="page-content-wrapper">
+    <div className = "tc" >
     <form onSubmit={this.handleSubmitReserve} className="Field">
             <Link className = "hideLink" to={{
                 state: {

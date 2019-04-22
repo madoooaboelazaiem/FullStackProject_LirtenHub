@@ -3,14 +3,26 @@ import DelCards from '../DeleteReservations'
 import axios from 'axios';
 class DelRes extends React.Component {
   state={
-    dele:[]
+    dele:[],
+    error:null
   }
-  componentDidMount() {//https://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/notYet
+  componentDidMount() {//https://lirtenhub-nav2.herokuapp.com/api/reservations/client/res  the reservations of client
     axios.get(`https://lirtenhub-nav2.herokuapp.com/api/reservations/`)
       .then(res => {
         const dele = res.data.data;
         this.setState({dele:dele });
-      })  
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Retreiving the reservations please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
+       
+      })    
      
   }
   render() {

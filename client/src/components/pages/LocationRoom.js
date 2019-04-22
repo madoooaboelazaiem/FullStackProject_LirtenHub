@@ -14,7 +14,8 @@ import { Route, BrowserRouter as Router,Link ,Switch } from 'react-router-dom'
     }
     componentDidMount(){
       const rooms=[]
-    
+    console.log(this.state.Y)
+    console.log(this.state.all)
       if(this.state.all.locationRooms.length==0){
         this.setState({loc:rooms})
         this.setState({done:true})

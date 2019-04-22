@@ -13,7 +13,8 @@ class EditRoom extends Component{
       Roomname: '',
       capacity: '',
       fee: '',
-      done:null
+      done:null,
+      error:null
 
       
     }
@@ -42,13 +43,26 @@ console.log({RoomID})
         })
 
         console.log(res.data)
-      }).then(alert('Room Added Successfully '))
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Editing the room please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
+        else{
+          alert('Room Edited successfully')
+        }
+      })
       
     }
     render(){
      
         return(
-          <div id="page-content-wrapper">
+          <div >
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <title>Edit Room</title>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
