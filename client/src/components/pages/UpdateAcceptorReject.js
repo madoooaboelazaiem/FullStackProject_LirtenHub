@@ -32,7 +32,7 @@ class UpdateAcceptorReject extends Component{
     event.preventDefault();
    axios({
         method: 'put',
-        url:'http://localhost:3000/api/users/declineupdate/'+(this.props.P2.user._id),
+        url:'http://lirtenhub-nav2.herokuapp.com/api/users/declineupdate/'+(this.props.P2.user._id),
         data: {
         }
       }).then(res => {
@@ -59,7 +59,7 @@ class UpdateAcceptorReject extends Component{
     event.preventDefault();
     axios({
         method: 'put',
-        url:'http://localhost:3000/api/users/approveupdate/'+(this.props.P2.user._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/users/approveupdate/'+(this.props.P2.user._id),
         data: {
          
         }

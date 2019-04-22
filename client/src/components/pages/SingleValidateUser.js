@@ -13,7 +13,7 @@ class SingleValidateUser extends React.Component {
 
 axios({
     method: 'get',
-    url: 'http://localhost:3000/api/users/valid/notyet',
+    url: 'https://lirtenhub-nav2.herokuapp.com/api/users/valid/notyet',
     data: {
 
       User_Category:this.props.loggedUser.User_Category
