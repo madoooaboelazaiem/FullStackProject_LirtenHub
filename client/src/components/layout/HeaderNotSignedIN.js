@@ -21,7 +21,7 @@ class HeaderNotSignedIN extends Component{
           <div className="header-right">
             <a className="active" href="/">SignIn</a>
             <a href="/SignUp">SignUp</a>
-            <a href="/About">About</a>
+            <a href="/">About</a>
             {/* <Router>
                       <Link  to={"/Profile/"+x.id} >My profile</Link>
                         <div className="dropdown-content bg-light-green ">

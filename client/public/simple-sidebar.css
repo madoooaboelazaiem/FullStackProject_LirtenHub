@@ -1,11 +1,30 @@
 
 body {
-    background-repeat: no-repeat;
-    background-image: url('./3.jpg');
+    background-repeat: repeat;
+    background-image: url('./2.jpeg');
 
-    background-size: cover;
+    background-size: contain;
   }
-  
+  .btn-primary {
+    color: #fff;
+    background-color: #b1b1b1;
+    border-color: #b1b1b1;
+}
+.btn:hover{
+  background: #888888;
+  color: rgb(177, 159, 159);
+}
+.but:hover, button:focus {
+  background: #888888;
+  color: rgb(177, 159, 159);
+  outline: 0;
+  transition: background-color 2s ease-out;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #bebebe;
+  border-color: #bebebe;
+}
   #sidebar-wrapper {
     min-height: 100vh;
     margin-left: -15rem;
@@ -15,7 +34,7 @@ body {
     transition: margin .25s ease-out;
     
   }
-  
+ 
   #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
@@ -49,9 +68,9 @@ body {
   }
 
   .bg-light {
-    background-color: #101f50!important;
+    background-color: #000000!important;
 }.border-bottom {
-  border-bottom: 1px solid #101f50!important;
+  border-bottom: 1px solid #000000!important;
 }.navbar-light .navbar-nav .nav-link {
   color: rgba(255, 255, 255);
 }.btn-primary {
@@ -61,7 +80,7 @@ body {
 }
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border-top: 16px solid #676e74; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -71,4 +90,7 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+a:hover{
+  text-decoration: none
 }

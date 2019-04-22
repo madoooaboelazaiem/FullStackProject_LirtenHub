@@ -7,7 +7,8 @@ import { connect } from "react-redux";
 class CoworkingLocations extends React.Component {
   state={
     locations:[],
-    done:null
+    done:null,
+    error:null
   }
   componentDidMount() {
     const {isLoggedIn,loggedUser,users} = this.props;
@@ -17,6 +18,16 @@ class CoworkingLocations extends React.Component {
         this.setState({locations:L });
         this.setState({done:true})
 
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Retrieving the Locations please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
       })  
      
   }
@@ -24,7 +35,7 @@ class CoworkingLocations extends React.Component {
     if(this.state.done==null)
     return <div className="loader center"></div>
     return (
-      <div className = 'locations' id="page-content-wrapper">
+      <div className = 'locations' >
       <React.Fragment>
 
              <h1 className = "">Locations</h1>

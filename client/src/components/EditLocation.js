@@ -6,7 +6,7 @@ import { Link,Route, BrowserRouter as Router ,Switch } from 'react-router-dom'
 import { connect } from "react-redux";
 import axios from 'axios';
 
-class AddLocation extends Component{
+class EditLocation extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,8 @@ class AddLocation extends Component{
       city: '',
       street: '',
       extraInfo: '',
-      done:null
+      done:null,
+      error:null
     }
     this.onChange = this.onChange.bind(this)
     this.handleSubmitAddLocation = this.handleSubmitAddLocation.bind(this)
@@ -42,17 +43,28 @@ class AddLocation extends Component{
         this.setState({
           redirect: res.data
         })
-        this.setState({done:true})
 
         console.log(res.data)
-      }).then(alert('A Location was Added '))
+      }).catch(err=>{
+        console.log(err)
+        this.setState({error: true})
+      }).then(res => {
+        if(this.state.error){
+          alert('There was a problem Editing the Location please try again later')
+          this.setState({error:false})
+          window.location.href = "/"
+
+        }
+        else{
+          alert('Location edited successfully')
+        }
+      })
       
     }
     render(){
-      if(this.state.done==null)
-      return <div className="loader center"></div>
+     
         return(
-          <div id="page-content-wrapper">
+          <div >
           <link rel="shortcut icon" href=""/>
           <meta charset="UTF-8"/>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -117,4 +129,4 @@ function mapStateToProps(state) {
   const {users} = state.users
    return { isLoggedIn,loggedUser,users };
  }
-export default connect(mapStateToProps) (AddLocation)
+export default connect(mapStateToProps) (EditLocation)

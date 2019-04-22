@@ -18,7 +18,8 @@ import {createHashHistory}from "history"
           Z:this.props.R.OwnerId,
             added: false,
           redirect: false,
-          done:null
+          done:null,
+          error:true
 
         }
         this.onChange = this.onChange.bind(this)
@@ -62,8 +63,20 @@ import {createHashHistory}from "history"
 
           console.log(res.data)
         })
-        .then(alert('Room Reserved Successfully '))
-        .then(res =>{
+        .catch(err=>{
+          console.log(err)
+          this.setState({error: true})
+        }).then(res => {
+          if(this.state.error){
+            alert('There was a problem Reserving the room please try again later')
+            this.setState({error:false})
+            window.location.href = "/"
+
+          }
+          else{
+            alert('Room Reserved Successfully ')
+          }
+        })        .then(res =>{
             this.setState({
                added: true 
             }) 
@@ -78,16 +91,14 @@ import {createHashHistory}from "history"
       }
       renderRedirect = () => {
         if (this.state.redirect&&this.state.added) {
-            alert('Room Reserved Successfully ')
           return <Redirect to='/home' />
         }
       }
   render() {
-    if(this.state.done==null)
-    return <div className="loader center"></div>
+   
     return (
      
-<div id="page-content-wrapper"> 
+<div > 
 <form onSubmit={this.handleSubmitReserve} className="Field">
 
 <Link className = "hideLink" to={{
@@ -116,8 +127,8 @@ import {createHashHistory}from "history"
          <input type="Datetime" name="from" onChange={this.onChange} value={this.state.from} required/>
         </p>
         <p className = 'tc'>
-        <label className='red'>To </label>
-         <input type="Datetime" name="to" onChange={this.onChange} value={this.state.to} required/>
+        <label className='red tc'>To</label>
+         <input className ='tc' type="Datetime" name="to" onChange={this.onChange} value={this.state.to} required/>
         </p>
         <p className="full b f4  tc  ">
                      <span className = 'tc'> 

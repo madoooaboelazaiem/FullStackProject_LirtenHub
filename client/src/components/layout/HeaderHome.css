@@ -11,7 +11,7 @@
   color: #021b35;
 } */
 .header a:hover {
-  background-color: #3f658a;
+  background-color: #65686b;
   color: black;
 }
 .header a.logo {
@@ -21,7 +21,7 @@
 
 .header a {
   float: left;
-  color: dodgerblue;
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -33,7 +33,7 @@
 .header {
   margin:0;
   overflow: hidden;
-  background-color: #021b35;
+  background-color: #000000;
   padding: 20px 10px;
 }
 
@@ -57,8 +57,13 @@
   background-color: transparent
   
 }
+.loc h3:hover{
+  text-decoration: none;
+
+}
 .loc:hover{
   background: #e1e1e1;
+  text-decoration: none;
 
   border: solid 5px rgb(104, 47, 47);
   margin: -1px;

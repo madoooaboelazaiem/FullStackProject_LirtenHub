@@ -49,7 +49,9 @@ componentDidMount(){
       <p></p>
         {this.props.L.city}
         <p className = 'blue'>Location's Address</p>
-         {this.props.L.street}</h3></Link>
+         {this.props.L.street}
+         <p className = 'blue'>Location's Info</p>
+         {this.props.L.extraInfo}</h3></Link>
        
       </div>
     )
