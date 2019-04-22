@@ -72,8 +72,8 @@ export function login(data) {
       dispatch(setCurrentUser(jwtDecode(token)));
 
       
-    }) .catch(function (error) {
-      alert("you have enter either the wrong username or password")
+    }) .catch(function (err) {
+      alert(err.response.data.error)
     });
     
 

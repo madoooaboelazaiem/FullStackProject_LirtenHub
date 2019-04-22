@@ -96,6 +96,9 @@ class HeaderSignedIN extends Component{
                         {/* <a class="nav-link hover-bg-light-blue" href="#">Home <span class="sr-only">(current)</span></a> */}
                       </li>
                       <li class="nav-item">
+                      <Link   class="nav-link hover-bg-light-blue" to={"/SingleValidateUser"} >Validate Users</Link>
+                      </li> 
+                      <li class="nav-item">
                       <Link   class="nav-link hover-bg-light-blue" to={"/SingleUpdate"} >AcceptorReject Updates</Link>
                       </li> 
                       <li class="nav-item">

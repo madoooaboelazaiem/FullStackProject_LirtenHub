@@ -37,6 +37,8 @@ import AcceptorDeclineSkill from './components/pages/AcceptorDeclineSkill';
 import AcceptrejectSingleSkill from './components/pages/AcceptrejectSingleSkill';
 import UpdateAcceptorReject from './components/pages/UpdateAcceptorReject';
 import SingleUpdate from './components/pages/SingleUpdate';
+import SingleValidateUser from './components/pages/SingleValidateUser';
+import ValidateUser from './components/pages/ValidateUser';
 
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
@@ -91,6 +93,8 @@ class App extends React.Component {
           <Route  exact path="/ApplySkill" component={ApplySkill}/>
           <Route  exact path="/UpdateAcceptorReject" component={UpdateAcceptorReject}/>
           <Route  exact path="/SingleUpdate" component={SingleUpdate}/>
+          <Route  exact path="/SingleValidateUser" component={SingleValidateUser}/>
+          <Route  exact path="/ValidateUser" component={ValidateUser}/>
           <Route  exact path="/SingleSkill" component={SingleSkill}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
           </Switch>
