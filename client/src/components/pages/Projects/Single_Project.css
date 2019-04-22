@@ -1,72 +1,97 @@
-/* span2 {
-    color:greenyellow;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+.task{
+    background-color:black;
+    color: white;
+    padding:20px 40px;
+    text-align:center;
+    display:inline-block;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.task:hover{
+    box-shadow: 5px 10px 8px #888888;
+    background-color: rgb(49, 48, 48);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    
+}
+.divider{
+    width: 100px;
+    height: auto;
+    display: inline-block;
+    padding-left:30px;
+}
+.PName {
+    color:black;
+    font-family: "Arial Balck",Gadget,sans-serif; 
     padding-left :30px;
-    font-size: 30px;
-    
-   
+    font-size: 80px;
+    text-align: left   
 }
-h2{
-    margin-top:-0px;
+.d1{  
+    color:black;
+    font-family: "Arial Balck",Gadget,sans-serif;
+    padding-left :30px;
+    font-size: 20px;
+    max-width: 600px;
+}
+.span1{
+    color:black;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    padding-left :1px;
+
+}
+.h2s{ 
+   
     color:green;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
-    padding-left :20px;
-    
+    padding-left :20px; 
+    text-decoration: none;  
+}
 
-    
+.clickedcursor{
+    cursor: pointer;
 }
-h1.Owner{
-    margin-top:-0px;
-    color:green;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
-    padding-left :20px;
-    font-size: 25px
-    
-
-    
-}
-h1.req {
-    margin-top:50px;
-    color:orange;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
-    padding-left :20px;
-    font-size: 30px;
-    
-   
-}
-h1.skills{
-    color:white;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
-    padding-left :20px;
-    font-size: 22px;
-}
-h1.hello{
+.hello{
     color:orange;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     padding-left :20px;
     font-size: 25px;
 }
 
-span{
-    color:white;
+.sadasd{
+    color:black;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
-    padding-left :1px;
-
-}
-p{  
-    margin-top:-80px;
-    color:white;
     padding-left :20px;
-    font-size: 20px;
-    max-width: 600px;
+    font-size: 25px
 }
-h2.MN{
-    margin-top:-20px;
-    color: white
+.appbutton{
+    
+        color :black;
+        text-decoration:none;
+        padding:15px 32px;
+        font-family:"Roboto",sans-seif;
+        font-size:15px;
+        border:3px solid black;
+        background-color: rgba(229, 232, 232, 0);
+        
+        position: absolute;
+        left:50%;
+        top:20%;
+        
+        
+}
+.appbutton:hover{
+    
+    background-color:rgba(28, 29, 29, 0.158);
+    color: white;
+    cursor: pointer
+}
 
-} */.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+.loader {
+  border: 16px solid #f3f3f3; 
+  border-top: 16px solid #3498db; 
   border-radius: 50%;
   width: 120px;
   height: 120px;

@@ -27,7 +27,8 @@ router.get('/:id',async (req,res)=> {
     const result3=[]
     const result4=[]
     const result5=[]
-    result4.push(await Skill.findOne({"_id":X.main_skill}))
+    if(X.main_skill!=null)
+        result4.push(await Skill.findOne({"_id":X.main_skill}))
     for(let i=0;i<X.current_cons_applied_ids.length;i++){
         const user=await User.findOne({"_id":X.current_cons_applied_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
