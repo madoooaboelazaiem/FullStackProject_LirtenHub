@@ -59,18 +59,8 @@ axios.put('Https://Lirtenhubtest.herokuapp.com/api/users/Logout/'+(this.props.lo
       const { dispatch } = this.props;
       const x = this.props.loggedUser
       console.log(this.props.loggedUser)
-      if(x.User_Category=="Admin"){
-
-      }
-      else if(x.User_Category=="Partner"){}
-      else if(x.User_Category=="Member"){}
-      else if(x.User_Category=="Consulting_Agent"){}
-      else{
-
-      if(this.props.isLoggedIn===false){
-        return  <div><Redirect to='/' />;
-        </div>
-      }
+      
+      
       if(this.props.loggedUser.User_Category=="Admin"){
         return(
           <div>
@@ -177,7 +167,9 @@ return(
       <Link className="list-group-item list-group-item-action white-80 bg-light" to="/projects" >All Projects</Link>
 
       </div>
+      
     </div>
+    
 
   
       <div id="page-content-wrapper">
@@ -230,6 +222,7 @@ return(
   
   
   </div>
+  
 
 
 
@@ -237,7 +230,7 @@ return(
 
       
 )
-      }
+      
 }
 }
 

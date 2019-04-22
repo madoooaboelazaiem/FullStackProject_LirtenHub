@@ -20,13 +20,15 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async (req,res)
 	const X =await Task.findOne({"_id":tid})
 	if(!X)
         return res.status(404).send({error: 'Task does not exist'})
-    X.Consultancy_id=await User.findOne({"_id":X.Consultancy_id},{"Hashed_password":0})
-    X.Partner_id=await User.findOne({"_id":X.Partner_id},{"Hashed_password":0})
-    X.member_id=await User.findOne({"_id":X.member_id},{"Hashed_password":0})
-    X.main_skill=await Skill.findOne({"_id":X.main_skill})
-    X.project_id=await Project.findOne({"_id":X.project_id})
     const result1=[]
     const result2=[]
+    const cons=await User.findOne({"_id":X.Consultancy_id},{"Hashed_password":0})
+    const partner=await User.findOne({"_id":X.Partner_id},{"Hashed_password":0})
+    const member=await User.findOne({"_id":X.member_id},{"Hashed_password":0})
+    if(X.main_skill!=null)
+        result2.push(await Skill.findOne({"_id":X.main_skill}))
+    const P=await Project.findOne({"_id":X.project_id})
+    
     for(let i=0;i<X.current_members_applied_ids.length;i++){
         const u = await User.findOne({"_id":X.current_members_applied_ids[i]})
         result1.push(u)
@@ -35,9 +37,15 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async (req,res)
         const s= await Skill.findOne({"_id":X.extra_skills[i]})
         result2.push(s)
     }
-    X.current_members_applied_ids=result1
-    X.extra_skills=result2
-    res.json({data:X})
+    const Z={
+        T:X,
+        cons:cons,
+        partner:partner,
+        member:member,
+        skills:result2,
+        cmai:result1
+    }
+    res.json({data:Z})
 
 })
 
@@ -289,12 +297,15 @@ router.put('/declinemember/:id',passport.authenticate('jwt', {session: false}),a
 router.post('/certified/:id',passport.authenticate('jwt', {session: false}),async(req,res)=>{ // check 3aleh tany
     const tid=req.params.id
     const mem_id=req.user.id
+    
 
     if(req.user.User_Category!="Member")
         res.json({data:false})
 
     const X=await Task.findOne({"_id":tid})
     const Y=await User.findOne({"_id":mem_id})
+    if(X.current_members_applied_ids.includes(mem_id)||X.member_id!=null)
+        res.json({data:false})
     
     if(Y.Skills.length==0)
         res.json({data:false})

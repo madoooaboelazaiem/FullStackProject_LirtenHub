@@ -1,0 +1,23 @@
+
+ /* .tt:hover {
+  border-radius: 15px   ;
+  outline: 0px solid transparent;
+  padding: 1px 1px;
+  border: 2px solid brown;
+  cursor:pointer;
+} */
+
+.tt2 {
+  display: black;
+    text-align : center;
+    color: rgb(0, 0, 0);
+    overflow:hidden;
+    font-size:25px;
+    
+
+}
+.tt2:hover{
+  cursor:pointer;
+  font-size: 40px;
+}
+

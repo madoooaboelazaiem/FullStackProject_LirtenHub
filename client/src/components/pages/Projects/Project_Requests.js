@@ -1,5 +1,5 @@
 import React from 'react';
-import Project from './pages/Project.js'
+import Project from './Project.js'
 import axios from 'axios';
 class Project_Requests extends React.Component {
   state={

@@ -20,26 +20,27 @@ router.get('/:id',async (req,res)=> {
 	const X =await Project.findOne({"_id":pid})
 	if(!X)
         return res.status(404).send({error: 'Project does not exist'})
-    X.partner_id=await User.findOne({"_id":X.partner_id})
-    X.consultancy_agency_id=await User.findOne({"_id":X.consultancy_agency_id})
-    X.main_skill=await Skill.findOne({"_id":X.main_skill})
+    const partner=await User.findOne({"_id":X.partner_id},{"Hashed_password":0})
+    const cons=await User.findOne({"_id":X.consultancy_agency_id},{"Hashed_password":0})
     const result1=[]
     const result2=[]
     const result3=[]
     const result4=[]
     const result5=[]
+    if(X.main_skill!=null)
+        result4.push(await Skill.findOne({"_id":X.main_skill}))
     for(let i=0;i<X.current_cons_applied_ids.length;i++){
-        const user=await User.findOne({"_id":X.current_cons_applied_ids[i]})
+        const user=await User.findOne({"_id":X.current_cons_applied_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result1.push(user)
     }
     for(let i=0;i<X.current_members_applied_ids.length;i++){
-        const user=await User.findOne({"_id":X.current_members_applied_ids[i]})
+        const user=await User.findOne({"_id":X.current_members_applied_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result2.push(user)
     }
     for(let i=0;i<X.accepted_members_ids.length;i++){
-        const user=await User.findOne({"_id":X.accepted_members_ids[i]})
+        const user=await User.findOne({"_id":X.accepted_members_ids[i]},{"Hashed_password":0})
         user.Hashed_password=null
         result3.push(user)
     }
@@ -51,14 +52,19 @@ router.get('/:id',async (req,res)=> {
         const task=await Task.findOne({"_id":X.tasks[i]})
         result5.push(task)
     }
-    X.current_cons_applied_ids=result1
-    X.current_members_applied_ids=result2
-    X.accepted_members_ids=result3
-    X.extra_skills=result4
-    X.tasks=result5
+    const Y={
+        P:X,
+        ccap:result1,
+        cmai:result2,
+        ami:result3,
+        skills:result4,
+        tasks:result5,
+        partner:partner,
+        cons:cons
+    }
 
     
-    res.json({data:X})
+    res.json({data:Y})
 })
 
 router.post('/',passport.authenticate('jwt', {session: false}),async (req, res) => {
@@ -89,7 +95,7 @@ router.put('/:id',passport.authenticate('jwt', {session: false}), async(req, res
         return res.status(404).send({error: 'Project does not exist'})
     if(req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
         return res.status(401).send('Unauthorized');
-    if(X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed'){
+    if((X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed')&& req.user.User_Category!="Admin"){
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.UpdateValidation(req.body)
@@ -141,6 +147,7 @@ router.put('/status/:id',passport.authenticate('jwt', {session: false}),async (r
      if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
      await X.updateOne(req.body)
      if(req.body.status=='Implementation'){
+         if(X.status!="Implementation"&&X.status!="Completed")
          await X.updateOne({"Start_Date":new Date()})
     }
      else if(req.body.status=='Completed'){
