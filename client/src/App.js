@@ -47,7 +47,7 @@ import SingleConsult from './components/pages/Projects/SingleConsult';
 import ApproveOrDeclineConsult from './components/pages/Projects/ApproveOrDeclineConsult';
 import AddT from './components/pages/Projects/AddTask.js';
 import A23 from './components/pages/Projects/myAP.js';
-import A234 from './components/pages/Projects/conneed'
+//import A234 from './components/pages/Projects/conneed'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -216,7 +216,7 @@ class App extends React.Component {
     
     {/* // <Route  exact path="/" component={HomePage}/> */}
     <Route exact path="/NewTask" component={AddT}/>
-    <Route exact path="/conneed" component={A234}/>
+    //<Route exact path="/conneed" component={A234}/>
        <Route  exact path="/SingleProject/:id" component={Single_Project}/>
         <Route  exact path="/home" component={App}/>
         <Route  exact path="/Reserve" component={Reserve}/>
