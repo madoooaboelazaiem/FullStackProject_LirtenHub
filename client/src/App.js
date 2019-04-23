@@ -47,7 +47,7 @@ import SingleConsult from './components/pages/Projects/SingleConsult';
 import ApproveOrDeclineConsult from './components/pages/Projects/ApproveOrDeclineConsult';
 import AddT from './components/pages/Projects/AddTask.js';
 import A23 from './components/pages/Projects/myAP.js';
-import A234 from '/components/pages/projects/conneed'
+import A234 from './components/pages/projects/conneed'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
