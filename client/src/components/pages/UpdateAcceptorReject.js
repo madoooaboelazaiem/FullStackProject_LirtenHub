@@ -32,7 +32,7 @@ class UpdateAcceptorReject extends Component{
     event.preventDefault();
    axios({
         method: 'put',
-        url:'http://lirtenhub-nav2.herokuapp.com/api/users/declineupdate/'+(this.props.P2.user._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/users/declineupdate/'+(this.props.P2.user._id),
         data: {
         }
       }).then(res => {

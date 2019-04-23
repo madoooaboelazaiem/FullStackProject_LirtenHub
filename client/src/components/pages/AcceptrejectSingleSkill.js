@@ -9,7 +9,7 @@ class AcceptrejectSingleSkill extends React.Component {
   }
   componentDidMount() {
 
-  axios.get('http://localhost:3000/api/users/pending/Skill')
+  axios.get('https://lirtenhub-nav2.herokuapp.com/api/users/pending/Skill')
 
 .then(res => {       
 
