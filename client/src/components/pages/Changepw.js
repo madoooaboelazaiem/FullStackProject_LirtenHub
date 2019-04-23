@@ -82,6 +82,7 @@ if(user.User_Category=="Consulting_Agent"){
 
   }
   onSubmit = e => {
+    e.preventDefault();
     const {isLoggedIn,loggedUser,users} = this.props;
       if(this.state.Password==this.state.Passwordconfirm){
         console.log(this.state.Password)
