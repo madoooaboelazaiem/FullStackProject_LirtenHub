@@ -41,6 +41,8 @@ import UpdateAcceptorReject from './components/pages/UpdateAcceptorReject';
 import SingleUpdate from './components/pages/SingleUpdate';
 import SingleValidateUser from './components/pages/SingleValidateUser';
 import ValidateUser from './components/pages/ValidateUser';
+import SingleConsult from './components/pages/Projects/SingleConsult';
+import ApproveOrDeclineConsult from './components/pages/Projects/ApproveOrDeclineConsult';
 
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
@@ -103,6 +105,8 @@ class App extends React.Component {
           <Route  exact path="/ValidateUser" component={ValidateUser}/>
           <Route  exact path="/SingleSkill" component={SingleSkill}/>
           <Route   exact path="/Changepw/:id" component={Changepw}/>
+          <Route   exact path="/SingleConsult" component={SingleConsult}/>
+          <Route   exact path="/ApproveOrDeclineConsult" component={ApproveOrDeclineConsult}/>
           </Switch>
           </X>
           </Router>
@@ -150,6 +154,8 @@ class App extends React.Component {
         <Route  exact path="/SingleUpdate" component={SingleUpdate}/>
         <Route  exact path="/SingleSkill" component={SingleSkill}/>
         <Route   exact path="/Changepw/:id" component={Changepw}/>
+        <Route   exact path="/SingleConsult" component={SingleConsult}/>
+          <Route   exact path="/ApproveOrDeclineConsult" component={ApproveOrDeclineConsult}/>
         </Switch>
         </X>
         </Router>
