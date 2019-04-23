@@ -41,7 +41,8 @@ import UpdateAcceptorReject from './components/pages/UpdateAcceptorReject';
 import SingleUpdate from './components/pages/SingleUpdate';
 import SingleValidateUser from './components/pages/SingleValidateUser';
 import ValidateUser from './components/pages/ValidateUser';
-
+import ADDP from './components/pages/Projects/AddProject.js'
+import editP from './components/pages/Projects/EditProject.js'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -80,7 +81,8 @@ class App extends React.Component {
       <Route  exact path="/" component={HomePage}/>
       
       {/* // <Route  exact path="/" component={HomePage}/> */}
-      
+      <Route exact path="/Editproject" component={editP}/>
+      <Route exact path="/NewProject"component={ADDP}/>
       <Route  exact path="/SingleProject/:id" component={Single_Project}/>
          <Route  exact path="/SingleProject/:id" component={Single_Project}/>
           <Route  exact path="/home" component={App}/>

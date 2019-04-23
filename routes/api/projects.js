@@ -76,8 +76,10 @@ router.post('/',passport.authenticate('jwt', {session: false}),async (req, res) 
          isValidated = validator.createValidation(req.body)
     else
          isValidated = validator.createValidationwithoutcons(req.body)
-    if (isValidated.error) 
+    if (isValidated.error){
+        console.log(isValidated.error.details[0].message)
         return res.status(400).send({ error: isValidated.error.details[0].message })
+    }
     if(req.body.main_skill){
         const Y=await Skill.findOne({'_id':req.body.main_skill})
         if(!Y)
@@ -96,14 +98,20 @@ router.put('/:id',passport.authenticate('jwt', {session: false}), async(req, res
     if(req.user.User_Category!="Admin"&&(""+req.user._id!=X.partner_id)&&req.user._id!=(""+X.consultancy_agency_id))
         return res.status(401).send('Unauthorized');
     if((X.status=='Allocation'||X.status=='Implementation'||X.status=='Completed')&& req.user.User_Category!="Admin"){
+        console.log("lol")
         return res.status(400).send({error: 'The Project cannot be edited anymore'})
     }
     const isValidated = validator.UpdateValidation(req.body)
-    if (isValidated.error) return res.status(400).send({ error: isValidated.error.details[0].message })
+    if (isValidated.error) {
+        console.log(isValidated.error.details[0].message)
+        return res.status(400).send({ error: isValidated.error.details[0].message })
+    console.log("!")
+    console.log(isValidated.error.details[0].message)}
     if(req.body.main_skill){
     const Y=await Skill.findOne({'_id':req.body.main_skill})
     
     if(!Y)
+    console.log(req.body.main_skill)
         return res.status(400).send({error: 'We dont support that skill in lirten'})
     }
     const updatedP = await X.updateOne(req.body)

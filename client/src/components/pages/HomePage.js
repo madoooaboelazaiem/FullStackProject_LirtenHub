@@ -11,7 +11,7 @@ import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'reac
       <div> 
       <h1>Hello Testing 123</h1> 
       <Link to={"/projects"}>All Projects</Link>
-        
+      <Link to={"/newproject"}>newproject</Link>
              
      </div>
     )
