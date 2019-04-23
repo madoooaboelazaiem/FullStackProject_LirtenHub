@@ -44,7 +44,7 @@ Business_Plans_Offered:""
 }
 componentDidMount() {
 
-  const sendtoaxios='http://localhost:3000/api/users/'+(this.props.match.params.id)
+  const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
 
@@ -81,7 +81,7 @@ Past_Projects:user.Past_Projects,
   const result=[]
 for(let i=0;i<this.state.Skills.length;i++){
 
-  axios.get('http://localhost:3000/api/skills/'+(this.state.Skills[i]))
+  axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(this.state.Skills[i]))
 
 .then(res => {       
 
@@ -100,7 +100,7 @@ this.setState({Skills:result})
 }
 for(let i=0;i<this.state.Applied_Skills.length;i++){
 
-  axios.get('http://localhost:3000/api/skills/'+(this.state.Applied_Skills[i]))
+  axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(this.state.Applied_Skills[i]))
 
 .then(res => {       
 

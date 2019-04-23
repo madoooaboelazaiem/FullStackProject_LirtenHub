@@ -8,17 +8,16 @@ import {createHashHistory}from "history"
 import axios from 'axios';
 
 import PropTypes from 'prop-types'
-import '../layout/Cards.css'
+import '../../layout/Cards.css'
 import 'tachyons'
-class AcceptorDeclineSkill extends Component{
+class ApproveOrDeclineConsult extends Component{
   
   constructor(props) {
     super(props);
     this.state = {
         skillinstring:"",
      status: false,
-      redirect: false,
-      Y:this.props.P2.skill
+      redirect: false
 
     }
     this.onClick = this.onClick.bind(this)
@@ -32,14 +31,14 @@ class AcceptorDeclineSkill extends Component{
     event.preventDefault();
    axios({
         method: 'put',
-        url:'https://lirtenhub-nav2.herokuapp.com/api/users/declineSkill/'+(this.props.P2.user._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/declinecons/5ca9fc186d942f1eb821d7e9'+(this.props.loggedUser._id),
         data: {
-            Skill:this.state.Y
+            consid:this.props.P2._id
         }
       }).then(res => {
           this.setState({status:true})
         console.log(res)
-        alert('The Skill '+this.props.P2.user.First_Name+" "+this.props.P2.user.Last_Name+" is Rejected")
+        alert('The consultancy that applied is Rejected')
         
       }).catch(err=>{
         console.log(err)
@@ -60,16 +59,14 @@ class AcceptorDeclineSkill extends Component{
     event.preventDefault();
     axios({
         method: 'put',
-        url:'https://lirtenhub-nav2.herokuapp.com/api/users/approveSkill/'+(this.props.P2.user._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/consassign/5ca9fc186d942f1eb821d7e9',
         data: {
-            Skill:this.state.Y
+            id:this.props.P2._id
         }
       }).then(res => {
-        this.setState({
-            status: true 
-         }) 
+       
         console.log(res)
-        alert('The Skill that'+this.props.P2.user.First_Name+" "+this.props.P2.user.Last_Name+" requested is Approved")
+        alert('The consultancy that applied is Approved')
         
       }).catch(err=>{
         console.log(err)
@@ -84,28 +81,19 @@ class AcceptorDeclineSkill extends Component{
             return ( <Redirect to='/Home' />)
         }
         if(this.state.status==true){
-            return ( <Redirect to='/AcceptorDeclineSkill' />)
+            return ( <Redirect to='/ApproveOrDeclineConsult' />)
         }
-        const {user,skill} = this.props.P2
-        axios.get('https://lirtenhub-nav2.herokuapp.com/api/skills/'+(skill))
-
-.then(res => {       
-
-const P2 = res.data.X;     
-this.setState({skillinstring:P2})  
-})
-
+      
         return(
             <div className = "tc">
     <form onSubmit={this.handleSubmitReserve} className="Field">
         
             <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
               <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
-              <CardText>id: {user._id} category: {user.User_Category}</CardText>
-                <CardText>{user.First_Name} {user.Last_Name}</CardText>
-                <CardText>Bio: {user.Bio}</CardText>
-                <CardText>Country: {user.Country}</CardText>
-                <CardText>{this.state.skillinstring.Name} {this.state.skillinstring.Description}</CardText>
+              <CardText>id: {  this.props.P2._id} category: {  this.props.P2.User_Category}</CardText>
+                <CardText>{  this.props.P2.First_Name} {  this.props.P2.Last_Name}</CardText>
+                <CardText>Bio: {  this.props.P2.Bio}</CardText>
+                <CardText>Country: {  this.props.P2.Country}</CardText>
               </CardBody>
             </Card>
             <span className = 'tc'> 
@@ -118,9 +106,15 @@ this.setState({skillinstring:P2})
     }
   
 }
-AcceptorDeclineSkill.propTypes ={
+ApproveOrDeclineConsult.propTypes ={
     reserv:PropTypes.object.isRequired
   }
   
-  
-  export default AcceptorDeclineSkill
+  function mapStateToProps(state) {
+    // console.log(state.authentication.loggedUser)
+     
+     const { isLoggedIn,loggedUser } = state.authentication;
+    const {users} = state.users
+     return { isLoggedIn,loggedUser,users };
+   }
+   export default connect(mapStateToProps)(ApproveOrDeclineConsult);

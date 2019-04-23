@@ -39,7 +39,7 @@ class formconsultancy extends Component{
     event.preventDefault();
     axios({
       method: 'post',
-      url:'Https://Lirtenhubtest.herokuapp.com/api/users/register',
+      url:'https://lirtenhub-nav2.herokuapp.com/api/users/register',
       data: {
         Email:this.state.Email,
     Country:this.state.Country,

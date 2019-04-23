@@ -33,7 +33,7 @@ class Cards extends Component{
     event.preventDefault();
   
     console.log(this.state.Y)
-    axios.put(`https://lirtenhubtest.herokuapp.com/api/reservations/declined/`+this.state.Y,{
+    axios.put(`https://lirtenhub-nav2.herokuapp.com/api/reservations/declined/`+this.state.Y,{
 
     }).then(res => {
       this.setState({
@@ -51,6 +51,8 @@ class Cards extends Component{
       }
       else{
       alert('Room rejected')}
+      window.location.href = "/AcceptRejectReservation"
+
     })
 
   
@@ -62,7 +64,8 @@ class Cards extends Component{
   routeChangeAccept(event) {
     event.preventDefault();
     console.log(this.state.Y)
-    axios.put(`https://lirtenhubtest.herokuapp.com/api/reservations/confirmed/`+this.state.Y,{
+
+    axios.put(`http://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/`+this.state.Y,{
 
     }).then(res => {
       this.setState({
@@ -82,6 +85,7 @@ class Cards extends Component{
       }
       else{
       alert('Room accepted')}
+           window.location.href = "/AcceptRejectReservation"
     })
 
     
@@ -99,8 +103,7 @@ class Cards extends Component{
     render(){
       
         const {RoomID,from , to} = this.props.reserv
-        if(this.state.done==null)
-     return <div className="loader center"></div>
+        
         return(
 
     <div className = "tc" >

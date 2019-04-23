@@ -50,7 +50,7 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
+  const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
 
@@ -82,13 +82,14 @@ if(user.User_Category=="Consulting_Agent"){
 
   }
   onSubmit = e => {
+    e.preventDefault();
     const {isLoggedIn,loggedUser,users} = this.props;
       if(this.state.Password==this.state.Passwordconfirm){
         console.log(this.state.Password)
         console.log(this.state.Passwordconfirm)
     axios({
         method: 'post',
-        url: 'http://localhost:3000/api/users/changepassword/'+(this.props.match.params.id),
+        url: 'https://lirtenhub-nav2.herokuapp.com/api/users/changepassword/'+(this.props.match.params.id),
         data: {
            
             newpassword:this.state.Password,

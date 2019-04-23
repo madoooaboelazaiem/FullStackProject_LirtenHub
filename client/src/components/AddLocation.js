@@ -29,7 +29,7 @@ class AddLocation extends Component{
     const {isLoggedIn,loggedUser,users} = this.props;
 
       event.preventDefault();
-      axios.post(`https://lirtenhubtest.herokuapp.com/api/Locations/`, {
+      axios.post(`https://lirtenhub-nav2.herokuapp.com/api/Locations/`, {
       
         name: this.state.name,
         country: this.state.country,
