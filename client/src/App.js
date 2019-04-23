@@ -216,7 +216,7 @@ class App extends React.Component {
     
     {/* // <Route  exact path="/" component={HomePage}/> */}
     <Route exact path="/NewTask" component={AddT}/>
-    //<Route exact path="/conneed" component={A234}/>
+    
        <Route  exact path="/SingleProject/:id" component={Single_Project}/>
         <Route  exact path="/home" component={App}/>
         <Route  exact path="/Reserve" component={Reserve}/>
