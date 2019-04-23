@@ -80,7 +80,9 @@ if(user.User_Category=="Consulting_Agent"){
   }
   onSubmit = e => {
     const {isLoggedIn,loggedUser,users} = this.props;
+
     const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(loggedUser.id)
+
   
     console.log(sendtoaxios) 
   

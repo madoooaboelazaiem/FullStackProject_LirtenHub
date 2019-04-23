@@ -66,12 +66,14 @@ import {createHashHistory}from "history"
         .catch(err=>{
           console.log(err)
           this.setState({error: true})
+          alert('There was a problem Reserving the room please try again later')
+          window.location.href = "/"
+
+
         }).then(res => {
           if(this.state.error){
-            alert('There was a problem Reserving the room please try again later')
             this.setState({error:false})
-            window.location.href = "/"
-
+            alert('reservation requested successfully, it must be accepted first before being regiestered')
           }
           else{
             alert('Room Reserved Successfully ')
