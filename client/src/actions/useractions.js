@@ -18,7 +18,7 @@ export function setCurrentUser(users) {
 
 export const getuserbyid = () => dispatch => {
 
-	axios.get('Https://Lirtenhubtest.herokuapp.com/api/users/5cafcdadeebff820a470a077')
+	axios.get('https://lirtenhub-nav2.herokuapp.com/api/users/5cafcdadeebff820a470a077')
 
 		.then(res =>{
             console.log(res)

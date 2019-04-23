@@ -103,7 +103,7 @@ module.exports = {
     updateValidationCons:request=>{
         const updateSchema ={
             Email: Joi.string().min(3).max(50),
-            Country: Joi.string().min(4).max(30).reqired(),
+            Country: Joi.string().min(4).max(30).required(),
             City:Joi.string().max(20),
             Bio: Joi.string().max(500),
             Name:Joi.string(),

@@ -231,7 +231,7 @@ router.put('/approveupdate/:id',async(req,res)=>{
 			 result.push(user.Requested_updates_in_profile[i])
 	 await user.updateOne({'Requested_updates_in_profile':result})
 	 await user.updateOne(updates)
-	res.json({msg:'OK'})
+	res.json({msg:'Your updates will be proccessed by The Admin'})
 
 })
 router.put('/declineupdate/:id',async(req,res)=>{
@@ -351,7 +351,7 @@ router.get('/pending/Skill',async(req,res)=>{
 })
 router.post('/Certificate/:id', async (req, res) => {
 	const Certificate=req.body.Certificate
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=user.Certificates
 	result.push(Certificate)
 	await user.updateOne({'Certificates':result})
@@ -359,7 +359,7 @@ router.post('/Certificate/:id', async (req, res) => {
 });	
 router.delete('/Certificates/:id', async (req, res) => {
 	const Certificate=req.body.Certificate
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=[]
 	for(let i=0;i<user.Certificates.length;i++)
 		if(user.Certificates[i]!=Certificate)
@@ -370,58 +370,64 @@ router.delete('/Certificates/:id', async (req, res) => {
 //consultancy
 router.post('/BoardMembers/:id', async (req, res) => {
 	const Board_member=req.body.Board_member
-	const user=await User.find({'_id':req.params.id})
-	const result=user.Board_members
-	result.push(Board_member)
-	await user.updateOne({'Board_members':result})
-	res.json({msg:'OK'})
+	const user=await User.findOne({'_id':req.params.id})
+	if(user.Board_members==undefined){
+		const result=[]
+		result.push(Board_member)
+		await user.updateOne({'Board_members':result})
+	
+	}else{const result=user.Board_members
+		result.push(Board_member)
+		await user.updateOne({'Board_members':result})
+	}
+	res.json({msg:'Board member added'})
 });	
 router.delete('/BoardMembers/:id', async (req, res) => {
 	const Board_member=req.body.Board_member
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=[]
 	for(let i=0;i<user.Board_members.length;i++)
 		if(user.Board_members[i]!=Board_member)
 			result.push(user.Board_members[i])
 	await user.updateOne({'Board_members':result})
-	res.json({msg:'OK'})
+	res.json({msg:'Board member was deleted'})
 });
 router.post('/Studies/:id', async (req, res) => {
 	const Studie=req.body.Studie
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=user.Studies
 	result.push(Studie)
 	await user.updateOne({'Studies':result})
-	res.json({msg:'OK'})
+	res.json({msg:'Study was added'})
 });	
 router.delete('/Studies/:id', async (req, res) => {
 	const Studie=req.body.Studie
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=[]
 	for(let i=0;i<user.Studies.length;i++)
 		if(user.Studies[i]!=Studie)
 			result.push(user.Studies[i])
 	await user.updateOne({'Studies':result})
-	res.json({msg:'OK'})
+	res.json({msg:'Study was deleted'})
 });	
 //co-working			
 router.post('/Business_Plans_Offered/:id', async (req, res) => {
 	const Plan=req.body.Plan
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=user.Business_Plans_Offered
 	result.push(Plan)
 	await user.updateOne({'Business_Plans_Offered':result})
-	res.json({msg:'OK'})
+	res.json({msg:'business plan added '})
 });	
 router.delete('/Business_Plans_Offered/:id', async (req, res) => {
 	const Plan=req.body.Plan
-	const user=await User.find({'_id':req.params.id})
+	const user=await User.findOne({'_id':req.params.id})
 	const result=[]
 	for(let i=0;i<user.Business_Plans_Offered.length;i++)
 		if(user.Business_Plans_Offered[i]!=Plan)
 			result.push(user.Business_Plans_Offered[i])
 	await user.updateOne({'Business_Plans_Offered':result})
-	res.json({msg:'OK'})
+	res.json({msg:'business plan deleted'})
 });
 //Admin	
 router.get('/valid/notyet',passport.authenticate('jwt', {session: false}),async(req,res)=>{

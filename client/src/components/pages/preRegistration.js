@@ -5,15 +5,19 @@ import {createHashHistory}from "history"
 export default class preRegistration extends Component {
 
   onSubmitpartner = e => {
+    e.preventdefault()
   this.props.history.push("/SignUp4")
 }
 onSubmitconsult = e => {
+  e.preventdefault()
   this.props.history.push("/SignUp2")
 }
 onSubmitmember = e => {
+  e.preventdefault()
   this.props.history.push("/SignUp1")
 }
 onSubmitcoworking = e => {
+  e.preventdefault()
   this.props.history.push("/SignUp3")
 }
 

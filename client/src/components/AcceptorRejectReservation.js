@@ -64,6 +64,7 @@ class Cards extends Component{
   routeChangeAccept(event) {
     event.preventDefault();
     console.log(this.state.Y)
+
     axios.put(`http://lirtenhub-nav2.herokuapp.com/api/reservations/confirmed/`+this.state.Y,{
 
     }).then(res => {

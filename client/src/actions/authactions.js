@@ -60,7 +60,7 @@ export function login(data) {
 
   return dispatch => {
     console.log(data)
-    return axios.post('Https://Lirtenhubtest.herokuapp.com/api/users/login', data).then(res => {
+    return axios.post('https://lirtenhub-nav2.herokuapp.com/api/users/login', data).then(res => {
 
       const token = res.data.data;
      
