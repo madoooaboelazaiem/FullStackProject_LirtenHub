@@ -9,7 +9,10 @@ const Skill = require('../../models/Skill');
 const tokenKey = require('../../config/keys').secretOrKey
 const Project = require('../../models/Project');
 const nodemailer = require('nodemailer');
-
+router.get('/', passport.authenticate('jwt', {session: false}),async (req,res) => {
+    const locations = await User.find()
+    res.json({data: locations})
+})
 //All Users
 router.post('/login',async (req, res) => {
 	try {

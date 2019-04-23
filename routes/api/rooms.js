@@ -25,12 +25,12 @@ router.get('/:id',passport.authenticate('jwt', {session: false}),async(req,res)=
 //getting a locationRoom of a certain coworking space
 router.get('/CoWorkingRoom/cowork/loc',passport.authenticate('jwt', {session: false}),async  (req, res) => {
     req.body.OwnerId=""+req.user.id;
-
-    const rooms= await Room.findOne({"OwnerId":req.body.OwnerId});
+console.log(req.user.id)
+    const rooms= await Room.find();
     // const usr = await user.findOne({id})
     const result=[]
     for(let i=0;i<rooms.length;i++){
-        if(((req.body.OwnerId   +"") == (rooms[i]).OwnerId))
+        if(((req.body.OwnerId) === (rooms[i]).OwnerId))
             result.push(rooms[i])
     }
     res.json({ data: result})
