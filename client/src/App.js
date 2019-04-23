@@ -41,9 +41,13 @@ import UpdateAcceptorReject from './components/pages/UpdateAcceptorReject';
 import SingleUpdate from './components/pages/SingleUpdate';
 import SingleValidateUser from './components/pages/SingleValidateUser';
 import ValidateUser from './components/pages/ValidateUser';
+import ADDP from './components/pages/Projects/AddProject.js'
+import editP from './components/pages/Projects/EditProject.js'
 import SingleConsult from './components/pages/Projects/SingleConsult';
 import ApproveOrDeclineConsult from './components/pages/Projects/ApproveOrDeclineConsult';
-
+import AddT from './components/pages/Projects/AddTask.js';
+import A23 from './components/pages/Projects/myAP.js';
+import A234 from '/components/pages/projects/conneed'
 //gowaha sign in w de hat7awelny 3ala app.js
 // sign up w de hat7awelny 3ala form
 
@@ -79,6 +83,11 @@ class App extends React.Component {
       <Route  exact path="/" component={HomePage}/>
       
       {/* // <Route  exact path="/" component={HomePage}/> */}
+      <Route exact path="/Editproject" component={editP}/>
+      <Route exact path="/NewTask" component={AddT}/>
+      <Route exact path="/NewProject"component={ADDP}/>
+      <Route  exact path="/SingleProject/:id" component={Single_Project}/>
+         <Route  exact path="/SingleProject/:id" component={Single_Project}/>
       
           <Route  exact path="/home" component={App}/>
           <Route  exact path="/AddRoom" component={AddRoom}/>
@@ -132,7 +141,7 @@ class App extends React.Component {
     <Route  exact path="/" component={HomePage}/>
     
     {/* // <Route  exact path="/" component={HomePage}/> */}
-    
+    <Route exact path="/NewTask" component={AddT}/>
        <Route  exact path="/SingleProject/:id" component={Single_Project}/>
         <Route  exact path="/home" component={App}/>
         <Route  exact path="/Reserve" component={Reserve}/>
@@ -174,7 +183,7 @@ class App extends React.Component {
     <Route  exact path="/" component={HomePage}/>
     
     {/* // <Route  exact path="/" component={HomePage}/> */}
-    
+        <Route  exact path="/myap" component={A23}/>
         <Route  exact path="/home" component={App}/>
         <Route  exact path="/Reserve" component={Reserve}/>
         <Route  exact path="/Locations/notEdit" component={All_Locations}/>
@@ -206,7 +215,8 @@ class App extends React.Component {
     <Route  exact path="/" component={HomePage}/>
     
     {/* // <Route  exact path="/" component={HomePage}/> */}
-    
+    <Route exact path="/NewTask" component={AddT}/>
+    <Route exact path="/conneed" component={A234}/>
        <Route  exact path="/SingleProject/:id" component={Single_Project}/>
         <Route  exact path="/home" component={App}/>
         <Route  exact path="/Reserve" component={Reserve}/>
@@ -227,6 +237,8 @@ class App extends React.Component {
         <Route  exact path="/ValidateUser" component={ValidateUser}/>
         <Route  exact path="/SingleSkill" component={SingleSkill}/>
         <Route   exact path="/Changepw/:id" component={Changepw}/>
+        <Route   exact path="/SingleConsult" component={SingleConsult}/>
+          <Route   exact path="/ApproveOrDeclineConsult" component={ApproveOrDeclineConsult}/>
         </Switch>
         </X>
         </Router>

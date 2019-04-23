@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom'
 import { Link,Route, BrowserRouter as Router ,browserHistory,Switch } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
+import editp from './EditProject.js'
 function mapStateToProps(state) {
   
   const { isLoggedIn,loggedUser } = state.authentication;
@@ -14,6 +15,7 @@ function mapStateToProps(state) {
  class Single_Project extends Component {
   constructor(props) {
     super(props);
+    
   }
   state={ 
     P:null,
@@ -26,7 +28,10 @@ function mapStateToProps(state) {
     cons:null,
     R:false,
     done:false,
-    redirectP:false
+    redirectP:false,
+    redirectedit:false,
+    redirectcons:false,
+    redirecttask:false,
   }
     componentDidMount() {
       const link=`https://lirtenhub-nav2.herokuapp.com/api/projects/`+this.props.match.params.id
@@ -58,15 +63,25 @@ function mapStateToProps(state) {
         this.setState({done:true});      
       }).catch(err => console.log(err))  
   }
+  addtask(){
+    this.setState({redirecttask:true})
+  }
+  viewcons(){
+    this.setState({redirectcons:true})
+  }
+
+  edit(){
+    this.setState({redirectEdit:true})
+  }
 
   adminapprove(){
     axios.put(`https://lirtenhub-nav2.herokuapp.com/api/projects/approved/`+this.props.match.params.id,{"approved":true}).then(res=>{
-      this.setState({done:true})
+      
     }).catch(err=>console.log(err))
   }
   consapply(){
-    axios.put(`https://lirtenhub-nav2.herokuapp.com/api/projects/consapply/`+this.props.match.params.id,{"approved":true}).then(res=>{
-      this.setState({done:true})
+    axios.put(`https://lirtenhub-nav2.herokuapp.com/api/projects/consapply/`+this.props.match.params.id).then(res=>{
+      
     }).catch(err=>console.log(err))
   }
 
@@ -86,6 +101,31 @@ function mapStateToProps(state) {
       return <div></div>
   
   }
+
+  viewconsbtn=()=>{
+    if(this.state.cons==null&&this.state.P.need_Consultancy&&(this.props.loggedUser.id==this.state.partner._id||this.props.loggedUser.User_Category=="Admin")){
+      return <div><button className="appbutton"onClick={(e)=>this.viewcons(e)}>Consultancy Agencies Applied</button></div>
+    }
+    else return<div></div>
+  }
+  addtaskbtn=()=>{
+    if((this.state.cons!=null&&this.state.cons._id==this.props.loggedUser.id)||(this.props.loggedUser.id==this.state.partner._id||this.props.loggedUser.User_Category=="Admin")){
+      return <div><button className="appbutton"onClick={(e)=>this.addtask(e)}>Add Task</button></div>
+    }
+    else return<div></div>
+  }
+
+editbtn=()=>{
+  if((this.state.P.status=='Allocation'||this.state.P.status=='Implementation'||this.state.P.status=='Completed')&& this.props.loggedUser.User_Category!="Admin"){
+    return <div></div>
+  }
+  else{
+    if(this.props.loggedUser.id==this.state.partner._id||(this.state.cons!=null&&this.props.loggedUser.id==this.state.cons._id)||this.props.loggedUser.User_Category=="Admin")
+      return <div><button className="appbutton1" onClick={(e)=>this.edit(e)}>Edit</button></div>
+  }
+  return <div></div>
+}
+
   Approvebtn=()=>{
     if((this.state.P.approved==null||this.state.approved==false)&&this.props.loggedUser.User_Category=="Admin"){
       return <div><button className="appbutton"onClick={(e)=>this.adminapprove(e)}>Approve</button></div>
@@ -94,6 +134,10 @@ function mapStateToProps(state) {
   }
   consapplybtn=()=>{
     if((this.state.P.need_Consultancy==true&&this.state.cons==null)&&this.props.loggedUser.User_Category=="Consulting_Agent"){
+      for(let i=0;i<this.state.ccap.length;i++)
+        if(this.state.ccap[i]._id==this.props.loggedUser.id)
+          return <div></div>
+      
       return <div><button className="appbutton"onClick={(e)=>this.consapply(e)}>Apply</button></div>
     }
     else return<div></div>
@@ -105,10 +149,13 @@ function mapStateToProps(state) {
     }
     
     else if(this.state.done==false){
-      return <div className="loader center" ></div>
-
-    
-    }
+      return <div className="loader center" ></div>}
+    else if(this.state.redirectEdit==true){
+      return <Redirect to={{pathname:'/EditProject/',state:{P:this.state.P}}}/>}
+    else if(this.state.redirectcons==true)
+      return <Redirect to={{pathname:'/SingleConsult/',state:{P:this.state.ccap,pid:this.state.P._id}}}/>
+    else if(this.state.redirecttask==true)
+      return <Redirect to={{pathname:'/NewTask/',state:{P:this.state.P}}}/>
     else{
       
     return (
@@ -120,6 +167,9 @@ function mapStateToProps(state) {
       <h1 className="PName">{this.state.P.name} </h1> 
       {this.Approvebtn()}
       {this.consapplybtn()}
+      {this.editbtn()}
+      {this.viewconsbtn()}
+      {this.addtaskbtn()}
        </div>
       <p className="d1">{this.state.P.description}</p>
       <h2 className="h2s"><span className="span1">Status :</span> {this.state.P.status}</h2>
@@ -163,7 +213,7 @@ function mapStateToProps(state) {
             ))
         }
         <br></br>
-        <h2 className="h2s"><span className="span1">technicalities :</span> </h2>
+        <h2 className="h2s"><span className="span1">Technicalities :</span> </h2>
         <h4 className="sadasd">{"Compensation : "+this.state.P.price}</h4>
         <h4 className="sadasd">{"Payment Type : "+this.state.P.Payment_Type}</h4>
         
