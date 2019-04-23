@@ -21,12 +21,12 @@ class Reservations extends React.Component {
       }).catch(err=>{
         console.log(err)
         this.setState({error: true})
+        alert('There was a problem Retrieving the reservations please try again later')
+        window.location.href = "/"
+
       }).then(res => {
         if(this.state.error){
-          alert('There was a problem Retrieving the reservations please try again later')
           this.setState({error:false})
-          window.location.href = "/"
-
         }
       
       })      
