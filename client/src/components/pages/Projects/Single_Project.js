@@ -29,7 +29,9 @@ function mapStateToProps(state) {
     R:false,
     done:false,
     redirectP:false,
-    redirectedit:false
+    redirectedit:false,
+    redirectcons:false,
+    redirecttask:false,
   }
     componentDidMount() {
       const link=`https://lirtenhub-nav2.herokuapp.com/api/projects/`+this.props.match.params.id
@@ -60,6 +62,12 @@ function mapStateToProps(state) {
         }
         this.setState({done:true});      
       }).catch(err => console.log(err))  
+  }
+  addtask(){
+    this.setState({redirecttask:true})
+  }
+  viewcons(){
+    this.setState({redirectcons:true})
   }
 
   edit(){
@@ -92,6 +100,19 @@ function mapStateToProps(state) {
       else
       return <div></div>
   
+  }
+
+  viewconsbtn=()=>{
+    if(this.state.cons==null&&this.state.P.need_Consultancy&&(this.props.loggedUser.id==this.state.partner._id||this.props.loggedUser.User_Category=="Admin")){
+      return <div><button className="appbutton"onClick={(e)=>this.viewcons(e)}>Consultancy Agencies Applied</button></div>
+    }
+    else return<div></div>
+  }
+  addtaskbtn=()=>{
+    if((this.state.cons!=null&&this.state.cons._id==this.props.loggedUser.id)||(this.props.loggedUser.id==this.state.partner._id||this.props.loggedUser.User_Category=="Admin")){
+      return <div><button className="appbutton"onClick={(e)=>this.addtask(e)}>Add Task</button></div>
+    }
+    else return<div></div>
   }
 
 editbtn=()=>{
@@ -130,10 +151,11 @@ editbtn=()=>{
     else if(this.state.done==false){
       return <div className="loader center" ></div>}
     else if(this.state.redirectEdit==true){
-      return <Redirect to={{pathname:'/EditProject/',state:{P:this.state.P}}}/>
-    
-    
-    }
+      return <Redirect to={{pathname:'/EditProject/',state:{P:this.state.P}}}/>}
+    else if(this.state.redirectcons==true)
+      return <Redirect to={{pathname:'/SingleConsult/',state:{P:this.state.ccap,pid:this.state.P._id}}}/>
+    else if(this.state.redirecttask==true)
+      return <Redirect to={{pathname:'/NewTask/',state:{P:this.state.P}}}/>
     else{
       
     return (
@@ -146,6 +168,8 @@ editbtn=()=>{
       {this.Approvebtn()}
       {this.consapplybtn()}
       {this.editbtn()}
+      {this.viewconsbtn()}
+      {this.addtaskbtn()}
        </div>
       <p className="d1">{this.state.P.description}</p>
       <h2 className="h2s"><span className="span1">Status :</span> {this.state.P.status}</h2>

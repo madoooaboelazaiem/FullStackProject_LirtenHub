@@ -31,7 +31,7 @@ class ApproveOrDeclineConsult extends Component{
     event.preventDefault();
    axios({
         method: 'put',
-        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/declinecons/5ca9fc186d942f1eb821d7e9'+(this.props.loggedUser._id),
+        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/declinecons/'+(this.props.P3),
         data: {
             consid:this.props.P2._id
         }
@@ -59,7 +59,7 @@ class ApproveOrDeclineConsult extends Component{
     event.preventDefault();
     axios({
         method: 'put',
-        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/consassign/5ca9fc186d942f1eb821d7e9',
+        url:'https://lirtenhub-nav2.herokuapp.com/api/projects/consassign/'+this.props.P3,
         data: {
             id:this.props.P2._id
         }
@@ -91,7 +91,7 @@ class ApproveOrDeclineConsult extends Component{
             <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
               <CardBody className ='b .georgia mb0 bold f4 bt bb tc mw7 center mt4 bg-light-blue black-80 tc pv4 avenir'>
               <CardText>id: {  this.props.P2._id} category: {  this.props.P2.User_Category}</CardText>
-                <CardText>{  this.props.P2.First_Name} {  this.props.P2.Last_Name}</CardText>
+                <CardText>{  this.props.P2.Name} {  this.props.P2.Last_Name}</CardText>
                 <CardText>Bio: {  this.props.P2.Bio}</CardText>
                 <CardText>Country: {  this.props.P2.Country}</CardText>
               </CardBody>

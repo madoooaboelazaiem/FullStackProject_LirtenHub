@@ -66,11 +66,11 @@ import 'tachyons'
               <Link to="/notapprovedP/">Not Approved Projects</ Link>
               <Link to="/Project_Requests">Project Requests</Link>
               <Link to="/SingleConsult">AcceptOrReject Consultancy Agency</Link>
+              <Link to='/NewProject'>New Project</Link>
+              <Link to='/myap'>applied projects</Link>
             </div>
           </div>
-          <Link className="f6 f5-l link bg-animate black-80 hover-bg-light-blue dib pa3 ph4-l" >Test Remove dropdowns if not neede ... 
-          ps remove homepage if not needed
-          </Link>
+          
 
           
     
@@ -109,6 +109,8 @@ import 'tachyons'
                 <Link to="/approvedP/">Approved Projects</ Link>
                 <Link to="/notapprovedP/">Not Approved Projects</ Link>
                 <Link to="/Project_Requests">Project Requests</Link>
+                <Link to='/conneed'>need consulacy</Link>
+                <Link to='/myap'>applied projects</Link>
               </div>
             </div>
             <Link className="f6 f5-l link bg-animate black-80 hover-bg-light-blue dib pa3 ph4-l" >Test Remove dropdowns if not neede ... 
