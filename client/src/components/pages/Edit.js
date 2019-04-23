@@ -49,11 +49,12 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
+  const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   console.log(sendtoaxios) 
-
+console.log(this.props.loggedUser.id)
   axios.get(sendtoaxios)
+ 
 
     .then(res => {       
 
@@ -79,17 +80,19 @@ if(user.User_Category=="Consulting_Agent"){
 
   }
   onSubmit = e => {
+    e.preventDefault();
     const {isLoggedIn,loggedUser,users} = this.props;
-    const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(loggedUser.id)
+  
+    const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.match.params.id)
   
     console.log(sendtoaxios) 
   
     axios.get(sendtoaxios)
-  
       .then(res => {       
   
         const user = res.data.Data;
         console.log(user)
+        console.log(user.User_Category)
   if(user.User_Category=="Member"){
     if(this.state.First_Name==""){
       this.setState({ First_Name:user.First_Name})
@@ -119,10 +122,12 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Experience_Level==""){
       this.setState({  Experience_Level:user.Experience_Level})
     }
-    
+    console.log(this.state.Email)
+    console.log(this.state.Bio)
+    console.log(loggedUser.User_Category)
     axios({
       method: 'put',
-      url: 'Https://Lirtenhubtest.herokuapp.com/api/users/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/'+loggedUser.id,
       data: {
          
         First_Name:this.state.First_Name,
@@ -144,7 +149,13 @@ if(user.User_Category=="Consulting_Agent"){
          
         Certificate:this.state.Certificates
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
     if(this.state.Certificatesdel!=""){
     axios({
       method: 'delete',
@@ -153,7 +164,13 @@ if(user.User_Category=="Consulting_Agent"){
          
         Certificate:this.state.Certificatesdel
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
     if(this.state.Intrests!=""){
     axios({
       method: 'put',
@@ -162,7 +179,13 @@ if(user.User_Category=="Consulting_Agent"){
          
         Interest:this.state.Intrests
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
     if(this.state.Intrestsdel!=""){
     axios({
       method: 'delete',
@@ -171,9 +194,15 @@ if(user.User_Category=="Consulting_Agent"){
          
         Interest:this.state.Intrestsdel
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
   }
-  if(user.User_Category=="Partner"){
+ else  if(user.User_Category=="Partner"){
 
     if(this.state.First_Name==""){
       this.setState({ First_Name:user.First_Name})
@@ -220,9 +249,15 @@ if(user.User_Category=="Consulting_Agent"){
         Experience_Level:this.state.Experience_Level
         
       }
-    })
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });
   }
-  if(user.User_Category=="Partner_CoWorkingSpace"){
+  else if(user.User_Category=="Partner_CoWorkingSpace"){
 
     if(this.state.Email==""){
       this.setState({ Email:user.Email})
@@ -260,7 +295,13 @@ if(user.User_Category=="Consulting_Agent"){
         Name:this.state.Name,
         Established_since:this.state.Established_since
       }
-    })
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });
     if(this.state.Business_Plans_Offered!=""){
     axios({
       method: 'post',
@@ -276,9 +317,23 @@ if(user.User_Category=="Consulting_Agent"){
       data: {
         Plan:this.state.Business_Plans_Offereddel
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
   }
-  if(user.User_Category=="Consulting_Agent"){
+  else if(user.User_Category=="Consulting_Agent"){
+    
+   // Board_members:user.Board_members,
+//Studies:user.Studies,
+  console.log(this.state.Email)
+  console.log(this.state.Bio)
+  console.log(loggedUser.User_Category)
+  if(this.state.Established_since!=""||this.state.Name!=""||this.state.phone_number!=""||this.state.Bio!=""||this.state.City!=""||this.state.Country!=""||this.state.Email!="")
+  {  
     if(this.state.Email==""){
       this.setState({ Email:user.Email})
     }
@@ -300,10 +355,7 @@ if(user.User_Category=="Consulting_Agent"){
     if(this.state.Established_since==""){
       this.setState({ Established_since:user.Established_since})
     }
-   // Board_members:user.Board_members,
-//Studies:user.Studies,
-  
-    axios({
+  axios({
       method: 'put',
       url: 'https://lirtenhub-nav2.herokuapp.com/api/users/'+loggedUser.id,
       data: {
@@ -317,15 +369,31 @@ if(user.User_Category=="Consulting_Agent"){
         Established_since:this.state.Established_since
         
       }
-    })
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });
+    }
+console.log(loggedUser)
     if(this.state.Board_members!=""){
     axios({
       method: 'post',
-      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/BoardMembers/'+loggedUser.id,
+      url: 'https://lirtenhub-nav2.herokuapp.com/api/users/BoardMembers/'+this.props.loggedUser.id,
       data: {
         Board_member:this.state.Board_members
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });
+  }
+
     if(this.state.Board_membersdel!=""){
     axios({
       method: 'delete',
@@ -333,33 +401,54 @@ if(user.User_Category=="Consulting_Agent"){
       data: {
         Board_member:this.state.Board_membersdel
       }
-    })}
-    if(this.state.Studies){
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
+    if(this.state.Studies!=""){
     axios({
       method: 'post',
       url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studies
       }
-    })}
-    if(this.state.Studiesdel){
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
+    if(this.state.Studiesdel!=""){
     axios({
       method: 'delete',
       url: 'https://lirtenhub-nav2.herokuapp.com/api/users/Studies/'+loggedUser.id,
       data: {
         Studie:this.state.Studiesdel
       }
-    })}
+    }).then(res => {
+      alert(res.data.msg)
+      console.log(res)}).catch(err=>{
+        console.log(err)
+        alert(err.response.data.error);
+       
+      });}
 
   }  
   
-  });
+  }).catch(err=>{
+    console.log(err)
+    alert(err.response.data.error);
    
-    if(this.state.First_Name!="")
-    e.preventDefault();
+  });
+    
      
   }
   handleInputChange(e){
+    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
     console.log(e.target.value);
   }
@@ -585,7 +674,7 @@ if(user.User_Category=="Consulting_Agent"){
                 </p> <p>
                   <label> City</label>
                   <input name="City"type="text" onChange={e => this.handleInputChange(e)}/>
-                </p> <p>
+                </p><p>
                   <label> Bio</label>
                   <input name="Bio"type="text" onChange={e => this.handleInputChange(e)}/>
                 </p>
@@ -646,42 +735,37 @@ if(user.User_Category=="Consulting_Agent"){
             
             <p>
                 <label>Established Since</label>
-                <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                <input name="Established_since"type="text" onChange={e => this.handleInputChange(e)}/>
               </p>
               <p>
                 <label>Name</label>
-                <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                <input name="Name"type="text" onChange={e => this.handleInputChange(e)}/>
               </p>
               <p>
                 <label>Email Address</label>
-                <input name=""type="email" onChange={e => this.handleInputChange(e)}/>
+                <input name="Email"type="email" onChange={e => this.handleInputChange(e)}/>
               </p>
               <p>
                 <label> Country</label>
-                <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                <input name="Country"type="text" onChange={e => this.handleInputChange(e)}/>
               </p> <p>
                 <label> City</label>
-                <input name=""type="text"onChange={e => this.handleInputChange(e)}/>
+                <input name="City"type="text"onChange={e => this.handleInputChange(e)}/>
               </p> <p>
                 <label> Bio</label>
-                <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                <input name="Bio"type="text" onChange={e => this.handleInputChange(e)}/>
               </p>
               <p>
                 <label>phone_number </label>
-                <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                <input name="phone_number"type="text" onChange={e => this.handleInputChange(e)}/>
               </p>
-             
-                <p>
-                  <label> Partners </label>
-                  <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
-                </p>
                 <p>
                   <label> add Board members </label>
-                  <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                  <input name="Board_members"type="text" onChange={e => this.handleInputChange(e)}/>
                 </p>
                 <p>
                   <label> add Studies </label>
-                  <input name=""type="text" onChange={e => this.handleInputChange(e)}/>
+                  <input name="Studies"type="text" onChange={e => this.handleInputChange(e)}/>
                 </p>
                 <p>
                   <label> delete Studies </label>

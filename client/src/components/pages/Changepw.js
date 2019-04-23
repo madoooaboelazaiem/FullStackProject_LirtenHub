@@ -50,7 +50,7 @@ Studiesdel:""
 }
 componentDidMount() {
 
-  const sendtoaxios='Https://Lirtenhubtest.herokuapp.com/api/users/'+(this.props.match.params.id)
+  const sendtoaxios='https://lirtenhub-nav2.herokuapp.com/api/users/'+(this.props.match.params.id)
 
   //const asdas='localhost:3000/api/projects/'+(this.props.match.params.id)
 
