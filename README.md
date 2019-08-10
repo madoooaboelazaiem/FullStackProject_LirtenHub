@@ -1,5 +1,5 @@
 P.S Wait for the landing page to load the video before getting started.
-1) Lirtenhub-nav2.herokuapp.com
+HerokuLink: Lirtenhub-nav2.herokuapp.com
 2) Website Deployed using Herokuapp. email and password for testing mado22@hotmail.com  pass: mado1234
 3) There is a glitch when signing up if you want a certain type 
 a) if you want Member : replace the SignUp in the url with SignUp1
